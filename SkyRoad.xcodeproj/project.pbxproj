@@ -1,0 +1,502 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8AFBF424FB13D8D9EFC3EDE2 /* libPods-SkyRoad.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 797E1635CD3037C925A08BFA /* libPods-SkyRoad.a */; };
+		E7A28E321E81526A00883E25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E311E81526A00883E25 /* main.m */; };
+		E7A28E351E81526A00883E25 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E341E81526A00883E25 /* AppDelegate.m */; };
+		E7A28E3B1E81526A00883E25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E391E81526A00883E25 /* Main.storyboard */; };
+		E7A28E3E1E81526A00883E25 /* SkyRoad.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E3C1E81526A00883E25 /* SkyRoad.xcdatamodeld */; };
+		E7A28E401E81526A00883E25 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E3F1E81526A00883E25 /* Assets.xcassets */; };
+		E7A28E431E81526A00883E25 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E411E81526A00883E25 /* LaunchScreen.storyboard */; };
+		E7A28E951E8208C500883E25 /* TrackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E931E8208C500883E25 /* TrackViewController.m */; };
+		E7A28E961E8208C500883E25 /* TrackViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E941E8208C500883E25 /* TrackViewController.xib */; };
+		E7A28E9A1E8208FC00883E25 /* InquiryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E981E8208FC00883E25 /* InquiryViewController.m */; };
+		E7A28E9B1E8208FC00883E25 /* InquiryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E991E8208FC00883E25 /* InquiryViewController.xib */; };
+		E7A28E9F1E82091A00883E25 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E9D1E82091A00883E25 /* MineViewController.m */; };
+		E7A28EA01E82091A00883E25 /* MineLogo.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E9E1E82091A00883E25 /* MineLogo.xib */; };
+		E7A28EA41E82093000883E25 /* CommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EA21E82093000883E25 /* CommunityViewController.m */; };
+		E7A28EA51E82093000883E25 /* CommunityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A28EA31E82093000883E25 /* CommunityViewController.xib */; };
+		E7A28EB01E84C63400883E25 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EAF1E84C63400883E25 /* NickNameViewController.m */; };
+		E7A28EB31E84C64D00883E25 /* FeedYearsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EB21E84C64D00883E25 /* FeedYearsViewController.m */; };
+		E7A28EB61E84C66100883E25 /* GloriesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EB51E84C66100883E25 /* GloriesViewController.m */; };
+		E7A28EB91E84C67800883E25 /* MyPigeonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EB81E84C67800883E25 /* MyPigeonsViewController.m */; };
+		E7A28EBC1E84C69000883E25 /* MyDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EBB1E84C69000883E25 /* MyDevicesViewController.m */; };
+		E7A28EBF1E84C6A600883E25 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EBE1E84C6A600883E25 /* SettingViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		69C1DA831F19E80A9A69EF95 /* Pods-SkyRoad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.debug.xcconfig"; sourceTree = "<group>"; };
+		797E1635CD3037C925A08BFA /* libPods-SkyRoad.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SkyRoad.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A9016EC27AA5A8AD180EE686 /* Pods-SkyRoad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.release.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.release.xcconfig"; sourceTree = "<group>"; };
+		E7A28E2D1E81526A00883E25 /* SkyRoad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyRoad.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7A28E311E81526A00883E25 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		E7A28E331E81526A00883E25 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		E7A28E341E81526A00883E25 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		E7A28E3A1E81526A00883E25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E7A28E3D1E81526A00883E25 /* SkyRoad.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SkyRoad.xcdatamodel; sourceTree = "<group>"; };
+		E7A28E3F1E81526A00883E25 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E7A28E421E81526A00883E25 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E7A28E441E81526A00883E25 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7A28E921E8208C500883E25 /* TrackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackViewController.h; sourceTree = "<group>"; };
+		E7A28E931E8208C500883E25 /* TrackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackViewController.m; sourceTree = "<group>"; };
+		E7A28E941E8208C500883E25 /* TrackViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackViewController.xib; sourceTree = "<group>"; };
+		E7A28E971E8208FC00883E25 /* InquiryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InquiryViewController.h; sourceTree = "<group>"; };
+		E7A28E981E8208FC00883E25 /* InquiryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InquiryViewController.m; sourceTree = "<group>"; };
+		E7A28E991E8208FC00883E25 /* InquiryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InquiryViewController.xib; sourceTree = "<group>"; };
+		E7A28E9C1E82091A00883E25 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
+		E7A28E9D1E82091A00883E25 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
+		E7A28E9E1E82091A00883E25 /* MineLogo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineLogo.xib; sourceTree = "<group>"; };
+		E7A28EA11E82093000883E25 /* CommunityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityViewController.h; sourceTree = "<group>"; };
+		E7A28EA21E82093000883E25 /* CommunityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityViewController.m; sourceTree = "<group>"; };
+		E7A28EA31E82093000883E25 /* CommunityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunityViewController.xib; sourceTree = "<group>"; };
+		E7A28EAE1E84C63400883E25 /* NickNameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NickNameViewController.h; sourceTree = "<group>"; };
+		E7A28EAF1E84C63400883E25 /* NickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NickNameViewController.m; sourceTree = "<group>"; };
+		E7A28EB11E84C64D00883E25 /* FeedYearsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedYearsViewController.h; sourceTree = "<group>"; };
+		E7A28EB21E84C64D00883E25 /* FeedYearsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedYearsViewController.m; sourceTree = "<group>"; };
+		E7A28EB41E84C66100883E25 /* GloriesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GloriesViewController.h; sourceTree = "<group>"; };
+		E7A28EB51E84C66100883E25 /* GloriesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GloriesViewController.m; sourceTree = "<group>"; };
+		E7A28EB71E84C67800883E25 /* MyPigeonsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyPigeonsViewController.h; sourceTree = "<group>"; };
+		E7A28EB81E84C67800883E25 /* MyPigeonsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyPigeonsViewController.m; sourceTree = "<group>"; };
+		E7A28EBA1E84C69000883E25 /* MyDevicesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyDevicesViewController.h; sourceTree = "<group>"; };
+		E7A28EBB1E84C69000883E25 /* MyDevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDevicesViewController.m; sourceTree = "<group>"; };
+		E7A28EBD1E84C6A600883E25 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		E7A28EBE1E84C6A600883E25 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E7A28E2A1E81526A00883E25 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8AFBF424FB13D8D9EFC3EDE2 /* libPods-SkyRoad.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E7A28E241E81526A00883E25 = {
+			isa = PBXGroup;
+			children = (
+				E7A28E2F1E81526A00883E25 /* SkyRoad */,
+				E7A28E2E1E81526A00883E25 /* Products */,
+				ECB5745EAB8CF799C744DF8E /* Pods */,
+				FA5290996E0834AD48BF13AC /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		E7A28E2E1E81526A00883E25 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E7A28E2D1E81526A00883E25 /* SkyRoad.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E7A28E2F1E81526A00883E25 /* SkyRoad */ = {
+			isa = PBXGroup;
+			children = (
+				E7A28E331E81526A00883E25 /* AppDelegate.h */,
+				E7A28E341E81526A00883E25 /* AppDelegate.m */,
+				E7A28E921E8208C500883E25 /* TrackViewController.h */,
+				E7A28E931E8208C500883E25 /* TrackViewController.m */,
+				E7A28E941E8208C500883E25 /* TrackViewController.xib */,
+				E7A28E971E8208FC00883E25 /* InquiryViewController.h */,
+				E7A28E981E8208FC00883E25 /* InquiryViewController.m */,
+				E7A28E991E8208FC00883E25 /* InquiryViewController.xib */,
+				E7A28EA11E82093000883E25 /* CommunityViewController.h */,
+				E7A28EA21E82093000883E25 /* CommunityViewController.m */,
+				E7A28EA31E82093000883E25 /* CommunityViewController.xib */,
+				E7A28EAC1E84C5C600883E25 /* Mine */,
+				E7A28E391E81526A00883E25 /* Main.storyboard */,
+				E7A28E3F1E81526A00883E25 /* Assets.xcassets */,
+				E7A28E411E81526A00883E25 /* LaunchScreen.storyboard */,
+				E7A28E441E81526A00883E25 /* Info.plist */,
+				E7A28E3C1E81526A00883E25 /* SkyRoad.xcdatamodeld */,
+				E7A28E301E81526A00883E25 /* Supporting Files */,
+			);
+			path = SkyRoad;
+			sourceTree = "<group>";
+		};
+		E7A28E301E81526A00883E25 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				E7A28E311E81526A00883E25 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		E7A28EAC1E84C5C600883E25 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				E7A28E9C1E82091A00883E25 /* MineViewController.h */,
+				E7A28E9D1E82091A00883E25 /* MineViewController.m */,
+				E7A28E9E1E82091A00883E25 /* MineLogo.xib */,
+				E7A28EAD1E84C5E200883E25 /* sub */,
+			);
+			name = Mine;
+			sourceTree = "<group>";
+		};
+		E7A28EAD1E84C5E200883E25 /* sub */ = {
+			isa = PBXGroup;
+			children = (
+				E7A28EAE1E84C63400883E25 /* NickNameViewController.h */,
+				E7A28EAF1E84C63400883E25 /* NickNameViewController.m */,
+				E7A28EB11E84C64D00883E25 /* FeedYearsViewController.h */,
+				E7A28EB21E84C64D00883E25 /* FeedYearsViewController.m */,
+				E7A28EB41E84C66100883E25 /* GloriesViewController.h */,
+				E7A28EB51E84C66100883E25 /* GloriesViewController.m */,
+				E7A28EB71E84C67800883E25 /* MyPigeonsViewController.h */,
+				E7A28EB81E84C67800883E25 /* MyPigeonsViewController.m */,
+				E7A28EBA1E84C69000883E25 /* MyDevicesViewController.h */,
+				E7A28EBB1E84C69000883E25 /* MyDevicesViewController.m */,
+				E7A28EBD1E84C6A600883E25 /* SettingViewController.h */,
+				E7A28EBE1E84C6A600883E25 /* SettingViewController.m */,
+			);
+			name = sub;
+			sourceTree = "<group>";
+		};
+		ECB5745EAB8CF799C744DF8E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				69C1DA831F19E80A9A69EF95 /* Pods-SkyRoad.debug.xcconfig */,
+				A9016EC27AA5A8AD180EE686 /* Pods-SkyRoad.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		FA5290996E0834AD48BF13AC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				797E1635CD3037C925A08BFA /* libPods-SkyRoad.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E7A28E2C1E81526A00883E25 /* SkyRoad */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7A28E471E81526A00883E25 /* Build configuration list for PBXNativeTarget "SkyRoad" */;
+			buildPhases = (
+				249C88D38FD9A6B5A8B5CA6C /* [CP] Check Pods Manifest.lock */,
+				E7A28E291E81526A00883E25 /* Sources */,
+				E7A28E2A1E81526A00883E25 /* Frameworks */,
+				E7A28E2B1E81526A00883E25 /* Resources */,
+				E9E8D0BBC0CF598407B36DD9 /* [CP] Embed Pods Frameworks */,
+				4456416EB009435C38526F8B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SkyRoad;
+			productName = SkyRoad;
+			productReference = E7A28E2D1E81526A00883E25 /* SkyRoad.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E7A28E251E81526A00883E25 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = sibet;
+				TargetAttributes = {
+					E7A28E2C1E81526A00883E25 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = P5TKYJC53X;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = E7A28E281E81526A00883E25 /* Build configuration list for PBXProject "SkyRoad" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E7A28E241E81526A00883E25;
+			productRefGroup = E7A28E2E1E81526A00883E25 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E7A28E2C1E81526A00883E25 /* SkyRoad */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E7A28E2B1E81526A00883E25 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7A28E961E8208C500883E25 /* TrackViewController.xib in Resources */,
+				E7A28E431E81526A00883E25 /* LaunchScreen.storyboard in Resources */,
+				E7A28E401E81526A00883E25 /* Assets.xcassets in Resources */,
+				E7A28E3B1E81526A00883E25 /* Main.storyboard in Resources */,
+				E7A28E9B1E8208FC00883E25 /* InquiryViewController.xib in Resources */,
+				E7A28EA01E82091A00883E25 /* MineLogo.xib in Resources */,
+				E7A28EA51E82093000883E25 /* CommunityViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		249C88D38FD9A6B5A8B5CA6C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		4456416EB009435C38526F8B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E9E8D0BBC0CF598407B36DD9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E7A28E291E81526A00883E25 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7A28EB61E84C66100883E25 /* GloriesViewController.m in Sources */,
+				E7A28EB01E84C63400883E25 /* NickNameViewController.m in Sources */,
+				E7A28EBF1E84C6A600883E25 /* SettingViewController.m in Sources */,
+				E7A28E951E8208C500883E25 /* TrackViewController.m in Sources */,
+				E7A28E3E1E81526A00883E25 /* SkyRoad.xcdatamodeld in Sources */,
+				E7A28E351E81526A00883E25 /* AppDelegate.m in Sources */,
+				E7A28EA41E82093000883E25 /* CommunityViewController.m in Sources */,
+				E7A28E9F1E82091A00883E25 /* MineViewController.m in Sources */,
+				E7A28E321E81526A00883E25 /* main.m in Sources */,
+				E7A28EBC1E84C69000883E25 /* MyDevicesViewController.m in Sources */,
+				E7A28EB91E84C67800883E25 /* MyPigeonsViewController.m in Sources */,
+				E7A28EB31E84C64D00883E25 /* FeedYearsViewController.m in Sources */,
+				E7A28E9A1E8208FC00883E25 /* InquiryViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		E7A28E391E81526A00883E25 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7A28E3A1E81526A00883E25 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E7A28E411E81526A00883E25 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7A28E421E81526A00883E25 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E7A28E451E81526A00883E25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E7A28E461E81526A00883E25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E7A28E481E81526A00883E25 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 69C1DA831F19E80A9A69EF95 /* Pods-SkyRoad.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = P5TKYJC53X;
+				INFOPLIST_FILE = SkyRoad/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = sibet.Alan.SkyRoad;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		E7A28E491E81526A00883E25 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A9016EC27AA5A8AD180EE686 /* Pods-SkyRoad.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = P5TKYJC53X;
+				INFOPLIST_FILE = SkyRoad/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = sibet.Alan.SkyRoad;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E7A28E281E81526A00883E25 /* Build configuration list for PBXProject "SkyRoad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7A28E451E81526A00883E25 /* Debug */,
+				E7A28E461E81526A00883E25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7A28E471E81526A00883E25 /* Build configuration list for PBXNativeTarget "SkyRoad" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7A28E481E81526A00883E25 /* Debug */,
+				E7A28E491E81526A00883E25 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		E7A28E3C1E81526A00883E25 /* SkyRoad.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				E7A28E3D1E81526A00883E25 /* SkyRoad.xcdatamodel */,
+			);
+			currentVersion = E7A28E3D1E81526A00883E25 /* SkyRoad.xcdatamodel */;
+			path = SkyRoad.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = E7A28E251E81526A00883E25 /* Project object */;
+}
