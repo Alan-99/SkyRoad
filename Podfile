@@ -4,5 +4,7 @@ pod 'AMap2DMap' #2d地图SDK，2d和3d不能同时使用
 pod 'AMapSearch' #搜索功能
 pod 'AMapLocation' #定位SDK
 
-pod 'PDTSimpleCalendar', '~>0.9.1'
+use_frameworks!
+pod 'FSCalendar'
+
 end

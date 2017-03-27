@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8AFBF424FB13D8D9EFC3EDE2 /* libPods-SkyRoad.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 797E1635CD3037C925A08BFA /* libPods-SkyRoad.a */; };
+		57FECB4B588924A5F84428D7 /* Pods_SkyRoad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */; };
 		E7A28E321E81526A00883E25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E311E81526A00883E25 /* main.m */; };
 		E7A28E351E81526A00883E25 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E341E81526A00883E25 /* AppDelegate.m */; };
 		E7A28E3B1E81526A00883E25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E391E81526A00883E25 /* Main.storyboard */; };
@@ -31,8 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkyRoad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C1DA831F19E80A9A69EF95 /* Pods-SkyRoad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.debug.xcconfig"; sourceTree = "<group>"; };
-		797E1635CD3037C925A08BFA /* libPods-SkyRoad.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SkyRoad.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A9016EC27AA5A8AD180EE686 /* Pods-SkyRoad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.release.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.release.xcconfig"; sourceTree = "<group>"; };
 		E7A28E2D1E81526A00883E25 /* SkyRoad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyRoad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7A28E311E81526A00883E25 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -74,7 +74,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8AFBF424FB13D8D9EFC3EDE2 /* libPods-SkyRoad.a in Frameworks */,
+				57FECB4B588924A5F84428D7 /* Pods_SkyRoad.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,7 +174,7 @@
 		FA5290996E0834AD48BF13AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				797E1635CD3037C925A08BFA /* libPods-SkyRoad.a */,
+				19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
