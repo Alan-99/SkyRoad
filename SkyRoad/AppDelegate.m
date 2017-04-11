@@ -12,6 +12,13 @@
 #import "InquiryViewController.h"
 #import "CommunityViewController.h"
 #import "MineViewController.h"
+// 蓝色
+//#define JNavBarColor [UIColor colorWithRed:45/255.0 green:139/255.0 blue:226/255.0 alpha:1]
+// 绿色
+//#define JNavBarColor [UIColor colorWithRed:33/255.0 green:169/255.0 blue:1/255.0 alpha:1]
+// 木色
+#define JNavBarColor [UIColor colorWithRed:235/255.0 green:203/255.0 blue:154/255.0 alpha:0.3]
+
 
 @interface AppDelegate ()
 
@@ -23,6 +30,9 @@
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+//    [[UINavigationBar appearance] setBarTintColor:JNavBarColor];
     
     self.window =  [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -39,12 +49,43 @@
     
     _tabBarController = [[UITabBarController alloc] init];
     
+    // 标题颜色字体大小
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    attrs[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    attrs[NSFontAttributeName] = [UIFont systemFontOfSize:17];
+    
     UINavigationController *tvcNav = [[UINavigationController alloc] initWithRootViewController:[[TrackViewController alloc] init]];
+//    tvcNav.navigationBar.barStyle = UIBarStyleBlack;
+//    // 导航栏背景色设置
+//    tvcNav.navigationBar.barTintColor = JNavBarColor;
+//    tvcNav.navigationBar.titleTextAttributes = attrs;
+//    tvcNav.navigationBar.tintColor = [UIColor whiteColor];
     
     UINavigationController *ivcNav = [[UINavigationController alloc] initWithRootViewController:[[InquiryViewController alloc] init]];
+//    ivcNav.navigationBar.barTintColor = JNavBarColor;
+//    ivcNav.navigationBar.titleTextAttributes = attrs;
+//    ivcNav.navigationBar.tintColor = [UIColor whiteColor];
+//    ivcNav.navigationBar.barStyle = UIBarStyleBlack;
+
+
+
+
     UINavigationController *cvcNav = [[UINavigationController alloc] initWithRootViewController:[[CommunityViewController alloc] init]];
+//    cvcNav.navigationBar.barTintColor = JNavBarColor;
+//    cvcNav.navigationBar.barStyle = UIBarStyleBlack;
+//    cvcNav.navigationBar.titleTextAttributes = attrs;
+//    cvcNav.navigationBar.tintColor = [UIColor whiteColor];
+
+
+
     UINavigationController *mvcNav = [[UINavigationController alloc] initWithRootViewController:[[MineViewController alloc] init]];
-    
+
+//    mvcNav.navigationBar.barTintColor = JNavBarColor;
+//    mvcNav.navigationBar.barStyle = UIBarStyleBlack;
+//    [mvcNav.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"Mine_background0"] forBarMetrics:UIBarMetricsDefault];
+//    mvcNav.navigationBar.titleTextAttributes = attrs;
+//    mvcNav.navigationBar.tintColor = [UIColor whiteColor];
+
     _tabBarController.viewControllers = @[tvcNav, ivcNav, cvcNav, mvcNav];
     
     self.window.rootViewController = self.tabBarController;

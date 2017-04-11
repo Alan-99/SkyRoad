@@ -8,6 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		57FECB4B588924A5F84428D7 /* Pods_SkyRoad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */; };
+		E736AEC51E9C6CA800C5EAA9 /* subTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E736AEC41E9C6CA800C5EAA9 /* subTableView.m */; };
+		E74D18CD1E9D075E00D13BD6 /* DeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18CC1E9D075E00D13BD6 /* DeviceDetailViewController.m */; };
+		E74D18D01E9D0A2700D13BD6 /* DeviceSQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */; };
+		E74D18D31E9D0A6C00D13BD6 /* DeviceDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18D21E9D0A6C00D13BD6 /* DeviceDetailModel.m */; };
+		E74EC5C51E9785B8009A2305 /* MyCommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EC5C41E9785B8009A2305 /* MyCommunityViewController.m */; };
+		E757DDBC1E96C4B400694201 /* NickNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E757DDBB1E96C4B400694201 /* NickNameViewController.xib */; };
+		E781D7BA1E952ED900BD416D /* PigeonDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E781D7B91E952ED900BD416D /* PigeonDetailModel.m */; };
+		E781D7BC1E9541A600BD416D /* PigeonDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E781D7BB1E9541A600BD416D /* PigeonDetailViewController.xib */; };
+		E781D7BF1E9547C100BD416D /* SQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E781D7BE1E9547C100BD416D /* SQLManager.m */; };
+		E781D7C11E95504900BD416D /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = E781D7C01E95504900BD416D /* libsqlite3.tbd */; };
+		E7957C7F1E937DE500BBBD0A /* detailCopy.m in Sources */ = {isa = PBXBuildFile; fileRef = E7957C7E1E937DE400BBBD0A /* detailCopy.m */; };
+		E79851171E8B476D003D1F54 /* FFDropDownMenuBasedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E798510C1E8B476D003D1F54 /* FFDropDownMenuBasedCell.m */; };
+		E79851181E8B476D003D1F54 /* FFDropDownMenuBasedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E798510E1E8B476D003D1F54 /* FFDropDownMenuBasedModel.m */; };
+		E79851191E8B476D003D1F54 /* FFDropDownMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E79851101E8B476D003D1F54 /* FFDropDownMenuCell.m */; };
+		E798511A1E8B476D003D1F54 /* FFDropDownMenuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E79851121E8B476D003D1F54 /* FFDropDownMenuModel.m */; };
+		E798511B1E8B476D003D1F54 /* FFDropDownMenuTriangleView.m in Sources */ = {isa = PBXBuildFile; fileRef = E79851141E8B476D003D1F54 /* FFDropDownMenuTriangleView.m */; };
+		E798511C1E8B476D003D1F54 /* FFDropDownMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = E79851161E8B476D003D1F54 /* FFDropDownMenuView.m */; };
 		E7A28E321E81526A00883E25 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E311E81526A00883E25 /* main.m */; };
 		E7A28E351E81526A00883E25 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E341E81526A00883E25 /* AppDelegate.m */; };
 		E7A28E3B1E81526A00883E25 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E391E81526A00883E25 /* Main.storyboard */; };
@@ -28,12 +45,54 @@
 		E7A28EB91E84C67800883E25 /* MyPigeonsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EB81E84C67800883E25 /* MyPigeonsViewController.m */; };
 		E7A28EBC1E84C69000883E25 /* MyDevicesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EBB1E84C69000883E25 /* MyDevicesViewController.m */; };
 		E7A28EBF1E84C6A600883E25 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EBE1E84C6A600883E25 /* SettingViewController.m */; };
+		E7A56B371E8A626D005A3A1F /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A56B361E8A626D005A3A1F /* UIView+Toast.m */; };
+		E7E037A51E8B4E0500875131 /* addDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037A41E8B4E0500875131 /* addDeviceViewController.m */; };
+		E7E037AB1E8B544100875131 /* PickDevicePigeonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037AA1E8B544100875131 /* PickDevicePigeonViewController.m */; };
+		E7E037E01E8BEAB700875131 /* ItemCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7E037DF1E8BEAB700875131 /* ItemCell.xib */; };
+		E7E037E31E8BEB3600875131 /* ItemCell.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037E21E8BEB3600875131 /* ItemCell.m */; };
+		E7E037E91E8BF76E00875131 /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037E81E8BF76E00875131 /* Item.m */; };
+		E7E037EC1E8BF95200875131 /* ItemStore.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037EB1E8BF95200875131 /* ItemStore.m */; };
+		E7E037EF1E8BFBC800875131 /* PigeonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037EE1E8BFBC800875131 /* PigeonDetailViewController.m */; };
+		E7E037F21E8BFC4C00875131 /* LabelAndTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037F11E8BFC4C00875131 /* LabelAndTextFieldView.m */; };
+		E7E037F51E8C995500875131 /* AddPigeonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037F41E8C995500875131 /* AddPigeonViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkyRoad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C1DA831F19E80A9A69EF95 /* Pods-SkyRoad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.debug.xcconfig"; sourceTree = "<group>"; };
 		A9016EC27AA5A8AD180EE686 /* Pods-SkyRoad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.release.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.release.xcconfig"; sourceTree = "<group>"; };
+		E736AEC31E9C6CA800C5EAA9 /* subTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = subTableView.h; sourceTree = "<group>"; };
+		E736AEC41E9C6CA800C5EAA9 /* subTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = subTableView.m; sourceTree = "<group>"; };
+		E74D18CB1E9D075E00D13BD6 /* DeviceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailViewController.h; sourceTree = "<group>"; };
+		E74D18CC1E9D075E00D13BD6 /* DeviceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetailViewController.m; sourceTree = "<group>"; };
+		E74D18CE1E9D0A2700D13BD6 /* DeviceSQLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceSQLManager.h; sourceTree = "<group>"; };
+		E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceSQLManager.m; sourceTree = "<group>"; };
+		E74D18D11E9D0A6C00D13BD6 /* DeviceDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailModel.h; sourceTree = "<group>"; };
+		E74D18D21E9D0A6C00D13BD6 /* DeviceDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetailModel.m; sourceTree = "<group>"; };
+		E74EC5C31E9785B8009A2305 /* MyCommunityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCommunityViewController.h; sourceTree = "<group>"; };
+		E74EC5C41E9785B8009A2305 /* MyCommunityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCommunityViewController.m; sourceTree = "<group>"; };
+		E757DDBB1E96C4B400694201 /* NickNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NickNameViewController.xib; sourceTree = "<group>"; };
+		E781D7B81E952ED900BD416D /* PigeonDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PigeonDetailModel.h; sourceTree = "<group>"; };
+		E781D7B91E952ED900BD416D /* PigeonDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PigeonDetailModel.m; sourceTree = "<group>"; };
+		E781D7BB1E9541A600BD416D /* PigeonDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PigeonDetailViewController.xib; sourceTree = "<group>"; };
+		E781D7BD1E9547C100BD416D /* SQLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SQLManager.h; sourceTree = "<group>"; };
+		E781D7BE1E9547C100BD416D /* SQLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SQLManager.m; sourceTree = "<group>"; };
+		E781D7C01E95504900BD416D /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		E7957C7D1E937DE400BBBD0A /* detailCopy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = detailCopy.h; sourceTree = "<group>"; };
+		E7957C7E1E937DE400BBBD0A /* detailCopy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = detailCopy.m; sourceTree = "<group>"; };
+		E798510A1E8B476D003D1F54 /* FFDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenu.h; sourceTree = "<group>"; };
+		E798510B1E8B476D003D1F54 /* FFDropDownMenuBasedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuBasedCell.h; sourceTree = "<group>"; };
+		E798510C1E8B476D003D1F54 /* FFDropDownMenuBasedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuBasedCell.m; sourceTree = "<group>"; };
+		E798510D1E8B476D003D1F54 /* FFDropDownMenuBasedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuBasedModel.h; sourceTree = "<group>"; };
+		E798510E1E8B476D003D1F54 /* FFDropDownMenuBasedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuBasedModel.m; sourceTree = "<group>"; };
+		E798510F1E8B476D003D1F54 /* FFDropDownMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuCell.h; sourceTree = "<group>"; };
+		E79851101E8B476D003D1F54 /* FFDropDownMenuCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuCell.m; sourceTree = "<group>"; };
+		E79851111E8B476D003D1F54 /* FFDropDownMenuModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuModel.h; sourceTree = "<group>"; };
+		E79851121E8B476D003D1F54 /* FFDropDownMenuModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuModel.m; sourceTree = "<group>"; };
+		E79851131E8B476D003D1F54 /* FFDropDownMenuTriangleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuTriangleView.h; sourceTree = "<group>"; };
+		E79851141E8B476D003D1F54 /* FFDropDownMenuTriangleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuTriangleView.m; sourceTree = "<group>"; };
+		E79851151E8B476D003D1F54 /* FFDropDownMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FFDropDownMenuView.h; sourceTree = "<group>"; };
+		E79851161E8B476D003D1F54 /* FFDropDownMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FFDropDownMenuView.m; sourceTree = "<group>"; };
 		E7A28E2D1E81526A00883E25 /* SkyRoad.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkyRoad.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7A28E311E81526A00883E25 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		E7A28E331E81526A00883E25 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -67,6 +126,25 @@
 		E7A28EBB1E84C69000883E25 /* MyDevicesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyDevicesViewController.m; sourceTree = "<group>"; };
 		E7A28EBD1E84C6A600883E25 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		E7A28EBE1E84C6A600883E25 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
+		E7A56B351E8A626D005A3A1F /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		E7A56B361E8A626D005A3A1F /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		E7E037A31E8B4E0500875131 /* addDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addDeviceViewController.h; sourceTree = "<group>"; };
+		E7E037A41E8B4E0500875131 /* addDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addDeviceViewController.m; sourceTree = "<group>"; };
+		E7E037A91E8B544100875131 /* PickDevicePigeonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickDevicePigeonViewController.h; sourceTree = "<group>"; };
+		E7E037AA1E8B544100875131 /* PickDevicePigeonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickDevicePigeonViewController.m; sourceTree = "<group>"; };
+		E7E037DF1E8BEAB700875131 /* ItemCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ItemCell.xib; sourceTree = "<group>"; };
+		E7E037E11E8BEB3600875131 /* ItemCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemCell.h; sourceTree = "<group>"; };
+		E7E037E21E8BEB3600875131 /* ItemCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemCell.m; sourceTree = "<group>"; };
+		E7E037E71E8BF76E00875131 /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		E7E037E81E8BF76E00875131 /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		E7E037EA1E8BF95200875131 /* ItemStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemStore.h; sourceTree = "<group>"; };
+		E7E037EB1E8BF95200875131 /* ItemStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemStore.m; sourceTree = "<group>"; };
+		E7E037ED1E8BFBC800875131 /* PigeonDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PigeonDetailViewController.h; sourceTree = "<group>"; };
+		E7E037EE1E8BFBC800875131 /* PigeonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PigeonDetailViewController.m; sourceTree = "<group>"; };
+		E7E037F01E8BFC4C00875131 /* LabelAndTextFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LabelAndTextFieldView.h; sourceTree = "<group>"; };
+		E7E037F11E8BFC4C00875131 /* LabelAndTextFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LabelAndTextFieldView.m; sourceTree = "<group>"; };
+		E7E037F31E8C995500875131 /* AddPigeonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPigeonViewController.h; sourceTree = "<group>"; };
+		E7E037F41E8C995500875131 /* AddPigeonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPigeonViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +152,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E781D7C11E95504900BD416D /* libsqlite3.tbd in Frameworks */,
 				57FECB4B588924A5F84428D7 /* Pods_SkyRoad.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +160,69 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E79851081E8B4741003D1F54 /* Track */ = {
+			isa = PBXGroup;
+			children = (
+				E79851091E8B476D003D1F54 /* FFDropDownMenu */,
+				E7A28E921E8208C500883E25 /* TrackViewController.h */,
+				E7A28E931E8208C500883E25 /* TrackViewController.m */,
+				E7A28E941E8208C500883E25 /* TrackViewController.xib */,
+				E7E037A31E8B4E0500875131 /* addDeviceViewController.h */,
+				E7E037A41E8B4E0500875131 /* addDeviceViewController.m */,
+				E74D18CB1E9D075E00D13BD6 /* DeviceDetailViewController.h */,
+				E74D18CC1E9D075E00D13BD6 /* DeviceDetailViewController.m */,
+				E74D18CE1E9D0A2700D13BD6 /* DeviceSQLManager.h */,
+				E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */,
+				E7E037F31E8C995500875131 /* AddPigeonViewController.h */,
+				E7E037F41E8C995500875131 /* AddPigeonViewController.m */,
+				E7E037ED1E8BFBC800875131 /* PigeonDetailViewController.h */,
+				E7E037EE1E8BFBC800875131 /* PigeonDetailViewController.m */,
+				E781D7BB1E9541A600BD416D /* PigeonDetailViewController.xib */,
+				E781D7BD1E9547C100BD416D /* SQLManager.h */,
+				E781D7BE1E9547C100BD416D /* SQLManager.m */,
+				E781D7B81E952ED900BD416D /* PigeonDetailModel.h */,
+				E781D7B91E952ED900BD416D /* PigeonDetailModel.m */,
+				E74D18D11E9D0A6C00D13BD6 /* DeviceDetailModel.h */,
+				E74D18D21E9D0A6C00D13BD6 /* DeviceDetailModel.m */,
+				E7E037F01E8BFC4C00875131 /* LabelAndTextFieldView.h */,
+				E7E037F11E8BFC4C00875131 /* LabelAndTextFieldView.m */,
+				E7E037E71E8BF76E00875131 /* Item.h */,
+				E7E037E81E8BF76E00875131 /* Item.m */,
+				E7E037EA1E8BF95200875131 /* ItemStore.h */,
+				E7E037EB1E8BF95200875131 /* ItemStore.m */,
+				E7E037E11E8BEB3600875131 /* ItemCell.h */,
+				E7E037E21E8BEB3600875131 /* ItemCell.m */,
+				E7E037DF1E8BEAB700875131 /* ItemCell.xib */,
+				E7E037A91E8B544100875131 /* PickDevicePigeonViewController.h */,
+				E7E037AA1E8B544100875131 /* PickDevicePigeonViewController.m */,
+				E736AEC31E9C6CA800C5EAA9 /* subTableView.h */,
+				E736AEC41E9C6CA800C5EAA9 /* subTableView.m */,
+				E7957C7D1E937DE400BBBD0A /* detailCopy.h */,
+				E7957C7E1E937DE400BBBD0A /* detailCopy.m */,
+			);
+			name = Track;
+			sourceTree = "<group>";
+		};
+		E79851091E8B476D003D1F54 /* FFDropDownMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E798510A1E8B476D003D1F54 /* FFDropDownMenu.h */,
+				E798510B1E8B476D003D1F54 /* FFDropDownMenuBasedCell.h */,
+				E798510C1E8B476D003D1F54 /* FFDropDownMenuBasedCell.m */,
+				E798510D1E8B476D003D1F54 /* FFDropDownMenuBasedModel.h */,
+				E798510E1E8B476D003D1F54 /* FFDropDownMenuBasedModel.m */,
+				E798510F1E8B476D003D1F54 /* FFDropDownMenuCell.h */,
+				E79851101E8B476D003D1F54 /* FFDropDownMenuCell.m */,
+				E79851111E8B476D003D1F54 /* FFDropDownMenuModel.h */,
+				E79851121E8B476D003D1F54 /* FFDropDownMenuModel.m */,
+				E79851131E8B476D003D1F54 /* FFDropDownMenuTriangleView.h */,
+				E79851141E8B476D003D1F54 /* FFDropDownMenuTriangleView.m */,
+				E79851151E8B476D003D1F54 /* FFDropDownMenuView.h */,
+				E79851161E8B476D003D1F54 /* FFDropDownMenuView.m */,
+			);
+			path = FFDropDownMenu;
+			sourceTree = "<group>";
+		};
 		E7A28E241E81526A00883E25 = {
 			isa = PBXGroup;
 			children = (
@@ -104,20 +246,18 @@
 			children = (
 				E7A28E331E81526A00883E25 /* AppDelegate.h */,
 				E7A28E341E81526A00883E25 /* AppDelegate.m */,
-				E7A28E921E8208C500883E25 /* TrackViewController.h */,
-				E7A28E931E8208C500883E25 /* TrackViewController.m */,
-				E7A28E941E8208C500883E25 /* TrackViewController.xib */,
 				E7A28E971E8208FC00883E25 /* InquiryViewController.h */,
 				E7A28E981E8208FC00883E25 /* InquiryViewController.m */,
 				E7A28E991E8208FC00883E25 /* InquiryViewController.xib */,
 				E7A28EA11E82093000883E25 /* CommunityViewController.h */,
 				E7A28EA21E82093000883E25 /* CommunityViewController.m */,
 				E7A28EA31E82093000883E25 /* CommunityViewController.xib */,
+				E79851081E8B4741003D1F54 /* Track */,
 				E7A28EAC1E84C5C600883E25 /* Mine */,
+				E7A56B341E8A623D005A3A1F /* Utility */,
 				E7A28E391E81526A00883E25 /* Main.storyboard */,
 				E7A28E3F1E81526A00883E25 /* Assets.xcassets */,
 				E7A28E411E81526A00883E25 /* LaunchScreen.storyboard */,
-				E7A28E441E81526A00883E25 /* Info.plist */,
 				E7A28E3C1E81526A00883E25 /* SkyRoad.xcdatamodeld */,
 				E7A28E301E81526A00883E25 /* Supporting Files */,
 			);
@@ -127,6 +267,7 @@
 		E7A28E301E81526A00883E25 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				E7A28E441E81526A00883E25 /* Info.plist */,
 				E7A28E311E81526A00883E25 /* main.m */,
 			);
 			name = "Supporting Files";
@@ -148,6 +289,7 @@
 			children = (
 				E7A28EAE1E84C63400883E25 /* NickNameViewController.h */,
 				E7A28EAF1E84C63400883E25 /* NickNameViewController.m */,
+				E757DDBB1E96C4B400694201 /* NickNameViewController.xib */,
 				E7A28EB11E84C64D00883E25 /* FeedYearsViewController.h */,
 				E7A28EB21E84C64D00883E25 /* FeedYearsViewController.m */,
 				E7A28EB41E84C66100883E25 /* GloriesViewController.h */,
@@ -156,10 +298,21 @@
 				E7A28EB81E84C67800883E25 /* MyPigeonsViewController.m */,
 				E7A28EBA1E84C69000883E25 /* MyDevicesViewController.h */,
 				E7A28EBB1E84C69000883E25 /* MyDevicesViewController.m */,
+				E74EC5C31E9785B8009A2305 /* MyCommunityViewController.h */,
+				E74EC5C41E9785B8009A2305 /* MyCommunityViewController.m */,
 				E7A28EBD1E84C6A600883E25 /* SettingViewController.h */,
 				E7A28EBE1E84C6A600883E25 /* SettingViewController.m */,
 			);
 			name = sub;
+			sourceTree = "<group>";
+		};
+		E7A56B341E8A623D005A3A1F /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				E7A56B351E8A626D005A3A1F /* UIView+Toast.h */,
+				E7A56B361E8A626D005A3A1F /* UIView+Toast.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		ECB5745EAB8CF799C744DF8E /* Pods */ = {
@@ -174,6 +327,7 @@
 		FA5290996E0834AD48BF13AC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E781D7C01E95504900BD416D /* libsqlite3.tbd */,
 				19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */,
 			);
 			name = Frameworks;
@@ -243,8 +397,11 @@
 			files = (
 				E7A28E961E8208C500883E25 /* TrackViewController.xib in Resources */,
 				E7A28E431E81526A00883E25 /* LaunchScreen.storyboard in Resources */,
+				E757DDBC1E96C4B400694201 /* NickNameViewController.xib in Resources */,
+				E781D7BC1E9541A600BD416D /* PigeonDetailViewController.xib in Resources */,
 				E7A28E401E81526A00883E25 /* Assets.xcassets in Resources */,
 				E7A28E3B1E81526A00883E25 /* Main.storyboard in Resources */,
+				E7E037E01E8BEAB700875131 /* ItemCell.xib in Resources */,
 				E7A28E9B1E8208FC00883E25 /* InquiryViewController.xib in Resources */,
 				E7A28EA01E82091A00883E25 /* MineLogo.xib in Resources */,
 				E7A28EA51E82093000883E25 /* CommunityViewController.xib in Resources */,
@@ -306,19 +463,42 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E74EC5C51E9785B8009A2305 /* MyCommunityViewController.m in Sources */,
+				E781D7BA1E952ED900BD416D /* PigeonDetailModel.m in Sources */,
+				E7E037E91E8BF76E00875131 /* Item.m in Sources */,
 				E7A28EB61E84C66100883E25 /* GloriesViewController.m in Sources */,
 				E7A28EB01E84C63400883E25 /* NickNameViewController.m in Sources */,
 				E7A28EBF1E84C6A600883E25 /* SettingViewController.m in Sources */,
+				E79851181E8B476D003D1F54 /* FFDropDownMenuBasedModel.m in Sources */,
+				E7E037F51E8C995500875131 /* AddPigeonViewController.m in Sources */,
 				E7A28E951E8208C500883E25 /* TrackViewController.m in Sources */,
+				E7957C7F1E937DE500BBBD0A /* detailCopy.m in Sources */,
+				E7A56B371E8A626D005A3A1F /* UIView+Toast.m in Sources */,
+				E7E037F21E8BFC4C00875131 /* LabelAndTextFieldView.m in Sources */,
 				E7A28E3E1E81526A00883E25 /* SkyRoad.xcdatamodeld in Sources */,
+				E7E037EC1E8BF95200875131 /* ItemStore.m in Sources */,
+				E798511A1E8B476D003D1F54 /* FFDropDownMenuModel.m in Sources */,
 				E7A28E351E81526A00883E25 /* AppDelegate.m in Sources */,
 				E7A28EA41E82093000883E25 /* CommunityViewController.m in Sources */,
+				E7E037A51E8B4E0500875131 /* addDeviceViewController.m in Sources */,
+				E79851171E8B476D003D1F54 /* FFDropDownMenuBasedCell.m in Sources */,
+				E781D7BF1E9547C100BD416D /* SQLManager.m in Sources */,
+				E7E037E31E8BEB3600875131 /* ItemCell.m in Sources */,
+				E79851191E8B476D003D1F54 /* FFDropDownMenuCell.m in Sources */,
+				E74D18D31E9D0A6C00D13BD6 /* DeviceDetailModel.m in Sources */,
 				E7A28E9F1E82091A00883E25 /* MineViewController.m in Sources */,
+				E7E037AB1E8B544100875131 /* PickDevicePigeonViewController.m in Sources */,
 				E7A28E321E81526A00883E25 /* main.m in Sources */,
 				E7A28EBC1E84C69000883E25 /* MyDevicesViewController.m in Sources */,
 				E7A28EB91E84C67800883E25 /* MyPigeonsViewController.m in Sources */,
+				E74D18CD1E9D075E00D13BD6 /* DeviceDetailViewController.m in Sources */,
+				E74D18D01E9D0A2700D13BD6 /* DeviceSQLManager.m in Sources */,
+				E798511C1E8B476D003D1F54 /* FFDropDownMenuView.m in Sources */,
 				E7A28EB31E84C64D00883E25 /* FeedYearsViewController.m in Sources */,
 				E7A28E9A1E8208FC00883E25 /* InquiryViewController.m in Sources */,
+				E798511B1E8B476D003D1F54 /* FFDropDownMenuTriangleView.m in Sources */,
+				E7E037EF1E8BFBC800875131 /* PigeonDetailViewController.m in Sources */,
+				E736AEC51E9C6CA800C5EAA9 /* subTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -441,6 +621,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = P5TKYJC53X;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AMap2DMap\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapFoundation\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapLocation\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapSearch\"",
+					"${SRCROOT}/**",
+				);
 				INFOPLIST_FILE = SkyRoad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sibet.Alan.SkyRoad;
@@ -455,6 +644,15 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = P5TKYJC53X;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/AMap2DMap\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapFoundation\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapLocation\"",
+					"\"${PODS_ROOT}/Headers/Public/AMapSearch\"",
+					"${SRCROOT}/**",
+				);
 				INFOPLIST_FILE = SkyRoad/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sibet.Alan.SkyRoad;

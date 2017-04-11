@@ -10,6 +10,7 @@
 
 @interface CommunityViewController ()
 
+
 @end
 
 @implementation CommunityViewController
@@ -22,12 +23,15 @@
         UIImage *i = [UIImage imageNamed:@"Community_BarItem.png"];
         self.tabBarItem.image = i;
         
+        self.navigationItem.title = @"社区";
+        
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
     // Do any additional setup after loading the view from its nib.
 }
 

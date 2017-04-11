@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^returnValueBlock)(NSString* nickNameTxt);
+
 @interface NickNameViewController : UIViewController
+
+// 新增传值block，保存鸽名及设备
+@property (nonatomic, copy) returnValueBlock valueBlock;
 
 @end

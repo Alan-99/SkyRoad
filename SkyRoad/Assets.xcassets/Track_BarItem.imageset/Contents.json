@@ -2,12 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "route30.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "route60.png",
+      "filename" : "sszzicon60×60.png",
       "scale" : "2x"
     },
     {
