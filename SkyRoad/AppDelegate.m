@@ -70,8 +70,8 @@
 
 
 
-    UINavigationController *cvcNav = [[UINavigationController alloc] initWithRootViewController:[[CommunityViewController alloc] init]];
-//    cvcNav.navigationBar.barTintColor = JNavBarColor;
+
+    //    cvcNav.navigationBar.barTintColor = JNavBarColor;
 //    cvcNav.navigationBar.barStyle = UIBarStyleBlack;
 //    cvcNav.navigationBar.titleTextAttributes = attrs;
 //    cvcNav.navigationBar.tintColor = [UIColor whiteColor];
@@ -86,7 +86,7 @@
 //    mvcNav.navigationBar.titleTextAttributes = attrs;
 //    mvcNav.navigationBar.tintColor = [UIColor whiteColor];
 
-    _tabBarController.viewControllers = @[tvcNav, ivcNav, cvcNav, mvcNav];
+    _tabBarController.viewControllers = @[tvcNav, ivcNav, mvcNav];
     
     self.window.rootViewController = self.tabBarController;
     

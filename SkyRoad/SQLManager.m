@@ -51,7 +51,7 @@ static SQLManager* manager = nil;
         NSAssert(NO, @"数据库打开失败");
     } else {
         char *err;
-        NSString *creatSQL = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS PigeonDetail (name TEXT PRIMARYKEY, ringNum TEXT, sex TEXT, furcolor TEXT, eyesand TEXT, descent TEXT);"];
+        NSString *creatSQL = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS PigeonDetail (pigeonID NSINTEGER PRIMARYKEY, ringNum TEXT, sex TEXT, furcolor TEXT, eyesand TEXT, descent TEXT);"];
         // 第一个参数 db对象
         // 第二个参数 执行的sql语句
         // 第三个和第四个参数  回调函数和回调函数传递的参数
@@ -84,7 +84,7 @@ static SQLManager* manager = nil;
         
     }else {
         // 打开数据库成功，新建查询语句
-        NSString *qsql = @"SELECT name,ringNum,sex,furcolor,eyesand,descent FROM PigeonDetail";
+        NSString *qsql = @"SELECT pigeonID,ringNum,sex,furcolor,eyesand,descent FROM PigeonDetail";
         sqlite3_stmt *statement; // 语句对象
         /*
          // 2 预处理操作
@@ -101,6 +101,8 @@ static SQLManager* manager = nil;
                 char *name = (char *)sqlite3_column_text(statement, 0);
                 // 数据转换
                 NSString *nameStr = [[NSString alloc ]initWithUTF8String:name];
+                // 获取索引
+                NSInteger pigeonID = (int)sqlite3_column_int(statement, 0);
                 // 索引环号
                 char *ringNum = (char*)sqlite3_column_text(statement, 1);
                 NSString *ringNumStr = [[NSString alloc]initWithUTF8String:ringNum];
@@ -120,6 +122,7 @@ static SQLManager* manager = nil;
                 
                 PigeonDetailModel *model = [[PigeonDetailModel alloc]init];
                 model.pigeonName = nameStr;
+                model.pigeonID = pigeonID;
                 model.pigeonRingNumber = ringNumStr;
                 model.pigeonSex = sexStr;
                 model.pigeonFurcolor = furcolorStr;
@@ -222,12 +225,12 @@ static SQLManager* manager = nil;
         sqlite3_close(db);
         NSAssert(NO, @"数据库打开失败");
     } else {
-        NSString *sql = @"INSERT OR REPLACE INTO PigeonDetail (name, ringNum, sex, furcolor, eyesand, descent) VALUES (?,?,?,?,?,?)";
+        NSString *sql = @"INSERT OR REPLACE INTO PigeonDetail (pigeonID, ringNum, sex, furcolor, eyesand, descent) VALUES (?,?,?,?,?,?)";
         sqlite3_stmt *statement;
         // 预处理
         if (sqlite3_prepare_v2(db, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
             // 绑定参数
-            sqlite3_bind_text(statement, 1, [model.pigeonName UTF8String], -1, NULL);
+            sqlite3_bind_int(statement, 1, (int)model.pigeonID);
             sqlite3_bind_text(statement, 2, [model.pigeonRingNumber UTF8String], -1, NULL);
             sqlite3_bind_text(statement, 3, [model.pigeonSex UTF8String], -1, NULL);
             sqlite3_bind_text(statement, 4, [model.pigeonFurcolor UTF8String], -1, NULL);
@@ -246,7 +249,7 @@ static SQLManager* manager = nil;
 }
 
 // 删除数据
-- (int)deleteWithName:(PigeonDetailModel*)model
+- (int)deleteWithRingNum:(PigeonDetailModel*)model
 {
     // 1 获取数据库路径，打开数据库
     NSString *path = [self applicationDocumentsDirectoryFile];
@@ -257,7 +260,7 @@ static SQLManager* manager = nil;
         
     }else {
         // 打开数据库成功，新建查询语句
-        NSString *qsql = @"DELETE FROM PigeonDetail where name = ?";
+        NSString *qsql = @"DELETE FROM PigeonDetail where ringNum = ?";
     
         sqlite3_stmt *statement; // 语句对象
         /*
@@ -266,15 +269,64 @@ static SQLManager* manager = nil;
          */
         if (sqlite3_prepare_v2(db, [qsql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
             //3 绑定操作，为qsql中的问号占位符赋值
-            NSString *name = model.pigeonName;
+            NSString *ringNumStr = model.pigeonRingNumber;
             /*
              第一个参数：语句对象； 第二个参数 参数开始执行的序号； 第三个参数 要绑定的值； 第四个参数 绑定的字符串的长度； 第五个参数 指针NULL
              可以绑定不同的类型，这里是text类型
              */
-            sqlite3_bind_text(statement, 1, [name UTF8String], -1, NULL);
+            sqlite3_bind_text(statement, 1, [ringNumStr UTF8String], -1, NULL);
             // 执行
             if (sqlite3_step(statement) != SQLITE_DONE) {
                 NSAssert(NO, @"数据库删除数据失败");
+            }
+        }
+        //预处理不成功，数据提取不成功，要对资源释放
+        sqlite3_finalize(statement);
+        sqlite3_close(db);
+    }
+    return 0;
+}
+
+- (int)update:(PigeonDetailModel *)model
+{
+    // 1 获取数据库路径，打开数据库
+    NSString *path = [self applicationDocumentsDirectoryFile];
+    if (sqlite3_open([path UTF8String], &db)!=SQLITE_OK) {
+        // 数据库打开失败，需要关闭数据库
+        sqlite3_close(db);
+        NSAssert(NO, @"数据库打开失败");
+        
+    }else {
+        // 打开数据库成功，新建查询语句
+        NSString *qsql = @"UPDATE PigeonDetail SET ringNum=?, sex=?, furcolor=?, eyesand=?, descent=? WHERE pigeonID=?";
+        
+        sqlite3_stmt *statement; // 语句对象
+        /*
+         // 2 预处理操作
+         第一个参数 数据库的对象；第二个参数SQL语句；第三个参数 执行语句的长度 -1指全部长度； 第四个参数 语句对象； 第五个参数 没有执行的语句部分 NULL
+         */
+        if (sqlite3_prepare_v2(db, [qsql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+            //3 绑定操作，为qsql中的问号占位符赋值
+            NSInteger pigeonID = model.pigeonID;
+            NSString *ringNumStr = model.pigeonRingNumber;
+            NSString *sexStr = model.pigeonSex;
+            NSString *furcolorStr = model.pigeonFurcolor;
+            NSString *eyesandStr = model.pigeonEyesand;
+            NSString *descentStr = model.pigeonDescent;
+            /*
+             第一个参数：语句对象； 第二个参数 参数开始执行的序号； 第三个参数 要绑定的值； 第四个参数 绑定的字符串的长度； 第五个参数 指针NULL
+             可以绑定不同的类型，这里是text类型
+             */
+            sqlite3_bind_text(statement, 1, [ringNumStr UTF8String], -1, NULL);
+            sqlite3_bind_text(statement, 2, [sexStr UTF8String], -1, NULL);
+            sqlite3_bind_text(statement, 3, [furcolorStr UTF8String], -1, NULL);
+            sqlite3_bind_text(statement, 4, [eyesandStr UTF8String], -1, NULL);
+            sqlite3_bind_text(statement, 5, [descentStr UTF8String], -1, NULL);
+            sqlite3_bind_int(statement, 6, (int)pigeonID);
+
+            // 执行
+            if (sqlite3_step(statement) != SQLITE_DONE) {
+                NSAssert(NO, @"更新数据失败");
             }
         }
         //预处理不成功，数据提取不成功，要对资源释放

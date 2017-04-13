@@ -51,7 +51,7 @@ static DeviceSQLManager* manager = nil;
         NSAssert(NO, @"数据库打开失败");
     } else {
         char *err;
-        NSString *creatSQL = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS DeviceDetail (deviceNum TEXT PRIMARYKEY);"];
+        NSString *creatSQL = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS deviceDetail (deviceID NSINTEGER PRIMARYKEY, deviceNum TEXT);"];
         // 第一个参数 db对象
         // 第二个参数 执行的sql语句
         // 第三个和第四个参数  回调函数和回调函数传递的参数
@@ -65,6 +65,7 @@ static DeviceSQLManager* manager = nil;
         }
         //成功,无需操作
         sqlite3_close(deviceDB);
+        NSLog(@"设备表建表成功！！！");
     }
 }
 
@@ -84,7 +85,7 @@ static DeviceSQLManager* manager = nil;
         
     }else {
         // 打开数据库成功，新建查询语句
-        NSString *qsql = @"SELECT deviceNum FROM PigeonDetail";
+        NSString *qsql = @"SELECT deviceID,deviceNum FROM deviceDetail";
         sqlite3_stmt *statement; // 语句对象
         /*
          // 2 预处理操作
@@ -98,30 +99,13 @@ static DeviceSQLManager* manager = nil;
                 // 第一个参数 语句对象
                 // 第二个参数 字段的索引，select的字段的数据
                 // 索引设备号码
-                char* deviceNumber = (char*)sqlite3_column_text(statement, 0);
+                NSInteger deviceID = (int)sqlite3_column_int(statement, 0);
+                char* deviceNumber = (char*)sqlite3_column_text(statement, 1);
                 NSString *deviceNumberStr = [[NSString alloc]initWithUTF8String:deviceNumber];
-//                // 数据转换
-//                NSString *nameStr = [[NSString alloc ]initWithUTF8String:name];
-//                // 索引环号
-//                char *ringNum = (char*)sqlite3_column_text(statement, 1);
-//                NSString *ringNumStr = [[NSString alloc]initWithUTF8String:ringNum];
-//                // 索引性别
-//                char *sex = (char*)sqlite3_column_text(statement, 2);
-//                NSString *sexStr = [[NSString alloc]initWithUTF8String:sex];
-//                // 索引羽色
-//                char *furcolor = (char*)sqlite3_column_text(statement, 3);
-//                NSString *furcolorStr = [[NSString alloc]initWithUTF8String:furcolor];
-//                // 索引沙眼
-//                char *eyesand = (char*)sqlite3_column_text(statement, 4);
-//                NSString *eyesandStr = [[NSString alloc]initWithUTF8String:eyesand];
-//                // 索引血统
-//                char *descent = (char*)sqlite3_column_text(statement, 5);
-//                NSString *descentStr = [[NSString alloc]initWithUTF8String:descent];
-                
-                
-                DeviceDetailModel *model = [[DeviceDetailModel alloc]init];
-                model.deviceNum = deviceNumberStr;
 
+                DeviceDetailModel *model = [[DeviceDetailModel alloc]init];
+                model.deviceId = deviceID;
+                model.deviceNum = deviceNumberStr;
                 
                 [dataArr addObject:model];
                 //                //6 数据提取成功之后，要对资源释放
@@ -134,6 +118,7 @@ static DeviceSQLManager* manager = nil;
         sqlite3_finalize(statement);
         sqlite3_close(deviceDB);
     }
+    NSLog(@"设备表查表成功！！！");
     return dataArr;
 }
 
@@ -146,12 +131,13 @@ static DeviceSQLManager* manager = nil;
         sqlite3_close(deviceDB);
         NSAssert(NO, @"数据库打开失败");
     } else {
-        NSString *sql = @"INSERT OR REPLACE INTO DeviceDetail (deviceNum) VALUES (?)";
+        NSString *sql = @"INSERT OR REPLACE INTO deviceDetail (deviceID, deviceNum) VALUES (?,?)";
         sqlite3_stmt *statement;
         // 预处理
         if (sqlite3_prepare_v2(deviceDB, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
             // 绑定参数
-            sqlite3_bind_text(statement, 1, [model.deviceNum UTF8String], -1, NULL);
+            sqlite3_bind_int(statement, 1, (int)model.deviceId);
+            sqlite3_bind_text(statement, 2, [model.deviceNum UTF8String], -1, NULL);
             
             if (sqlite3_step(statement) != SQLITE_DONE) {
                 NSAssert(NO, @"插入数据库失败");
@@ -160,6 +146,7 @@ static DeviceSQLManager* manager = nil;
             sqlite3_close(deviceDB);
         }
     }
+    NSLog(@"设备model插入执行过了！！！");
     return 0;
 }
 
@@ -175,7 +162,7 @@ static DeviceSQLManager* manager = nil;
         
     }else {
         // 打开数据库成功，新建查询语句
-        NSString *qsql = @"DELETE FROM DeviceDetail where deviceNum = ?";
+        NSString *qsql = @"DELETE FROM deviceDetail where deviceNum = ?";
         
         sqlite3_stmt *statement; // 语句对象
         /*
@@ -193,6 +180,47 @@ static DeviceSQLManager* manager = nil;
             // 执行
             if (sqlite3_step(statement) != SQLITE_DONE) {
                 NSAssert(NO, @"数据库删除数据失败");
+            }
+        }
+        //预处理不成功，数据提取不成功，要对资源释放
+        sqlite3_finalize(statement);
+        sqlite3_close(deviceDB);
+    }
+    return 0;
+}
+
+- (int)update:(DeviceDetailModel *)model
+{
+    // 1 获取数据库路径，打开数据库
+    NSString *path = [self applicationDocumentsDirectoryFile];
+    if (sqlite3_open([path UTF8String], &deviceDB)!=SQLITE_OK) {
+        // 数据库打开失败，需要关闭数据库
+        sqlite3_close(deviceDB);
+        NSAssert(NO, @"数据库打开失败");
+        
+    }else {
+        // 打开数据库成功，新建查询语句
+        NSString *qsql = @"UPDATE deviceDetail SET deviceNum=? WHERE deviceID=?";
+        
+        sqlite3_stmt *statement; // 语句对象
+        /*
+         // 2 预处理操作
+         第一个参数 数据库的对象；第二个参数SQL语句；第三个参数 执行语句的长度 -1指全部长度； 第四个参数 语句对象； 第五个参数 没有执行的语句部分 NULL
+         */
+        if (sqlite3_prepare_v2(deviceDB, [qsql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+            //3 绑定操作，为qsql中的问号占位符赋值
+            NSInteger deviceID = model.deviceId;
+            NSString *deviceNumStr = model.deviceNum;
+            /*
+             第一个参数：语句对象； 第二个参数 参数开始执行的序号； 第三个参数 要绑定的值； 第四个参数 绑定的字符串的长度； 第五个参数 指针NULL
+             可以绑定不同的类型，这里是text类型
+             */
+            sqlite3_bind_text(statement, 1, [deviceNumStr UTF8String], -1, NULL);
+            sqlite3_bind_int(statement, 2, (int)deviceID);
+            
+            // 执行
+            if (sqlite3_step(statement) != SQLITE_DONE) {
+                NSAssert(NO, @"更新数据失败");
             }
         }
         //预处理不成功，数据提取不成功，要对资源释放

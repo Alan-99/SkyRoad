@@ -66,15 +66,9 @@ static NSString *devNum;
         // 导航栏右侧button为系统自带add button
         UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(showDropDownMenu)];
         self.navigationItem.rightBarButtonItem = bbi;
-        
-//        // 自定义detailLabel
-//        UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(10, 70+20, JScreenWidth, 40)];
-//        label.textAlignment = NSTextAlignmentLeft;
-//        label.backgroundColor = [UIColor grayColor];
-//        label.textColor = [UIColor whiteColor];
-//        [self.view addSubview:label];
-//        _detailLabel = label;
-        
+        // 定义子vc返回按键
+        UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+        self.navigationItem.backBarButtonItem = backItem;
         
         [self initShowPhoneLocationButton];
         [self initShowPigeonLastLocationBtn];
@@ -82,6 +76,12 @@ static NSString *devNum;
     }
     return self;
 }
+
+- (void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)initShowPhoneLocationButton
 {

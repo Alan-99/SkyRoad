@@ -15,7 +15,6 @@
 //#define JNavBarH self.navigationController.navigationBar.frame.size.height
 
 #define JNavBarH 64
-
 #define JScreenWidth [[UIScreen mainScreen]bounds].size.width
 #define JScreenHeight [[UIScreen mainScreen]bounds].size.height
 
@@ -67,8 +66,8 @@
     
     _mainTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _mainTableView.sectionHeaderHeight = 15;
-    _mainTableView.sectionFooterHeight = 0;
+    _mainTableView.sectionHeaderHeight = 40;
+    _mainTableView.sectionFooterHeight = 30;
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
     [self.view addSubview:_mainTableView];
@@ -125,17 +124,6 @@
 
 }
 
-//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-//{
-//    if (section == 1)
-//    {
-//        return @"已添加的信鸽";
-//    }
-//    return nil;
-//}
-
-
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -147,12 +135,6 @@
     subArr = self.cells[section];
     return subArr.count;
 }
-
-//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
-//{
-//    [[ItemStore sharedStore] moveItemAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
-//}
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // 此方法调用十分频繁，cell的标示声明为静态变量有利于性能优化
@@ -185,22 +167,17 @@
     } else {
         NSArray *subArr = _cells[indexPath.section];
         id subCell = subArr[indexPath.row];
-        cell.textLabel.text =[(PigeonDetailModel *)subCell pigeonName];
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"环号:%@",[(PigeonDetailModel *)subCell pigeonRingNumber]];
-        NSLog(@"cell2:%@",cell);
+        cell.textLabel.text = [NSString stringWithFormat:@"身份环:%@",[(PigeonDetailModel *)subCell pigeonRingNumber]];
+        NSString *sexTxt = [(PigeonDetailModel *)subCell pigeonSex];
+        NSString *furcolorTxt = [(PigeonDetailModel *)subCell pigeonFurcolor];
+        NSString *eyesandTxt = [(PigeonDetailModel *)subCell pigeonEyesand];
+        NSString *descentTxt = [(PigeonDetailModel *)subCell pigeonDescent];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ %@ %@ %@",sexTxt,furcolorTxt,eyesandTxt,descentTxt];
+
     }
 
     return cell;
 }
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -214,7 +191,7 @@
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
             
 //            SQLManager *manager = [SQLManager shareManager];
-            [_mainManager deleteWithName:subCell];
+            [_mainManager deleteWithRingNum:subCell];
             
             if( subArr.count == 0) {
                 [_cells removeObject:subArr];
@@ -224,6 +201,30 @@
     }
 
 }
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 1) {
+        if ([[_mainManager searchAll] count] != 0) {
+            return @"已添加的信鸽";
+        }
+        return nil;
+    } else {
+        return nil;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10.0f;
+}
+
+//- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+//{
+//    [[ItemStore sharedStore] moveItemAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+//}
+
+
 
 /*
 // Override to support rearranging the table view.

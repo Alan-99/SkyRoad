@@ -1,18 +1,27 @@
 //
-//  DeviceDetailViewController.m
+//  ScanDeviceViewController.m
 //  SkyRoad
 //
 //  Created by alan on 2017/4/11.
 //  Copyright © 2017年 sibet. All rights reserved.
 //
 
-#import "DeviceDetailViewController.h"
+#import "ScanDeviceViewController.h"
 
-@interface DeviceDetailViewController ()
+@interface ScanDeviceViewController ()
 
 @end
 
-@implementation DeviceDetailViewController
+@implementation ScanDeviceViewController
+
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        self.navigationItem.title = @"二维码";
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];

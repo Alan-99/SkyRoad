@@ -9,9 +9,11 @@
 /* Begin PBXBuildFile section */
 		57FECB4B588924A5F84428D7 /* Pods_SkyRoad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */; };
 		E736AEC51E9C6CA800C5EAA9 /* subTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = E736AEC41E9C6CA800C5EAA9 /* subTableView.m */; };
-		E74D18CD1E9D075E00D13BD6 /* DeviceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18CC1E9D075E00D13BD6 /* DeviceDetailViewController.m */; };
 		E74D18D01E9D0A2700D13BD6 /* DeviceSQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */; };
 		E74D18D31E9D0A6C00D13BD6 /* DeviceDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18D21E9D0A6C00D13BD6 /* DeviceDetailModel.m */; };
+		E74D18D61E9D1DEA00D13BD6 /* ScanDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18D51E9D1DEA00D13BD6 /* ScanDeviceViewController.m */; };
+		E74D18D91E9D1E0500D13BD6 /* TypingDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18D81E9D1E0500D13BD6 /* TypingDeviceViewController.m */; };
+		E74D18DC1E9D26E700D13BD6 /* JTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18DB1E9D26E700D13BD6 /* JTextFieldView.m */; };
 		E74EC5C51E9785B8009A2305 /* MyCommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EC5C41E9785B8009A2305 /* MyCommunityViewController.m */; };
 		E757DDBC1E96C4B400694201 /* NickNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E757DDBB1E96C4B400694201 /* NickNameViewController.xib */; };
 		E781D7BA1E952ED900BD416D /* PigeonDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E781D7B91E952ED900BD416D /* PigeonDetailModel.m */; };
@@ -63,12 +65,16 @@
 		A9016EC27AA5A8AD180EE686 /* Pods-SkyRoad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.release.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.release.xcconfig"; sourceTree = "<group>"; };
 		E736AEC31E9C6CA800C5EAA9 /* subTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = subTableView.h; sourceTree = "<group>"; };
 		E736AEC41E9C6CA800C5EAA9 /* subTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = subTableView.m; sourceTree = "<group>"; };
-		E74D18CB1E9D075E00D13BD6 /* DeviceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailViewController.h; sourceTree = "<group>"; };
-		E74D18CC1E9D075E00D13BD6 /* DeviceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetailViewController.m; sourceTree = "<group>"; };
 		E74D18CE1E9D0A2700D13BD6 /* DeviceSQLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceSQLManager.h; sourceTree = "<group>"; };
 		E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceSQLManager.m; sourceTree = "<group>"; };
 		E74D18D11E9D0A6C00D13BD6 /* DeviceDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailModel.h; sourceTree = "<group>"; };
 		E74D18D21E9D0A6C00D13BD6 /* DeviceDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetailModel.m; sourceTree = "<group>"; };
+		E74D18D41E9D1DEA00D13BD6 /* ScanDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanDeviceViewController.h; sourceTree = "<group>"; };
+		E74D18D51E9D1DEA00D13BD6 /* ScanDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanDeviceViewController.m; sourceTree = "<group>"; };
+		E74D18D71E9D1E0500D13BD6 /* TypingDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypingDeviceViewController.h; sourceTree = "<group>"; };
+		E74D18D81E9D1E0500D13BD6 /* TypingDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypingDeviceViewController.m; sourceTree = "<group>"; };
+		E74D18DA1E9D26E700D13BD6 /* JTextFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTextFieldView.h; sourceTree = "<group>"; };
+		E74D18DB1E9D26E700D13BD6 /* JTextFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTextFieldView.m; sourceTree = "<group>"; };
 		E74EC5C31E9785B8009A2305 /* MyCommunityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCommunityViewController.h; sourceTree = "<group>"; };
 		E74EC5C41E9785B8009A2305 /* MyCommunityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCommunityViewController.m; sourceTree = "<group>"; };
 		E757DDBB1E96C4B400694201 /* NickNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NickNameViewController.xib; sourceTree = "<group>"; };
@@ -169,8 +175,10 @@
 				E7A28E941E8208C500883E25 /* TrackViewController.xib */,
 				E7E037A31E8B4E0500875131 /* addDeviceViewController.h */,
 				E7E037A41E8B4E0500875131 /* addDeviceViewController.m */,
-				E74D18CB1E9D075E00D13BD6 /* DeviceDetailViewController.h */,
-				E74D18CC1E9D075E00D13BD6 /* DeviceDetailViewController.m */,
+				E74D18D41E9D1DEA00D13BD6 /* ScanDeviceViewController.h */,
+				E74D18D51E9D1DEA00D13BD6 /* ScanDeviceViewController.m */,
+				E74D18D71E9D1E0500D13BD6 /* TypingDeviceViewController.h */,
+				E74D18D81E9D1E0500D13BD6 /* TypingDeviceViewController.m */,
 				E74D18CE1E9D0A2700D13BD6 /* DeviceSQLManager.h */,
 				E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */,
 				E7E037F31E8C995500875131 /* AddPigeonViewController.h */,
@@ -246,6 +254,8 @@
 			children = (
 				E7A28E331E81526A00883E25 /* AppDelegate.h */,
 				E7A28E341E81526A00883E25 /* AppDelegate.m */,
+				E74D18DA1E9D26E700D13BD6 /* JTextFieldView.h */,
+				E74D18DB1E9D26E700D13BD6 /* JTextFieldView.m */,
 				E7A28E971E8208FC00883E25 /* InquiryViewController.h */,
 				E7A28E981E8208FC00883E25 /* InquiryViewController.m */,
 				E7A28E991E8208FC00883E25 /* InquiryViewController.xib */,
@@ -476,6 +486,7 @@
 				E7A56B371E8A626D005A3A1F /* UIView+Toast.m in Sources */,
 				E7E037F21E8BFC4C00875131 /* LabelAndTextFieldView.m in Sources */,
 				E7A28E3E1E81526A00883E25 /* SkyRoad.xcdatamodeld in Sources */,
+				E74D18D61E9D1DEA00D13BD6 /* ScanDeviceViewController.m in Sources */,
 				E7E037EC1E8BF95200875131 /* ItemStore.m in Sources */,
 				E798511A1E8B476D003D1F54 /* FFDropDownMenuModel.m in Sources */,
 				E7A28E351E81526A00883E25 /* AppDelegate.m in Sources */,
@@ -483,15 +494,16 @@
 				E7E037A51E8B4E0500875131 /* addDeviceViewController.m in Sources */,
 				E79851171E8B476D003D1F54 /* FFDropDownMenuBasedCell.m in Sources */,
 				E781D7BF1E9547C100BD416D /* SQLManager.m in Sources */,
+				E74D18DC1E9D26E700D13BD6 /* JTextFieldView.m in Sources */,
 				E7E037E31E8BEB3600875131 /* ItemCell.m in Sources */,
 				E79851191E8B476D003D1F54 /* FFDropDownMenuCell.m in Sources */,
 				E74D18D31E9D0A6C00D13BD6 /* DeviceDetailModel.m in Sources */,
+				E74D18D91E9D1E0500D13BD6 /* TypingDeviceViewController.m in Sources */,
 				E7A28E9F1E82091A00883E25 /* MineViewController.m in Sources */,
 				E7E037AB1E8B544100875131 /* PickDevicePigeonViewController.m in Sources */,
 				E7A28E321E81526A00883E25 /* main.m in Sources */,
 				E7A28EBC1E84C69000883E25 /* MyDevicesViewController.m in Sources */,
 				E7A28EB91E84C67800883E25 /* MyPigeonsViewController.m in Sources */,
-				E74D18CD1E9D075E00D13BD6 /* DeviceDetailViewController.m in Sources */,
 				E74D18D01E9D0A2700D13BD6 /* DeviceSQLManager.m in Sources */,
 				E798511C1E8B476D003D1F54 /* FFDropDownMenuView.m in Sources */,
 				E7A28EB31E84C64D00883E25 /* FeedYearsViewController.m in Sources */,

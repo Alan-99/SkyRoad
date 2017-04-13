@@ -7,6 +7,7 @@
 //
 
 #import "MyDevicesViewController.h"
+#import "JTextFieldView.h"
 
 @interface MyDevicesViewController ()
 
@@ -14,8 +15,29 @@
 
 @implementation MyDevicesViewController
 
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+{
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    if (self) {
+        
+        self.navigationItem.title = @"我的设备";
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addDone)];
+        self.navigationItem.rightBarButtonItem = bbi;
+    }
+    return self;
+}
+
+
+- (void)addDone
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    _MDtxtFiedView = [[JTextFieldView alloc]initWithFrame:CGRectMake(0, 79, self.view.frame.size.width, 40)];
+    [self.view addSubview:_MDtxtFiedView];
     // Do any additional setup after loading the view.
 }
 

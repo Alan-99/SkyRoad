@@ -10,6 +10,7 @@
 
 @interface DeviceDetailModel : NSObject
 
+@property (nonatomic) NSInteger deviceId;
 @property (nonatomic, strong) NSString *deviceNum; // 设备号
 
 @end

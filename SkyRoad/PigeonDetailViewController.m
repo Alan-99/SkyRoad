@@ -37,42 +37,50 @@
 
 - (void)addPigeonDetailToSQLManager
 {
+//    
+//    if ([[self.pigeonRingNum.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0 || self.pigeonRingNum.text == nil || self.pigeonRingNum.text == NULL) {
+//        
+//        NSString *tip = @"信息无效，请按返回键退出";
+//        NSLog(@"%@",tip);
+//        CGPoint point = CGPointMake(JScreenWidth/2, CGRectGetMaxY(self.pigeonDescent.frame)+ 40 );
+//        NSValue *value = [NSValue valueWithCGPoint:point];
+//        [self.view makeToast:tip duration:1.0 position:value];
+//    }else {
     
-    
-    if ([[self.pigeonName.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0 || self.pigeonName.text == nil || self.pigeonName.text == NULL) {
-        
-        NSString *tip = @"信息无效，请按返回键退出";
-        NSLog(@"%@",tip);
-        CGPoint point = CGPointMake(JScreenWidth/2, CGRectGetMaxY(self.pigeonDescent.frame)+ 40 );
-        NSValue *value = [NSValue valueWithCGPoint:point];
-        [self.view makeToast:tip duration:1.0 position:value];
-    }else {
-        
         SQLManager *manager =  [SQLManager shareManager];
-        [manager deleteWithName:self.model];
-        // 写入数据库
-        // 删除原model
-        [manager deleteWithName:self.model];
-        
-        PigeonDetailModel *newModel = [[PigeonDetailModel alloc]init];
+        NSMutableArray *mutArr = [manager searchAll];
+        if (self.model ==nil ) {
+                        
+            PigeonDetailModel *newModel = [[PigeonDetailModel alloc]init];
+            newModel.pigeonID = mutArr.count + 1;
+            newModel.pigeonRingNumber = self.pigeonRingNum.text;
+            newModel.pigeonSex = self.pigeonSex.text;
+            newModel.pigeonFurcolor = self.pigeonFurcolor.text;
+            newModel.pigeonEyesand = self.pigeonEyesand.text;
+            newModel.pigeonDescent = self.pigeonDescent.text;
+            [manager insert:newModel];
+            NSLog(@"加入了新的model：pigeonID:%ld, ringNum:%@, sex:%@, furcolor:%@, eyesand:%@, descent:%@",(long)newModel.pigeonID, newModel.pigeonRingNumber, newModel.pigeonSex, newModel.pigeonFurcolor, newModel.pigeonEyesand, newModel.pigeonDescent);
+            
+        } else {
+            PigeonDetailModel *newModel = [[PigeonDetailModel alloc]init];
+            newModel.pigeonID = self.model.pigeonID;
+            
+            newModel.pigeonRingNumber = self.pigeonRingNum.text;
+            newModel.pigeonSex = self.pigeonSex.text;
+            newModel.pigeonFurcolor = self.pigeonFurcolor.text;
+            newModel.pigeonEyesand = self.pigeonEyesand.text;
+            newModel.pigeonDescent = self.pigeonDescent.text;
+            NSLog(@"更新了model：pigeonID:%ld, ringNum:%@, sex:%@, furcolor:%@, eyesand:%@, descent:%@",newModel.pigeonID, newModel.pigeonRingNumber, newModel.pigeonSex, newModel.pigeonFurcolor, newModel.pigeonEyesand, newModel.pigeonDescent);
+            [manager update:newModel];
 
-        newModel.pigeonName = self.pigeonName.text;
-        newModel.pigeonRingNumber = self.pigeonRingNum.text;
-        newModel.pigeonSex = self.pigeonSex.text;
-        newModel.pigeonFurcolor = self.pigeonFurcolor.text;
-        newModel.pigeonEyesand = self.pigeonEyesand.text;
-        newModel.pigeonDescent = self.pigeonDescent.text;
-        
-        [manager insert:newModel];
-        
-        NSLog(@"name:%@, ringNum:%@, sex:%@, furcolor:%@, eyesand:%@, descent:%@",newModel.pigeonName, newModel.pigeonRingNumber, newModel.pigeonSex, newModel.pigeonFurcolor, newModel.pigeonEyesand, newModel.pigeonDescent);
-        
-        if (self.valueBlock != nil ) {
-            self.valueBlock (manager);
         }
+    
+//        if (self.valueBlock != nil ) {
+//            self.valueBlock (manager);
+//        }
 
         [self.navigationController popViewControllerAnimated:YES];
-    }
+//    }
 }
 
 - (void)viewDidLoad {
@@ -93,14 +101,11 @@
     [self.view endEditing:YES];
     // 将修改 保存 至model对象
     PigeonDetailModel *model = self.model;
-    model.pigeonName = self.pigeonName.text;
     model.pigeonRingNumber = self.pigeonRingNum.text;
     model.pigeonSex = self.pigeonSex.text;
     model.pigeonFurcolor = self.pigeonFurcolor.text;
     model.pigeonEyesand = self.pigeonEyesand.text;
     model.pigeonDescent = self.pigeonDescent.text;
-    
-    
     
 //    NSLog(@"self.item:%@",self.item);
 //    NSLog(@"itemC:%@",itemC);
@@ -111,15 +116,13 @@
 {
     [super viewWillAppear:animated];
     PigeonDetailModel *model = self.model;
-    
-    self.pigeonName.text = model.pigeonName;
     self.pigeonRingNum.text = model.pigeonRingNumber;
     self.pigeonSex.text = model.pigeonSex;
     self.pigeonFurcolor.text = model.pigeonFurcolor;
     self.pigeonEyesand.text = model.pigeonEyesand;
     self.pigeonDescent.text = model.pigeonDescent;
 
-    NSLog(@"self.model:%@",self.model);
+    NSLog(@"self.model.pigeonID:%ld",self.model.pigeonID);
     NSLog(@"self.model.name:%@",self.model.pigeonName);
 }
 

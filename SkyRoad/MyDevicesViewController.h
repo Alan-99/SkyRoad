@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class JTextFieldView;
 
 @interface MyDevicesViewController : UIViewController
+
+@property (nonatomic, strong) JTextFieldView *MDtxtFiedView;
 
 @end

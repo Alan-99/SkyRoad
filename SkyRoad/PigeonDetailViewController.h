@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-//#import "LabelAndTextFieldView.h"
 
 @class Item;
 @class SQLManager;
@@ -23,7 +22,6 @@ typedef void (^returnManagerBlock)(SQLManager *manager0);
 // 新增传值block，保存鸽名及设备
 @property (nonatomic, copy) returnManagerBlock valueBlock;
 
-@property (nonatomic, strong) IBOutlet UITextField *pigeonName;
 @property (nonatomic, strong) IBOutlet UITextField *pigeonRingNum;
 @property (nonatomic, strong) IBOutlet UITextField *pigeonSex;
 @property (nonatomic, strong) IBOutlet UITextField *pigeonFurcolor;

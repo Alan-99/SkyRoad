@@ -46,7 +46,7 @@
 @property (strong, nonatomic) NSCache *cache;
 @property (assign, nonatomic) BOOL showsCalendar;
 
-@property (nonatomic, copy) NSMutableArray *pigeonArr;
+@property (nonatomic, strong) NSMutableArray *pigeonArr;
 @property (nonatomic, strong) UIPickerView *pigeonPicker;
 
 
@@ -102,7 +102,7 @@ NSString *endTime;
     NSInteger pigeonCount = [pigeonModelArr count];
     for (int i = 0; i < (int)pigeonCount; i++) {
         PigeonDetailModel *model = pigeonModelArr[i];
-        NSString *nameStr = model.pigeonName;
+        NSString *nameStr = model.pigeonRingNumber;
         [arr addObject:nameStr];
     }
     self.pigeonArr = arr;

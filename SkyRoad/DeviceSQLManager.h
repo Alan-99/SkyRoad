@@ -30,4 +30,7 @@
 // 删除数据库数据
 - (int)deleteWithName:(DeviceDetailModel *)model;
 
+// 更新数据
+- (int)update:(DeviceDetailModel*)model;
+
 @end

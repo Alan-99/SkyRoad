@@ -10,6 +10,7 @@
 
 @interface PigeonDetailModel : NSObject
 
+@property (nonatomic) NSInteger pigeonID;
 @property (nonatomic, strong) NSString *pigeonName; // 鸽名
 @property (nonatomic, strong) NSString *pigeonRingNumber; // 环号
 @property (nonatomic, strong) NSString *pigeonSex; // 性别

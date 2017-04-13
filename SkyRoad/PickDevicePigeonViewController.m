@@ -9,6 +9,8 @@
 #import "PickDevicePigeonViewController.h"
 #import "detailCopy.h"
 #import "SQLManager.h"
+#import "DeviceSQLManager.h"
+#import "DeviceDetailModel.h"
 #import "PigeonDetailModel.h"
 #import "subTableView.h"
 
@@ -89,10 +91,24 @@ NSString *dChosen;
     NSInteger pigeonCount = [pigeonModelArr count];
     for (int i = 0; i < (int)pigeonCount; i++) {
         PigeonDetailModel *model = pigeonModelArr[i];
-        NSString *nameStr = model.pigeonName;
+        NSString *nameStr = model.pigeonRingNumber;
         [arr addObject:nameStr];
     }
     self.pigeonArr = arr;
+}
+
+- (void)initDeviceArr {
+    self.devArr = [[NSMutableArray alloc]init];
+    NSMutableArray *arr = [[NSMutableArray alloc]init];
+    DeviceSQLManager *manager = [DeviceSQLManager shareManager];
+    NSMutableArray *devModelArr = [manager searchAll];
+    NSInteger devC = [devModelArr count];
+    for (int i = 0; i < (int)devC; i++) {
+        DeviceDetailModel *model = devModelArr[i];
+        NSString *devNumStr = model.deviceNum;
+        [arr addObject:devNumStr];
+    }
+    self.devArr = arr;
 }
 
 - (void)initMyPigeonImage
@@ -215,6 +231,7 @@ NSString *dChosen;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self initDeviceArr];
     [self initPigeonArr];
 }
 
@@ -229,7 +246,7 @@ NSString *dChosen;
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if ([tableView isEqual:_devTableView]) {
-        return self.pigeonArr.count;
+        return self.devArr.count;
 
     } else if ([tableView isEqual:_pigeonTableView]) {
         return self.pigeonArr.count;
@@ -247,7 +264,7 @@ NSString *dChosen;
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
             
-            cell.textLabel.text = _pigeonArr[indexPath.row];
+            cell.textLabel.text = _devArr[indexPath.row];
             
             NSInteger row = [indexPath row];
             NSInteger oldRow = [_lastPath1 row];
@@ -288,7 +305,7 @@ NSString *dChosen;
     
     if ([tableView isEqual:_devTableView]) {
 //        [self.pickPigeonBtn setTitle:[self.pigeonArr objectAtIndex:indexPath.row] forState:UIControlStateNormal];
-        dChosen = [self.pigeonArr objectAtIndex:indexPath.row];
+        dChosen = [self.devArr objectAtIndex:indexPath.row];
         int newRow = (int)[indexPath row];
         int oldRow = (_lastPath1!=nil)?(int)[_lastPath1 row]:-1;
         if (newRow != oldRow) {

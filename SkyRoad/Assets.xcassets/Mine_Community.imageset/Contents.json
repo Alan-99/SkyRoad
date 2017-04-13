@@ -6,11 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "community60×60.png",
+      "filename" : "community48×48.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
+      "filename" : "community72×72.png",
       "scale" : "3x"
     }
   ],

@@ -18,9 +18,8 @@
 @property (weak, nonatomic) FSCalendar *calendar;
 @property (strong, nonatomic) MAMapView *mapView;
 
-
 // 创建事件属性
-@property (strong, nonatomic) NSArray<EKEvent*> *events;
+//@property (strong, nonatomic) NSArray<EKEvent*> *events;
 
 - (IBAction)showCalendarDate:(id)sender;
 

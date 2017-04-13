@@ -9,15 +9,19 @@
 #import "addDeviceViewController.h"
 #import "DeviceSQLManager.h"
 #import "DeviceDetailModel.h"
-#import "DeviceDetailViewController.h"
+#import "ScanDeviceViewController.h"
+#import "TypingDeviceViewController.h"
 
 @interface addDeviceViewController () <UITableViewDelegate, UITableViewDataSource>
 {
     UITableView *_mainTableView;
     NSMutableArray *_deviceGroup;
+    DeviceSQLManager *_mainManager;
+
 }
 
 @property (nonatomic, strong) NSMutableArray *cells;
+@property (nonatomic, copy) NSArray *cellIcons;
 
 @end
 
@@ -33,6 +37,8 @@
         
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
         self.navigationItem.backBarButtonItem = backItem;
+        
+        [self initCells];
     }
     return self;
 }
@@ -47,9 +53,14 @@
     
     _deviceGroup = [[NSMutableArray alloc]init];
     DeviceSQLManager *manager = [DeviceSQLManager shareManager];
-    _deviceGroup = [manager searchAll];
+    _mainManager = manager;
+
+    _deviceGroup = [_mainManager searchAll];
     [_cells addObject:_deviceGroup];
     
+    NSArray *Icons = @[@"Track_AddD_Scan",@"Track_AddD_Typing"];
+    _cellIcons = [[NSMutableArray alloc]init];
+    _cellIcons = Icons;
 }
 
 - (void)backAction
@@ -62,8 +73,8 @@
     
     _mainTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    _mainTableView.sectionHeaderHeight = 15;
-    _mainTableView.sectionFooterHeight = 0;
+//    _mainTableView.sectionHeaderHeight = 15;
+//    _mainTableView.sectionFooterHeight = 0;
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
     [self.view addSubview:_mainTableView];
@@ -73,7 +84,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self initCells];
     [_mainTableView reloadData];
 }
 
@@ -89,19 +99,68 @@
     
     if (indexPath.section == 1) {
         // 获取所选行的数据源
-//        NSArray *modelArr = _cells[indexPath.section];
-//        DeviceDetailModel *selectedModel = modelArr[indexPath.row];
+        NSArray *modelArr = _cells[indexPath.section];
+        DeviceDetailModel *selectedModel = modelArr[indexPath.row];
         // 把数据源赋值给pdvc的model
-        DeviceDetailViewController *pdvc0 = [[DeviceDetailViewController alloc]init];
-//        pdvc0.model = selectedModel;
-        pdvc0.view.backgroundColor = [UIColor whiteColor];
-        [self.navigationController pushViewController:pdvc0 animated:YES];
-    } else {
-        DeviceDetailViewController *pdvc = [[DeviceDetailViewController alloc]init];
-        pdvc.view.backgroundColor = [UIColor whiteColor];
-
-        [self.navigationController pushViewController:pdvc animated:YES];
+        UIAlertController *alertC0 = [UIAlertController alertControllerWithTitle:@"更改脚环设备号" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        [alertC0 addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+            textField.keyboardType = UIKeyboardTypeNumberPad;
+            textField.text = selectedModel.deviceNum;
+        }];
+        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            UITextField *txtF = alertC0.textFields.firstObject;
+            selectedModel.deviceNum = txtF.text;
+            [_mainManager update:selectedModel];
+            [self initCells];
+            [_mainTableView reloadData];
+        }];
+        [alertC0 addAction:okAction];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alertC0 addAction:cancelAction];
+        [self presentViewController:alertC0 animated:YES completion:nil];
+        
+    } else if (indexPath.section == 0)
+    {
+        if (indexPath.row == 0) {
+            ScanDeviceViewController *sdvc0 = [[ScanDeviceViewController alloc]init];
+            sdvc0.view.backgroundColor = [UIColor whiteColor];
+            [self.navigationController pushViewController:sdvc0 animated:YES];
+        } else {
+            
+            UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"输入脚环设备号" message:nil preferredStyle:UIAlertControllerStyleAlert];
+            [alertC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+                textField.placeholder = @"请输设备号";
+                textField.keyboardType = UIKeyboardTypeNumberPad;
+            }];
+            // 按钮按下时，读取文本框的值，存到数据库中
+            UIAlertAction* okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                UITextField *txtF = alertC.textFields.firstObject;
+                DeviceDetailModel *model = [[DeviceDetailModel alloc]init];
+                NSMutableArray *arr = [_mainManager searchAll];
+                if ([[txtF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) {
+                    NSLog(@"没输入设备号");
+                    return;
+                } else {
+                    model.deviceNum = txtF.text;
+                    model.deviceId = [arr count]+1;
+                    [_mainManager insert:model];
+                    [self initCells];
+                    [_mainTableView reloadData];
+                    [[NSNotificationCenter defaultCenter] removeObserver:self name:UITextFieldTextDidChangeNotification object:nil];
+                }
+            }];
+            
+            [alertC addAction:okAction];
+            
+            UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+            [alertC addAction:cancelAction];
+            [self presentViewController:alertC animated:YES completion:nil];
+        }
     }
+}
+
+- (void)initAddDeviceAlert
+{
     
 }
 
@@ -147,14 +206,47 @@
         NSArray *subArr = _cells[indexPath.section];
         NSString *subStr = subArr[indexPath.row];
         cell.textLabel.text = subStr;
+        
+        NSString *iconStr = _cellIcons[indexPath.row];
+        cell.imageView.image = [UIImage imageNamed:iconStr];
+        
     } else {
         NSArray *subArr = _cells[indexPath.section];
         id subCell = subArr[indexPath.row];
         cell.textLabel.text =[(DeviceDetailModel *)subCell deviceNum];
-        NSLog(@"cell2:%@",cell);
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 1 ) {
+        if (editingStyle == UITableViewCellEditingStyleDelete) {
+            NSMutableArray *subArr = _cells[indexPath.section];
+            id subcell = subArr[indexPath.row];
+            [subArr removeObject:subcell];
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [_mainManager deleteWithName:(DeviceDetailModel *)subcell];
+            
+            if (subArr.count == 0) {
+                [_cells removeObject:subArr];
+                [tableView reloadData];
+            }
+        }
+    }
+}
+
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    if (section == 1) {
+        if ([[_mainManager searchAll] count] != 0) {
+            return @"已添加的设备";
+        }
+        return nil;
+    } else {
+        return nil;
+    }
 }
 
 /*

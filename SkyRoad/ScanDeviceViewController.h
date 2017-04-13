@@ -1,5 +1,5 @@
 //
-//  DeviceDetailViewController.h
+//  ScanDeviceViewController.h
 //  SkyRoad
 //
 //  Created by alan on 2017/4/11.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DeviceDetailViewController : UIViewController
+@interface ScanDeviceViewController : UIViewController
 
 @end

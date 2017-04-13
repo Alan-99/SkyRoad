@@ -30,7 +30,10 @@
 // 修改数据库数据
 - (int)insert:(PigeonDetailModel*)model;
 
+// 更新数据库
+- (int)update:(PigeonDetailModel*)model;
+
 // 删除数据库数据
-- (int)deleteWithName:(PigeonDetailModel *)model;
+- (int)deleteWithRingNum:(PigeonDetailModel *)model;
 
 @end

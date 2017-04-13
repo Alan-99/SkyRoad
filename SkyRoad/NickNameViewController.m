@@ -7,10 +7,9 @@
 //
 
 #import "NickNameViewController.h"
+#import "JTextFieldView.h"
 
 @interface NickNameViewController () <UITextFieldDelegate>
-
-@property (weak, nonatomic) IBOutlet UITextField *nickNameTxtField;
 
 @end
 
@@ -24,37 +23,38 @@
         self.navigationItem.title = @"昵称";
         UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addNickNameDone)];
         self.navigationItem.rightBarButtonItem = bbi;
-        
-        UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
-        self.navigationItem.backBarButtonItem = backItem;
     }
     
     return self;
 }
 
-- (void)backAction
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)addNickNameDone
 {
+    _sub_nickName = self.NNtxtFiedView.txtField.text;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.nickNameTxtField.layer.borderColor = [UIColor grayColor].CGColor;
-    // Do any additional setup after loading the view.
+    _NNtxtFiedView = [[JTextFieldView alloc]initWithFrame:CGRectMake(0, 79, self.view.frame.size.width, 40)];
+    [self.view addSubview:_NNtxtFiedView];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     if (self.valueBlock != nil ) {
-        self.valueBlock(self.nickNameTxtField.text);
+        self.valueBlock(_sub_nickName);
     }
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSString *str = self.sub_nickName;
+    self.NNtxtFiedView.txtField.text = str;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
