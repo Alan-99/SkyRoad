@@ -56,13 +56,13 @@
         
         //默认属性的赋值<assign>
         self.cellClassName = @"FFDropDownMenuCell";
-        self.menuWidth = 150;
+        self.menuWidth = 130;
         self.menuCornerRadius = 5;
         self.eachMenuItemHeight = 40;
-        self.menuRightMargin = 10;
+        self.menuRightMargin = 10;  // 表格距离右侧的距离
         self.menuItemBackgroundColor = [UIColor whiteColor];
         self.triangleColor = [UIColor whiteColor];
-        self.triangleY = 64;
+        self.triangleY = 64 ; // 可改变表格上下位置
         self.realTriangleY = self.triangleY;
         self.triangleRightMargin = 20;
         self.triangleSize = FFDefaultSize;
@@ -95,15 +95,20 @@
 //=================================================================
 #pragma mark - 快速实例化一个菜单对象<farst instance>
 
-+ (instancetype)ff_DefaultStyleDropDownMenuWithMenuModelsArray:(NSArray *)menuModelsArray menuWidth:(CGFloat)menuWidth eachItemHeight:(CGFloat)eachItemHeight menuRightMargin:(CGFloat)menuRightMargin triangleRightMargin:(CGFloat)triangleRightMargin {
++ (instancetype)ff_DefaultStyleDropDownMenuWithMenuModelsArray:(NSArray *)menuModelsArray menuWidth:(CGFloat)menuWidth eachItemHeight:(CGFloat)eachItemHeight menuRightMargin:(CGFloat)menuRightMargin triangleRightMargin:(CGFloat)triangleRightMargin triangleY:(CGFloat)triangleY{
     
     FFDropDownMenuView *menuView = [FFDropDownMenuView new];
     
+    // 定义array内容：数量，标题等
     menuView.menuModelsArray = menuModelsArray;
     menuView.menuWidth = menuWidth;
     menuView.eachMenuItemHeight = eachItemHeight;
+    //通过改变menuRightMargin和triangleRightMargin来改变view在横向上的距离
+    // 这两个差值为10；
     menuView.menuRightMargin = menuRightMargin;
     menuView.triangleRightMargin = triangleRightMargin;
+    // 下拉菜单在纵向上的位置
+    menuView.triangleY = triangleY;
     
     [menuView setup];
     return menuView;
@@ -221,9 +226,11 @@ static NSString *const CellID = @"CellID";
                 tableView.layer.anchorPoint = CGPointMake(1, 0);
                 break;
             case FFDropDownMenuViewAnimateType_ScaleBasedTopLeft: //左上角
-                tableView.layer.anchorPoint = CGPointMake(0, 0);
+                tableView.layer.anchorPoint = CGPointMake(0, 1);
                 break;
             case FFDropDownMenuViewAnimateType_ScaleBasedMiddle: //中间
+                tableView.layer.anchorPoint = CGPointMake(0.5, 0.5);
+
                 break;
             case FFDropDownMenuViewAnimateType_FadeInFadeOut: //淡入淡出效果
                 break;

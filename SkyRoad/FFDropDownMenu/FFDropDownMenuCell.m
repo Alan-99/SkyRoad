@@ -56,8 +56,8 @@
     CGFloat separaterHeight = 1; //底部分割线高度
     
     //图片 customImageView
-    CGFloat imageViewMargin = 3;
-    CGFloat imageViewH = self.frame.size.height - 2 * imageViewMargin; // 40-6
+    CGFloat imageViewMargin = 8;
+    CGFloat imageViewH = self.frame.size.height - 2 * imageViewMargin; // 40-16
     self.customImageView.frame = CGRectMake(10, imageViewMargin, imageViewH, imageViewH);
     
     //标题

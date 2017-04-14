@@ -16,12 +16,12 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
 // 宏定义-导航栏的高度 - shi 44
-//#define JNavBarH self.navigationController.navigationBar.frame.size.height
+//#define JNavBarH self.navigationController.navigationBar.frame.size.height+20+20
 #define JNavBarH 64
 
 #define JScreenWidth [[UIScreen mainScreen]bounds].size.width
 #define JScreenHeight [[UIScreen mainScreen]bounds].size.height
-#define JrouteColor [UIColor colorWithRed:62/255.0 green:187/255.0 blue:43/255.0 alpha:0.8]
+#define JrouteColor [UIColor colorWithRed:75/255.0 green:89/255.0 blue:162/255.0 alpha:0.8]
 
 @interface InquiryViewController () <UITextFieldDelegate, UITableViewDataSource, MAMapViewDelegate>
 
@@ -36,11 +36,8 @@
 @property (nonatomic, strong) NSMutableArray *startAndEndAnnotation;
 @property (nonatomic, strong) MAPointAnnotation *startAnnotaion;
 @property (nonatomic, strong) MAPointAnnotation *endAnnotaion;
-
-@property (nonatomic, copy) NSString *pigeonChosen;
-@property (nonatomic, copy) NSString *dateChosen;
-
-
+//@property (nonatomic, copy) NSString *pigeonChosen;
+//@property (nonatomic, copy) NSString *dateChosen;
 @property (strong, nonatomic) NSDate *minimumDate;
 @property (strong, nonatomic) NSDate *maximumDate;
 @property (strong, nonatomic) NSCache *cache;
@@ -59,7 +56,8 @@
 @implementation InquiryViewController
 
 dispatch_queue_t global_queue_view2;
-//NSString *startTime;
+NSString *pigeonChosen;
+NSString *startTime;
 NSString *endTime;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -82,7 +80,7 @@ NSString *endTime;
         [listButton setImage:[UIImage imageNamed:@"Inquiry_List.png"] forState:UIControlStateNormal];
         self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithCustomView:listButton];
         // 自定义rightItem
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"开始查询" style:UIBarButtonItemStylePlain target:self action:@selector(dataFromWeb)];
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"开始查询" style:UIBarButtonItemStylePlain target:self action:@selector(startInquiry)];
         
         [self setupMapProperty];
         [self calendarInitial];
@@ -110,8 +108,6 @@ NSString *endTime;
 
 - (void)calendarInitial
 {
-    NSLog(@"navBarH:%d",JNavBarH);
-    
     FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, JNavBarH, self.view.frame.size.width, 300)];
     calendar.appearance.weekdayTextColor = [UIColor colorWithRed:28/255.0 green:144/255.0 blue:156/255.0 alpha:1.0];
     calendar.appearance.headerTitleColor = [UIColor colorWithRed:28/255.0 green:144/255.0 blue:156/255.0 alpha:1.0];
@@ -129,7 +125,7 @@ NSString *endTime;
 
 - (void)initPigeonTableview
 {
-    CGRect rect = CGRectMake(0, JNavBarH, 100, 200);
+    CGRect rect = CGRectMake(0, JNavBarH, 150, 200);
     _pigeonTableView1 = [[UITableView alloc]initWithFrame:rect style:UITableViewStylePlain];
     
     _pigeonTableView1.layer.borderWidth = 1.0;
@@ -158,7 +154,7 @@ NSString *endTime;
     // 拖动手势开启
     _mapView.scrollEnabled = YES;
     // 进入地图就显示定位小蓝点
-    _mapView.showsUserLocation = YES;
+//    _mapView.showsUserLocation = YES;
     // 地图跟着位置移动
     //    [_mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
     _mapView.delegate = self;
@@ -183,11 +179,6 @@ NSString *endTime;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"选中的日期是：%@",self.calendar.selectedDate);
-    
-    
-//    [self loadCalendarEvents];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -196,13 +187,7 @@ NSString *endTime;
     NSLog(@"navBarH2:%d",JNavBarH);
     NSLog(@"JscreenW2:%f",JScreenWidth);
     NSLog(@"JscreenH2:%f",JScreenHeight);
-
     [self initPigeonArr];
-    if (self.pigeonChosen == nil && self.dateChosen == nil ) {
-        CGPoint point = CGPointMake(JScreenWidth/2, 100);
-        NSValue *value = [NSValue valueWithCGPoint:point];
-        [self.view makeToast:@"请选择待查信鸽及日期" duration:3.0 position:value];
-    }
     [_pigeonTableView1 reloadData];
 
 }
@@ -223,18 +208,29 @@ NSString *endTime;
 }
 
 #pragma mark - 网络请求
-- (void)dataFromWeb
+
+- (void)startInquiry
 {
     self.calendar.hidden = YES;
     self.pigeonPicker.hidden = YES;
-//    NSLog(@"接收网络数据devNum是：%@",devNum);
-//    if (devNum != NULL) {
-//        CGPoint point = CGPointMake(JScreenWidth/2, 100);
-//        NSValue *value = [NSValue valueWithCGPoint:point];
-//        [self.view makeToast:[NSString stringWithFormat:@"设备号：%@ 鸽名：%@", devNum, pigeonName] duration:5.0 position:value];
-//    }
-//    NSString *urlStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/trace/query?sbid=%@&data=20170401",devNum];
-    NSString *urlStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/trace/query?sbid=2017001&data=20170401"];
+    if (!pigeonChosen.length) {
+        CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
+        NSValue *value = [NSValue valueWithCGPoint:point];
+        [self.view makeToast:@"请选择待查信鸽" duration:2.0 position:value];
+    } else if (!startTime.length) {
+        CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
+        NSValue *value = [NSValue valueWithCGPoint:point];
+        [self.view makeToast:@"请选择查询日期" duration:2.0 position:value];
+    } else {
+        [self dataFromWeb];
+    }
+}
+
+- (void)dataFromWeb
+{
+
+    NSString *urlStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/trace/query?sbid=%@&data=%@",pigeonChosen,startTime];
+//    NSString *urlStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/trace/query?sbid=2017001&data=20170401"];
 
     NSURL *url = [NSURL URLWithString:urlStr];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
@@ -262,6 +258,9 @@ NSString *endTime;
         NSLog(@"response:%@",response);
         
         if (data==nil) {
+            CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
+            NSValue *value = [NSValue valueWithCGPoint:point];
+            [self.view makeToast:@"网路请求失败" duration:2.0 position:value];
             NSLog(@"没有返回的data数据");
         } else {
             id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
@@ -273,63 +272,74 @@ NSString *endTime;
                 
                 long objCount = [(NSArray*)obj count];
                 
-                // 服务器上的坐标为GPS坐标
-                CLLocationCoordinate2D commoPolylineCoordGPS[objCount];
-                //GPS坐标转换成高德坐标系
-                CLLocationCoordinate2D commoPolylineCoord[objCount];
-                
-                CLLocationDegrees minLat = 90.0;
-                CLLocationDegrees maxLat = -90.0;
-                CLLocationDegrees minLon = 180.0;
-                CLLocationDegrees maxLon = -180.0;
-                
-                for (int i = 0; i < objCount; i++) {
-                    NSDictionary *locationDic = [(NSArray *)obj objectAtIndex:i];
-                    NSString *lat = [(NSDictionary *)locationDic objectForKey:@"latitude"];
-                    double lati = [lat doubleValue];
-                    NSString *lon = [(NSDictionary *)locationDic objectForKey:@"longitude"];
-                    double longi = [lon doubleValue];
+                if(objCount == 0) {
+                    [self.mapView removeOverlays:self.mapView.overlays];
+                    [self.mapView removeAnnotations:self.mapView.annotations];
+                    self.mapView.showsUserLocation = YES;
+                    self.mapView.userTrackingMode = MAUserTrackingModeFollow;
                     
-                    commoPolylineCoordGPS[i].latitude = lati;
-                    commoPolylineCoordGPS[i].longitude = longi;
+                    CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
+                    NSValue *value = [NSValue valueWithCGPoint:point];
+                    [self.view makeToast:@"无轨迹信息" duration:3.0 position:value];
+                }else {
+                    [self.mapView removeOverlays:self.mapView.overlays];
+                    [self.mapView removeAnnotations:self.mapView.annotations];
+                    self.mapView.showsUserLocation = NO;
+
+                    // 服务器上的坐标为GPS坐标
+                    CLLocationCoordinate2D commoPolylineCoordGPS[objCount];
+                    //GPS坐标转换成高德坐标系
+                    CLLocationCoordinate2D commoPolylineCoord[objCount];
                     
-                    AMapCoordinateType type = AMapCoordinateTypeGPS;
-                    commoPolylineCoord[i] = AMapCoordinateConvert(commoPolylineCoordGPS[i],type);
+                    CLLocationDegrees minLat = 90.0;
+                    CLLocationDegrees maxLat = -90.0;
+                    CLLocationDegrees minLon = 180.0;
+                    CLLocationDegrees maxLon = -180.0;
                     
-                    minLat = MIN(minLat, commoPolylineCoord[i].latitude);
-                    maxLat = MAX(maxLat, commoPolylineCoord[i].latitude);
-                    minLon = MIN(minLon, commoPolylineCoord[i].longitude);
-                    maxLon = MAX(maxLon, commoPolylineCoord[i].longitude);
-                    
-                    // 起点坐标
-                    self.startAnnotaion.coordinate = CLLocationCoordinate2DMake(commoPolylineCoord[0].latitude, commoPolylineCoord[0].longitude);
-                    self.startAnnotaion.title = @"起点";
-                    
-                    // 终点坐标
-                    self.endAnnotaion.coordinate = CLLocationCoordinate2DMake(commoPolylineCoord[objCount-1].latitude, commoPolylineCoord[objCount-1].longitude);
-                    self.endAnnotaion.title = @"终点";
-                    
-                    [self.startAndEndAnnotation addObject:self.endAnnotaion];
-                    [self.startAndEndAnnotation addObject:self.startAnnotaion];
+                    for (int i = 0; i < objCount; i++) {
+                        NSDictionary *locationDic = [(NSArray *)obj objectAtIndex:i];
+                        NSString *lat = [(NSDictionary *)locationDic objectForKey:@"latitude"];
+                        double lati = [lat doubleValue];
+                        NSString *lon = [(NSDictionary *)locationDic objectForKey:@"longitude"];
+                        double longi = [lon doubleValue];
+                        
+                        commoPolylineCoordGPS[i].latitude = lati;
+                        commoPolylineCoordGPS[i].longitude = longi;
+                        
+                        AMapCoordinateType type = AMapCoordinateTypeGPS;
+                        commoPolylineCoord[i] = AMapCoordinateConvert(commoPolylineCoordGPS[i],type);
+                        
+                        minLat = MIN(minLat, commoPolylineCoord[i].latitude);
+                        maxLat = MAX(maxLat, commoPolylineCoord[i].latitude);
+                        minLon = MIN(minLon, commoPolylineCoord[i].longitude);
+                        maxLon = MAX(maxLon, commoPolylineCoord[i].longitude);
+                        
+                        // 起点坐标
+                        self.startAnnotaion.coordinate = CLLocationCoordinate2DMake(commoPolylineCoord[0].latitude, commoPolylineCoord[0].longitude);
+                        self.startAnnotaion.title = @"起点";
+                        
+                        // 终点坐标
+                        self.endAnnotaion.coordinate = CLLocationCoordinate2DMake(commoPolylineCoord[objCount-1].latitude, commoPolylineCoord[objCount-1].longitude);
+                        self.endAnnotaion.title = @"终点";
+                        
+                        [self.startAndEndAnnotation addObject:self.endAnnotaion];
+                        [self.startAndEndAnnotation addObject:self.startAnnotaion];
+                    }
+                    CLLocationCoordinate2D centerCoord = CLLocationCoordinate2DMake((minLat + maxLat) * 0.5f, (minLon + maxLon) * 0.5f);
+                    MACoordinateSpan viewSapn;
+                    viewSapn.latitudeDelta = (maxLat - minLat) * 3;
+                    viewSapn.longitudeDelta = (maxLon - minLon) * 3;
+                    MACoordinateRegion viewRegion;
+                    viewRegion.center = centerCoord;
+                    viewRegion.span = viewSapn;
+                    [_mapView setRegion:viewRegion];
+                    // 构造折线对象
+                    MAPolyline *Polyline = [MAPolyline polylineWithCoordinates:commoPolylineCoord count:[(NSArray*)obj count]];
+                    [_mapView addOverlay:Polyline];
+                    [_mapView addAnnotations:self.startAndEndAnnotation];
                 }
-                
-                CLLocationCoordinate2D centerCoord = CLLocationCoordinate2DMake((minLat + maxLat) * 0.5f, (minLon + maxLon) * 0.5f);
-                MACoordinateSpan viewSapn;
-                viewSapn.latitudeDelta = (maxLat - minLat) * 3;
-                viewSapn.longitudeDelta = (maxLon - minLon) * 3;
-                MACoordinateRegion viewRegion;
-                viewRegion.center = centerCoord;
-                viewRegion.span = viewSapn;
-                
-                [_mapView setRegion:viewRegion];
-                // 构造折线对象
-                MAPolyline *Polyline = [MAPolyline polylineWithCoordinates:commoPolylineCoord count:[(NSArray*)obj count]];
-                [_mapView addOverlay:Polyline];
-                [_mapView addAnnotations:self.startAndEndAnnotation];
-                
             }
         }
-        
     }];
     [dataTask resume];
 }
@@ -375,11 +385,11 @@ NSString *endTime;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    _pigeonChosen = [self.pigeonArr objectAtIndex:indexPath.row];
+    pigeonChosen = [self.pigeonArr objectAtIndex:indexPath.row];
     
-    CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH + 20);
+    CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
     NSValue *value = [NSValue valueWithCGPoint:point];
-    [self.view makeToast:[NSString stringWithFormat:@"信鸽名字：%@", self.pigeonChosen] duration:1.0 position:value];
+    [self.view makeToast:[NSString stringWithFormat:@"信鸽名字：%@",pigeonChosen] duration:1.0 position:value];
     
     int newRow = (int)[indexPath row];
     int oldRow = (_lastPath2!=nil)?(int)[_lastPath2 row]:-1;
@@ -399,24 +409,22 @@ NSString *endTime;
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     // 设置日期显示格式
-    NSLog(@"date:%@",date);
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+    dateFormatter.dateFormat = @"YYYYMMdd";
     // 时间戳timeInterval转换成日期对象
     NSDate *d = date;
     // 日期对象返回日期字符串
     NSString *dateStr = [dateFormatter stringFromDate:d];
-    NSLog(@"dateStr:%@",dateStr);
-    self.calendarLabel.text = dateStr;
+    startTime = dateStr;
     /*
      @param message The message to be displayed
      @param duration The toast duration
      @param position The toast's center point. Can be one of the predefined CSToastPosition
      constants or a `CGPoint` wrapped in an `NSValue` object.
      */
-    CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH + 20);
+    CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
     NSValue *value = [NSValue valueWithCGPoint:point];
-    [self.view makeToast:[NSString stringWithFormat:@"日期：%@", dateStr] duration:1.0 position:value];
+    [self.view makeToast:[NSString stringWithFormat:@"日期：%@",startTime] duration:1.0 position:value];
 }
 
 
@@ -536,7 +544,7 @@ NSString *endTime;
     {
         MAPolylineRenderer *polylineRenderer = [[MAPolylineRenderer alloc]initWithPolyline:overlay];
         
-        polylineRenderer.lineWidth = 5.f;
+        polylineRenderer.lineWidth = 3.f;
         polylineRenderer.strokeColor = JrouteColor;
         polylineRenderer.lineJoin = kCGLineJoinRound;
         polylineRenderer.lineCap = kCGLineCapRound;

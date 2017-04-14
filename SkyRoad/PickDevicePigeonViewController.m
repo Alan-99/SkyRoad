@@ -7,12 +7,10 @@
 //
 
 #import "PickDevicePigeonViewController.h"
-#import "detailCopy.h"
 #import "SQLManager.h"
 #import "DeviceSQLManager.h"
 #import "DeviceDetailModel.h"
 #import "PigeonDetailModel.h"
-#import "subTableView.h"
 
 
 // 宏定义-导航栏的高度 - 为啥是0？

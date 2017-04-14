@@ -73,6 +73,7 @@ NSString *feedYears;
             fyvc.valueBlock = ^(NSString *feedYearTxt) {
                 feedYears = feedYearTxt;
             };
+            fyvc.sub_feedYear = feedYears;
             [self.navigationController pushViewController:fyvc animated:YES];
         }
     } else {

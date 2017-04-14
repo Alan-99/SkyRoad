@@ -24,8 +24,11 @@
 
 @interface TrackViewController () <MAMapViewDelegate>
 
-/** 右侧下拉菜单 **/
+/** 右侧选择下拉菜单 **/
 @property (nonatomic, strong) FFDropDownMenuView *dropdownMenu;
+
+/** 右侧选择下拉菜单 **/
+@property (nonatomic, strong) FFDropDownMenuView *infoDropdownMenu;
 
 /** 存储起点，终点 **/
 @property (nonatomic, strong) NSMutableArray *startAndEndAnnotation;
@@ -73,6 +76,7 @@ static NSString *devNum;
         [self initShowPhoneLocationButton];
         [self initShowPigeonLastLocationBtn];
         [self initShowInformationBtn];
+        [self setupDropDownMenu];
     }
     return self;
 }
@@ -113,9 +117,11 @@ static NSString *devNum;
     Btn.frame = CGRectMake(CGRectGetMinX(self.phoneLocBtn.frame), CGRectGetMaxY(self.pigeonLastLocBtn.frame)+10 , 40, 40);
     //    Btn.backgroundColor = [UIColor colorWithRed:116/255.0 green:168/255.0 blue:42/255.0 alpha:1.0];
     [Btn setImage:[UIImage imageNamed:@"Track_InfoBtn"] forState:UIControlStateNormal];
-    [Btn addTarget:self action:@selector(showInformation) forControlEvents:UIControlEventTouchUpInside];
+    [Btn addTarget:self action:@selector(showInfoDropDownMenu) forControlEvents:UIControlEventTouchUpInside];
     self.infoBtn = Btn;
     [self.view addSubview:self.infoBtn];
+    
+    NSLog(@"self.infoBtn.frame.Y:%f",CGRectGetMaxY(self.infoBtn.frame));
 }
 
 - (void)showPhoneLocation:(id)sender
@@ -130,48 +136,26 @@ static NSString *devNum;
 
 }
 
-- (void)showInformation
-{
-    
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [self dataFromWeb];
     
     [self setupMapProperty];
-    [self setupDropDownMenu];
     self.mapView.delegate = self;
     [self.view addSubview:_mapView];
-
-    
-    [self unixTimeStampTransferToDateString:1490183105];
+    [self unixTimeStampTransferToDateString:1490774978];
+    CGPoint point = CGPointMake(JScreenWidth/2, 84);
+    NSValue *value = [NSValue valueWithCGPoint:point];
+    [self.view makeToast:@"请在左上角选择待查信鸽" duration:3.0 position:value];
     // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"信鸽名字：%@ 设备号:%@",pigeonName, devNum);
-    if (devNum == nil || devNum == NULL)
-    {
-        NSLog(@"无所选的设备号");
-        CGPoint point = CGPointMake(JScreenWidth/2, 100);
-        NSValue *value = [NSValue valueWithCGPoint:point];
-        [self.view makeToast:@"请在左上角选择待查设备号" duration:3.0 position:value];
-    }
-    
-    NSLog(@"接收网络数据devNum是：%@",devNum);
-    if (devNum != NULL) {
-        CGPoint point = CGPointMake(JScreenWidth/2, 100);
-        NSValue *value = [NSValue valueWithCGPoint:point];
-        [self.view makeToast:[NSString stringWithFormat:@"设备号：%@ 鸽名：%@", devNum, pigeonName] duration:5.0 position:value];
-    }
-    
     [self.mapView removeOverlays:_mapView.overlays];
     [self.mapView removeAnnotations:_mapView.annotations];
-    
     [self dataFromWeb];
 }
 
@@ -204,8 +188,6 @@ static NSString *devNum;
     pdpvc.valueBlock = ^(NSString* nameTxt, NSString* devTxt){
         pigeonName = nameTxt;
         devNum = devTxt;
-        
-        NSLog(@"---信鸽名字：%@ 设备号:%@",pigeonName, devNum);
     };
     [self.navigationController pushViewController:pdpvc animated:YES];
 }
@@ -214,8 +196,14 @@ static NSString *devNum;
 /**初始化下拉菜单**/
 - (void)setupDropDownMenu {
     NSArray *modelsArray = [self getMenuModelsArray];
-    self.dropdownMenu = [FFDropDownMenuView ff_DefaultStyleDropDownMenuWithMenuModelsArray:modelsArray menuWidth:FFDefaultFloat eachItemHeight:FFDefaultFloat menuRightMargin:FFDefaultFloat triangleRightMargin:FFDefaultFloat];
-    self.dropdownMenu.menuAnimateType = FFDropDownMenuViewAnimateType_ScaleBasedMiddle;
+    NSArray *infoModelsArr = [self getInfoModelsArr];
+    
+    // 通过改变menuRightMargin 和 triangleRightMargin来改变下拉菜单的位置
+    self.dropdownMenu = [FFDropDownMenuView ff_DefaultStyleDropDownMenuWithMenuModelsArray:modelsArray menuWidth:FFDefaultFloat eachItemHeight:FFDefaultFloat menuRightMargin:FFDefaultFloat triangleRightMargin:FFDefaultFloat triangleY:64];
+    
+    self.infoDropdownMenu = [FFDropDownMenuView ff_DefaultStyleDropDownMenuWithMenuModelsArray:infoModelsArr menuWidth:135 eachItemHeight:40 menuRightMargin:10 triangleRightMargin:20 triangleY:CGRectGetMaxY(self.infoBtn.frame)];
+    NSLog(@"self.infoBtn.frame.Y:%f",CGRectGetMaxY(self.infoBtn.frame));
+
 }
 
 - (NSArray *)getMenuModelsArray {
@@ -231,28 +219,37 @@ static NSString *devNum;
         AddPigeonViewController *apvc = [[AddPigeonViewController alloc]init];
         apvc.view.backgroundColor = [UIColor whiteColor];
         [weakSelf.navigationController pushViewController:apvc animated:YES];
-//        PigeonDetailViewController *pdvc = [[PigeonDetailViewController alloc]init];
-//        pdvc.view.backgroundColor = [UIColor whiteColor];
-//        [weakSelf.navigationController pushViewController:pdvc animated:YES];
-
-        
     }];
     
     NSArray *menuModelArr = @[menuModel0, menuModel1];
     return menuModelArr;
 }
 
-/** 显示下拉菜单 **/
+- (NSArray*)getInfoModelsArr {
+    FFDropDownMenuModel *infoMenuModel0 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:@"电池信息" menuItemIconName:@"" menuBlock:nil];
+    FFDropDownMenuModel *infoMenuModel1 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:@"信号强度" menuItemIconName:@"" menuBlock:nil];
+    NSArray *infoMenuModelArr = @[infoMenuModel0, infoMenuModel1];
+    return infoMenuModelArr;
+}
+
+/** 显示选择下拉菜单 **/
 - (void)showDropDownMenu {
     [self.dropdownMenu showMenu];
 }
+// ** 显示信息下拉菜单 **//
+- (void)showInfoDropDownMenu
+{
+    [self.infoDropdownMenu showMenu];
+}
+
 # pragma mark - unix时间戳转换为时间字符串
 // 输入unix时间戳对象，返回日期字符串对象
 - (NSString *)unixTimeStampTransferToDateString:(NSTimeInterval)timeInterval
 {
     // 设置日期显示格式
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+//    dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+    dateFormatter.dateFormat = @"YYYYMMdd";
     // 时间戳timeInterval转换成日期对象
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     // 日期对象返回日期字符串
@@ -262,6 +259,11 @@ static NSString *devNum;
 }
 
 #pragma mark - 网络请求
+- (void)startTrack
+{
+    
+}
+
 - (void)dataFromWeb
 {
 
@@ -290,7 +292,6 @@ static NSString *devNum;
 //        NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
 //        NSLog(@"解析jsonData:%@",jsonData);
         NSLog(@"response:%@",response);
-        
         if (data==nil) {
             NSLog(@"没有返回的data数据");
         } else {
