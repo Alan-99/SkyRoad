@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+
 @class JTextFieldView;
+
 typedef void (^returnValueBlock)(NSString* feedYearTxt);
 
 @interface FeedYearsViewController : UIViewController

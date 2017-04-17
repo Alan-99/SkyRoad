@@ -55,11 +55,6 @@
     [self initCells];
     _mainTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-    NSInteger x = self.view.bounds.origin.x;
-    NSInteger y = self.view.bounds.origin.y;
-    NSInteger h = self.view.bounds.size.height;
-    NSInteger w = self.view.bounds.size.width;
-    NSLog(@"表:x:%ld y:%ld h:%ld w:%ld",x, y, h, w);
     _mainTableView.sectionHeaderHeight = 5;
     _mainTableView.sectionFooterHeight = 0;
     _mainTableView.delegate = self;

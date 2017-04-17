@@ -31,10 +31,6 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // 导航栏右侧button为系统自带add button
-//        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDevice)];
-//        self.navigationItem.rightBarButtonItem = bbi;
-        
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
         self.navigationItem.backBarButtonItem = backItem;
         
@@ -73,12 +69,9 @@
     
     _mainTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-//    _mainTableView.sectionHeaderHeight = 15;
-//    _mainTableView.sectionFooterHeight = 0;
     _mainTableView.delegate = self;
     _mainTableView.dataSource = self;
     [self.view addSubview:_mainTableView];
-    // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -157,11 +150,6 @@
             [self presentViewController:alertC animated:YES completion:nil];
         }
     }
-}
-
-- (void)initAddDeviceAlert
-{
-    
 }
 
 #pragma mark - Table view data source

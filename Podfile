@@ -7,4 +7,7 @@ pod 'AMapLocation' #定位SDK
 use_frameworks!
 pod 'FSCalendar'
 
+source 'https://github.com/CocoPods/Specs.git'
+pod 'QRCodeReaderViewController', '~> 4.0.2'
+
 end

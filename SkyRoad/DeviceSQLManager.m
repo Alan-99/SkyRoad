@@ -65,7 +65,6 @@ static DeviceSQLManager* manager = nil;
         }
         //成功,无需操作
         sqlite3_close(deviceDB);
-        NSLog(@"设备表建表成功！！！");
     }
 }
 
@@ -118,7 +117,6 @@ static DeviceSQLManager* manager = nil;
         sqlite3_finalize(statement);
         sqlite3_close(deviceDB);
     }
-    NSLog(@"设备表查表成功！！！");
     return dataArr;
 }
 
@@ -146,7 +144,6 @@ static DeviceSQLManager* manager = nil;
             sqlite3_close(deviceDB);
         }
     }
-    NSLog(@"设备model插入执行过了！！！");
     return 0;
 }
 

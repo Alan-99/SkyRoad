@@ -205,8 +205,6 @@ NSString *dChosen;
     label.hidden = YES;
     [self.view addSubview:label];
     _detailLabel = label;
-
-
 }
 
 
@@ -218,7 +216,7 @@ NSString *dChosen;
         NSString *detailStr = [NSString stringWithFormat:@"信鸽名字:%@ 脚环号:%@", pChosen, dChosen];
         self.detailLabel.text = detailStr;
     }
-
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)viewDidLoad {

@@ -5,11 +5,14 @@
 //  Created by alan on 2017/4/11.
 //  Copyright © 2017年 sibet. All rights reserved.
 //
-
+#import <AVFoundation/AVFoundation.h>
 #import "ScanDeviceViewController.h"
 
-@interface ScanDeviceViewController ()
-
+@interface ScanDeviceViewController () <AVCaptureMetadataOutputObjectsDelegate>
+{
+    AVCaptureSession *session;
+    AVCaptureVideoPreviewLayer *layer;
+}
 @end
 
 @implementation ScanDeviceViewController

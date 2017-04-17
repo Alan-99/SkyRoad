@@ -9,6 +9,8 @@
 #import "MineViewController.h"
 #import "NickNameViewController.h"
 #import "FeedYearsViewController.h"
+#import "SQLManager.h"
+#import "DeviceSQLManager.h"
 
 #define JScreenWidth [[UIScreen mainScreen]bounds].size.width
 #define JScreenHeight [[UIScreen mainScreen]bounds].size.height
@@ -22,6 +24,8 @@
     NSMutableArray *_detailGroup;
 }
 
+@property (nonatomic, strong) IBOutlet UILabel *nickNameL;
+
 @end
 
 @implementation MineViewController
@@ -33,12 +37,9 @@ NSString *feedYears;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-//        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"Mine_background0"] forBarMetrics:UIBarMetricsDefault];
-        
         self.tabBarItem.title = @"我的";
         UIImage *i = [UIImage imageNamed:@"Mine_BarItem.png"];
         self.tabBarItem.image = i;
-        
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
         self.navigationItem.backBarButtonItem = backItem;
     }
@@ -123,11 +124,26 @@ NSString *feedYears;
     NSString *imageStr = subImageArr[indexPath.row];
     cell.imageView.image = [UIImage imageNamed:imageStr];
     
-    if (indexPath.section == 0) {
+    if (indexPath.section == 0)
+    {
         if(indexPath.row == 0) {
             cell.detailTextLabel.text = nickName;
         } else {
             cell.detailTextLabel.text = feedYears;
+        }
+    } else if (indexPath.section ==1)
+    {
+        if (indexPath.row == 0) {
+            SQLManager *manager = [SQLManager shareManager];
+            NSMutableArray *mArr = [manager searchAll];
+            NSInteger count = [mArr count];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld只",(long)count];
+        }
+        if (indexPath.row == 1) {
+            DeviceSQLManager *devManager = [DeviceSQLManager shareManager];
+            NSMutableArray *mArr = [devManager searchAll];
+            NSInteger count = [mArr count];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld个",(long)count];
         }
     };
     return cell;
@@ -188,7 +204,6 @@ NSString *feedYears;
     [self initTitlesAndClassNameGroup];
     
     _mainTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-//    _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 100, 370, 400) style:UITableViewStyleGrouped];
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _mainTableView.sectionHeaderHeight = 15;
     _mainTableView.sectionFooterHeight = 0;
@@ -196,25 +211,21 @@ NSString *feedYears;
     _mainTableView.dataSource = self;
     UIView *imview = [[[NSBundle mainBundle] loadNibNamed:@"MineLogo" owner:nil options:nil] lastObject];
     _mainTableView.tableHeaderView = imview;
-    
     [self.view addSubview:_mainTableView];
-    // Do any additional setup after loading the view from its nib.
+//    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(JScreenWidth/2 - 20, CGRectGetMaxY(imview.frame), 40, 25)];
+//    label.textColor = [UIColor lightGrayColor];
+//    [self.view addSubview:label];
+//    _nickNameL = label;
+//    self.nickNameL.text = @"昵称";
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    if (nickName.length) {
+        _nickNameL.text = nickName;
+    }
     [_mainTableView reloadData];
 }
-
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    
-//    self.navigationController.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-//    self.navigationController.navigationBar.translucent = YES;
-//    
-//    [self.navigationController setToolbarHidden:YES animated:animated];
-//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -41,14 +41,27 @@
 /** 显示信鸽最后定位btn **/
 @property (nonatomic, weak) IBOutlet UIButton *pigeonLastLocBtn;
 @property (nonatomic, weak) IBOutlet UIButton *infoBtn;
-
+/** 追踪界面显示信鸽信息 **/
+@property (nonatomic, weak)  IBOutlet UILabel* detailLabel0;
+@property (nonatomic, weak)  IBOutlet UILabel* detailLabel1;
 
 @end
 
 @implementation TrackViewController
 
-NSString *pigeonName;
+dispatch_queue_t global_queue;
+
+CLLocationCoordinate2D commoPolylineCoord0;
+NSTimer *timer;
+NSRunLoop *loop;
+//static bool isMonitoringEntity = true;
+static NSString *pigeonName;
 static NSString *devNum;
+static bool pathZoom = true;
+static bool firstShowPath = true;
+NSMutableArray *entityLocations;
+MACoordinateRegion viewRegion;
+
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -57,7 +70,6 @@ static NSString *devNum;
         self.tabBarItem.title = @"追踪";
         UIImage *i = [UIImage imageNamed:@"Track_BarItem.png"];
         self.tabBarItem.image = i;
-        
         self.navigationItem.title = @"追踪";
         
         // 导航栏左侧button为选择pigeon和其对应device
@@ -76,7 +88,6 @@ static NSString *devNum;
         [self initShowPhoneLocationButton];
         [self initShowPigeonLastLocationBtn];
         [self initShowInformationBtn];
-        [self setupDropDownMenu];
     }
     return self;
 }
@@ -115,13 +126,34 @@ static NSString *devNum;
 {
     UIButton *Btn = [UIButton buttonWithType:UIButtonTypeCustom];
     Btn.frame = CGRectMake(CGRectGetMinX(self.phoneLocBtn.frame), CGRectGetMaxY(self.pigeonLastLocBtn.frame)+10 , 40, 40);
-    //    Btn.backgroundColor = [UIColor colorWithRed:116/255.0 green:168/255.0 blue:42/255.0 alpha:1.0];
     [Btn setImage:[UIImage imageNamed:@"Track_InfoBtn"] forState:UIControlStateNormal];
     [Btn addTarget:self action:@selector(showInfoDropDownMenu) forControlEvents:UIControlEventTouchUpInside];
     self.infoBtn = Btn;
     [self.view addSubview:self.infoBtn];
-    
     NSLog(@"self.infoBtn.frame.Y:%f",CGRectGetMaxY(self.infoBtn.frame));
+}
+
+- (void)initDetailLabel
+{
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(self.mapView.scaleOrigin.x, self.mapView.scaleOrigin.y + 30 , JScreenWidth/3, 30)];
+    label.textAlignment = NSTextAlignmentLeft;
+    label.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    label.textColor = [UIColor whiteColor];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    label.hidden = YES;
+    [self.view addSubview:label];
+    _detailLabel0 = label;
+}
+- (void)initDetailLabel1
+{
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(self.mapView.scaleOrigin.x, CGRectGetMaxY(self.detailLabel0.frame) , JScreenWidth/3, 30)];
+    label.textAlignment = NSTextAlignmentLeft;
+    label.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.5];
+    label.textColor = [UIColor whiteColor];
+    label.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    label.hidden = YES;
+    [self.view addSubview:label];
+    _detailLabel1 = label;
 }
 
 - (void)showPhoneLocation:(id)sender
@@ -131,32 +163,39 @@ static NSString *devNum;
 
 - (void)showPigeonLastLoc
 {
+    /** 点击时或者出现最后一点的位置，或者出现全部路线区域**/
+    pathZoom = !pathZoom;
     // 设置地图中心点为信鸽最后一点
-    _mapView.centerCoordinate = self.endAnnotaion.coordinate;
-
+    if (pathZoom) {
+        [_mapView setRegion:viewRegion];
+    } else {
+        _mapView.zoomLevel = 15;
+        _mapView.centerCoordinate = self.endAnnotaion.coordinate;
+    }
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    [self dataFromWeb];
-    
+    global_queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
     [self setupMapProperty];
     self.mapView.delegate = self;
     [self.view addSubview:_mapView];
     [self unixTimeStampTransferToDateString:1490774978];
-    CGPoint point = CGPointMake(JScreenWidth/2, 84);
-    NSValue *value = [NSValue valueWithCGPoint:point];
-    [self.view makeToast:@"请在左上角选择待查信鸽" duration:3.0 position:value];
-    // Do any additional setup after loading the view from its nib.
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.mapView removeOverlays:_mapView.overlays];
-    [self.mapView removeAnnotations:_mapView.annotations];
-    [self dataFromWeb];
+    _mapView.delegate = self;
+    [self startTrack];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [_mapView removeAnnotations:self.mapView.annotations];
+    [_mapView removeOverlays:self.mapView.overlays];
+    _mapView.delegate = nil;
+    [timer invalidate];
 }
 
 - (void)setupMapProperty
@@ -172,7 +211,7 @@ static NSString *devNum;
 //    [_mapView setZoomLevel:14.0 animated:YES];
     // 缩放手势开启
     _mapView.zoomEnabled = YES;
-    // 拖动手势开启
+    // 拖动手势开启s
     _mapView.scrollEnabled = YES;
     // 进入地图就显示定位小蓝点
     _mapView.showsUserLocation = YES;
@@ -226,9 +265,12 @@ static NSString *devNum;
 }
 
 - (NSArray*)getInfoModelsArr {
-    FFDropDownMenuModel *infoMenuModel0 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:@"电池信息" menuItemIconName:@"" menuBlock:nil];
-    FFDropDownMenuModel *infoMenuModel1 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:@"信号强度" menuItemIconName:@"" menuBlock:nil];
-    NSArray *infoMenuModelArr = @[infoMenuModel0, infoMenuModel1];
+    FFDropDownMenuModel *infoMenuModel0 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:pigeonName menuItemIconName:@"Mine_Pigeon" menuBlock:nil];
+    FFDropDownMenuModel *infoMenuModel1 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:devNum menuItemIconName:@"Mine_Glory" menuBlock:nil];
+    FFDropDownMenuModel *infoMenuModel2 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:@"电池信息" menuItemIconName:@"" menuBlock:nil];
+    FFDropDownMenuModel *infoMenuModel3 = [FFDropDownMenuModel ff_DropDownMenuModelWithMenuItemTitle:@"信号强度" menuItemIconName:@"" menuBlock:nil];
+    NSArray *infoMenuModelArr = @[infoMenuModel0, infoMenuModel1, infoMenuModel2, infoMenuModel3];
+    
     return infoMenuModelArr;
 }
 
@@ -239,6 +281,8 @@ static NSString *devNum;
 // ** 显示信息下拉菜单 **//
 - (void)showInfoDropDownMenu
 {
+    [self setupDropDownMenu];
+
     [self.infoDropdownMenu showMenu];
 }
 
@@ -261,13 +305,24 @@ static NSString *devNum;
 #pragma mark - 网络请求
 - (void)startTrack
 {
-    
+    if (!pigeonName.length){
+        CGPoint point = CGPointMake(JScreenWidth/2, 84);
+        NSValue *value = [NSValue valueWithCGPoint:point];
+        [self.view makeToast:@"请在左上角选择待查信鸽" duration:3.0 position:value];
+    } else {
+        dispatch_async(global_queue, ^{
+            [self dataFromWeb];
+        });
+        loop = [NSRunLoop currentRunLoop];
+        timer = [[NSTimer alloc] initWithFireDate:[NSDate date] interval:8 target:self selector:@selector(dataFromWeb) userInfo:nil repeats:YES];
+        [loop addTimer:timer forMode:NSDefaultRunLoopMode];
+    }
 }
 
 - (void)dataFromWeb
 {
 
-    NSString *urlStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/trace/query?sbid=2017006&data=20170401"];
+    NSString *urlStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/trace/query?sbid=%@&data=20170417",pigeonName];
     NSURL *url = [NSURL URLWithString:urlStr];
     NSMutableURLRequest *req = [NSMutableURLRequest requestWithURL:url];
     
@@ -281,8 +336,6 @@ static NSString *devNum;
 //    NSData *postData = [postParam dataUsingEncoding:NSUTF8StringEncoding];
 //    //POST请求参数使用如下方法进行赋值
 //    req.HTTPBody = postData;
-    
-    
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     // delegate设置为nil，因为session对象并不需要实现委托方法
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
@@ -296,7 +349,6 @@ static NSString *devNum;
             NSLog(@"没有返回的data数据");
         } else {
             id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            
             
             if ([obj isKindOfClass:[NSArray class]]) {
                 
@@ -316,16 +368,22 @@ static NSString *devNum;
                 
                 for (int i = 0; i < objCount; i++) {
                     NSDictionary *locationDic = [(NSArray *)obj objectAtIndex:i];
-                    NSString *lat = [(NSDictionary *)locationDic objectForKey:@"latitude"];
+//                    NSString *lat = [(NSDictionary *)locationDic objectForKey:@"latitude"];
+//                    double lati = [lat doubleValue];
+//                    NSString *lon = [(NSDictionary *)locationDic objectForKey:@"longitude"];
+//                    double longi = [lon doubleValue];
+                    NSNumber *lat = [(NSDictionary *)locationDic objectForKey:@"latitude"];
                     double lati = [lat doubleValue];
-                    NSString *lon = [(NSDictionary *)locationDic objectForKey:@"longitude"];
+                    NSNumber *lon = [(NSDictionary *)locationDic objectForKey:@"longitude"];
                     double longi = [lon doubleValue];
-                    
+
                     commoPolylineCoordGPS[i].latitude = lati;
                     commoPolylineCoordGPS[i].longitude = longi;
-                
                     AMapCoordinateType type = AMapCoordinateTypeGPS;
                     commoPolylineCoord[i] = AMapCoordinateConvert(commoPolylineCoordGPS[i],type);
+//                    //test//
+//                    NSArray *point = @[lat,lon];
+//                    [entityLocations addObject:point];
                     
                     minLat = MIN(minLat, commoPolylineCoord[i].latitude);
                     maxLat = MAX(maxLat, commoPolylineCoord[i].latitude);
@@ -339,30 +397,41 @@ static NSString *devNum;
                     // 终点坐标
                     self.endAnnotaion.coordinate = CLLocationCoordinate2DMake(commoPolylineCoord[objCount-1].latitude, commoPolylineCoord[objCount-1].longitude);
                     self.endAnnotaion.title = @"终点";
-
-                    [self.startAndEndAnnotation addObject:self.endAnnotaion];
-                    [self.startAndEndAnnotation addObject:self.startAnnotaion];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.startAndEndAnnotation addObject:self.endAnnotaion];
+                        [self.startAndEndAnnotation addObject:self.startAnnotaion];
+                    });
                 }
                 
                 CLLocationCoordinate2D centerCoord = CLLocationCoordinate2DMake((minLat + maxLat) * 0.5f, (minLon + maxLon) * 0.5f);
                 MACoordinateSpan viewSapn;
                 viewSapn.latitudeDelta = (maxLat - minLat) * 3;
                 viewSapn.longitudeDelta = (maxLon - minLon) * 3;
-                MACoordinateRegion viewRegion;
                 viewRegion.center = centerCoord;
                 viewRegion.span = viewSapn;
-                
-                [_mapView setRegion:viewRegion];
                 // 构造折线对象
                 MAPolyline *Polyline = [MAPolyline polylineWithCoordinates:commoPolylineCoord count:[(NSArray*)obj count]];
-                [_mapView addOverlay:Polyline];
-                [_mapView addAnnotations:self.startAndEndAnnotation];
-                
+                pathZoom = false;
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [_mapView removeAnnotations:self.mapView.annotations];
+                    [_mapView removeOverlays:self.mapView.overlays];
+                    if (firstShowPath) {
+                        _mapView.zoomLevel = 15;
+                        _mapView.centerCoordinate = self.endAnnotaion.coordinate;
+                        firstShowPath = false;
+                    }
+                    [_mapView setCenterCoordinate:self.endAnnotaion.coordinate animated:YES];
+                    [_mapView addOverlay:Polyline];
+                    [_mapView addAnnotations:self.startAndEndAnnotation];
+                });
             }
         }
         
     }];
     [dataTask resume];
+}
+
+- (void)test {
 }
 
 - (void)initStartAndEndAnnotation
@@ -371,6 +440,7 @@ static NSString *devNum;
     _endAnnotaion = [[MAPointAnnotation alloc]init];
     
     _startAndEndAnnotation = [NSMutableArray array];
+    entityLocations = [[NSMutableArray alloc]init];
 }
 
 
