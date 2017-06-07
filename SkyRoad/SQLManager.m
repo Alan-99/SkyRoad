@@ -37,7 +37,7 @@ static SQLManager* manager = nil;
 {
      // 打开数据库时首先找到这个数据库，获取他的路径
     NSString *writetablePath = [self applicationDocumentsDirectoryFile];
-    NSLog(@"数据库的地址是：%@",writetablePath);
+    NSLog(@"信鸽数据库的地址是：%@",writetablePath);
     // 第一个参数数据库文件所在的完整路径
     // 第二个参数是数据库 DataBase 对象
     // 打开数据库的操作,数据库地址从nsstring类型转换成c语言接受的类型（utf8string）
@@ -48,7 +48,7 @@ static SQLManager* manager = nil;
         // 失败或者不对数据库进行操作时，要对数据库进行关闭
         sqlite3_close(db);
         // 抛出错误信息
-        NSAssert(NO, @"数据库打开失败");
+        NSAssert(NO, @"信鸽数据库打开失败");
     } else {
         char *err;
         NSString *creatSQL = [NSString stringWithFormat:@"CREATE TABLE IF NOT EXISTS PigeonDetail (pigeonID NSINTEGER PRIMARYKEY, ringNum TEXT, sex TEXT, furcolor TEXT, eyesand TEXT, descent TEXT);"];
@@ -61,7 +61,7 @@ static SQLManager* manager = nil;
             // 失败或者不对数据库进行操作时，要对数据库进行关闭
             sqlite3_close(db);
             // 抛出错误信息
-            NSAssert(NO, @"数据库建表失败！%s",err);
+            NSAssert(NO, @"信鸽数据库建表失败！%s",err);
         }
         //成功,无需操作
         sqlite3_close(db);
@@ -80,7 +80,7 @@ static SQLManager* manager = nil;
     if (sqlite3_open([path UTF8String], &db)!=SQLITE_OK) {
         // 数据库打开失败，需要关闭数据库
         sqlite3_close(db);
-        NSAssert(NO, @"数据库打开失败");
+        NSAssert(NO, @"信鸽数据库打开失败");
         
     }else {
         // 打开数据库成功，新建查询语句
@@ -98,10 +98,10 @@ static SQLManager* manager = nil;
                 // 第一个参数 语句对象
                 // 第二个参数 字段的索引，select的字段的数据
                 // 索引姓名
-                char *name = (char *)sqlite3_column_text(statement, 0);
-                // 数据转换
-                NSString *nameStr = [[NSString alloc ]initWithUTF8String:name];
-                // 获取索引
+//                char *name = (char *)sqlite3_column_text(statement, 0);
+//                // 数据转换
+//                NSString *nameStr = [[NSString alloc ]initWithUTF8String:name];
+//                // 获取索引
                 NSInteger pigeonID = (int)sqlite3_column_int(statement, 0);
                 // 索引环号
                 char *ringNum = (char*)sqlite3_column_text(statement, 1);
@@ -119,9 +119,7 @@ static SQLManager* manager = nil;
                 char *descent = (char*)sqlite3_column_text(statement, 5);
                 NSString *descentStr = [[NSString alloc]initWithUTF8String:descent];
                 
-                
                 PigeonDetailModel *model = [[PigeonDetailModel alloc]init];
-                model.pigeonName = nameStr;
                 model.pigeonID = pigeonID;
                 model.pigeonRingNumber = ringNumStr;
                 model.pigeonSex = sexStr;
@@ -152,7 +150,7 @@ static SQLManager* manager = nil;
     if (sqlite3_open([path UTF8String], &db)!=SQLITE_OK) {
         // 数据库打开失败，需要关闭数据库
         sqlite3_close(db);
-        NSAssert(NO, @"数据库打开失败");
+        NSAssert(NO, @"信鸽数据库打开失败");
 
     }else {
         // 打开数据库成功，新建查询语句
@@ -223,7 +221,7 @@ static SQLManager* manager = nil;
     NSString *path = [self applicationDocumentsDirectoryFile];
     if (sqlite3_open([path UTF8String], &db) != SQLITE_OK) {
         sqlite3_close(db);
-        NSAssert(NO, @"数据库打开失败");
+        NSAssert(NO, @"信鸽数据库打开失败");
     } else {
         NSString *sql = @"INSERT OR REPLACE INTO PigeonDetail (pigeonID, ringNum, sex, furcolor, eyesand, descent) VALUES (?,?,?,?,?,?)";
         sqlite3_stmt *statement;
@@ -239,7 +237,7 @@ static SQLManager* manager = nil;
 
             
             if (sqlite3_step(statement) != SQLITE_DONE) {
-                NSAssert(NO, @"插入数据库失败");
+                NSAssert(NO, @"信鸽数据库插入数据库失败");
             }
             sqlite3_finalize(statement);
             sqlite3_close(db);
@@ -256,7 +254,7 @@ static SQLManager* manager = nil;
     if (sqlite3_open([path UTF8String], &db)!=SQLITE_OK) {
         // 数据库打开失败，需要关闭数据库
         sqlite3_close(db);
-        NSAssert(NO, @"数据库打开失败");
+        NSAssert(NO, @"信鸽数据库打开失败");
         
     }else {
         // 打开数据库成功，新建查询语句
@@ -277,7 +275,7 @@ static SQLManager* manager = nil;
             sqlite3_bind_text(statement, 1, [ringNumStr UTF8String], -1, NULL);
             // 执行
             if (sqlite3_step(statement) != SQLITE_DONE) {
-                NSAssert(NO, @"数据库删除数据失败");
+                NSAssert(NO, @"信鸽数据库删除数据失败");
             }
         }
         //预处理不成功，数据提取不成功，要对资源释放
@@ -294,7 +292,7 @@ static SQLManager* manager = nil;
     if (sqlite3_open([path UTF8String], &db)!=SQLITE_OK) {
         // 数据库打开失败，需要关闭数据库
         sqlite3_close(db);
-        NSAssert(NO, @"数据库打开失败");
+        NSAssert(NO, @"信鸽数据库打开失败");
         
     }else {
         // 打开数据库成功，新建查询语句
@@ -326,8 +324,33 @@ static SQLManager* manager = nil;
 
             // 执行
             if (sqlite3_step(statement) != SQLITE_DONE) {
-                NSAssert(NO, @"更新数据失败");
+                NSAssert(NO, @"信鸽数据库更新数据失败");
             }
+        }
+        //预处理不成功，数据提取不成功，要对资源释放
+        sqlite3_finalize(statement);
+        sqlite3_close(db);
+    }
+    return 0;
+}
+
+- (int)deleteAll
+{
+    NSString *path = [self applicationDocumentsDirectoryFile];
+    if (sqlite3_open([path UTF8String], &db) != SQLITE_OK) {
+        sqlite3_close(db);
+        NSAssert(NO, @"信鸽数据库打开失败");
+    } else {
+        NSString *sql = @"DELETE FROM PigeonDetail";
+        sqlite3_stmt *statement;
+        // 预处理
+        if (sqlite3_prepare_v2(db, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+            
+            if (sqlite3_step(statement) != SQLITE_DONE) {
+                NSAssert(NO, @"信鸽数据库清空失败");
+            }
+            //            sqlite3_finalize(statement);
+            //            sqlite3_close(deviceDB);
         }
         //预处理不成功，数据提取不成功，要对资源释放
         sqlite3_finalize(statement);

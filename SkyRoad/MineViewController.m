@@ -24,8 +24,6 @@
     NSMutableArray *_detailGroup;
 }
 
-@property (nonatomic, strong) IBOutlet UILabel *nickNameL;
-
 @end
 
 @implementation MineViewController
@@ -40,6 +38,9 @@ NSString *feedYears;
         self.tabBarItem.title = @"我的";
         UIImage *i = [UIImage imageNamed:@"Mine_BarItem.png"];
         self.tabBarItem.image = i;
+        
+        [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"Mine_background0"] forBarMetrics:UIBarMetricsDefault];
+        
         UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
         self.navigationItem.backBarButtonItem = backItem;
     }
@@ -77,7 +78,8 @@ NSString *feedYears;
             fyvc.sub_feedYear = feedYears;
             [self.navigationController pushViewController:fyvc animated:YES];
         }
-    } else {
+    }
+    else {
         NSArray *subClassGroup = [[NSArray alloc]init];
         subClassGroup = _classNameGroup[indexPath.section];
         NSString *className = subClassGroup[indexPath.row];
@@ -131,7 +133,8 @@ NSString *feedYears;
         } else {
             cell.detailTextLabel.text = feedYears;
         }
-    } else if (indexPath.section ==1)
+    }
+    else if (indexPath.section ==1)
     {
         if (indexPath.row == 0) {
             SQLManager *manager = [SQLManager shareManager];
@@ -199,11 +202,14 @@ NSString *feedYears;
 }
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
+    self.view.backgroundColor = [UIColor clearColor];
     [self initTitlesAndClassNameGroup];
     
     _mainTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+//    _mainTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, JScreenWidth, JScreenHeight) style:UITableViewStyleGrouped];
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     _mainTableView.sectionHeaderHeight = 15;
     _mainTableView.sectionFooterHeight = 0;
@@ -212,20 +218,25 @@ NSString *feedYears;
     UIView *imview = [[[NSBundle mainBundle] loadNibNamed:@"MineLogo" owner:nil options:nil] lastObject];
     _mainTableView.tableHeaderView = imview;
     [self.view addSubview:_mainTableView];
-//    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(JScreenWidth/2 - 20, CGRectGetMaxY(imview.frame), 40, 25)];
-//    label.textColor = [UIColor lightGrayColor];
-//    [self.view addSubview:label];
-//    _nickNameL = label;
-//    self.nickNameL.text = @"昵称";
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    if (nickName.length) {
-        _nickNameL.text = nickName;
-    }
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+//    if (nickName.length) {
+//        _nickNameL.text = nickName;
+//    }
     [_mainTableView reloadData];
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
+}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

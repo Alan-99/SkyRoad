@@ -10,6 +10,7 @@
 #import "PigeonDetailModel.h"
 #import "PigeonDetailViewController.h"
 #import "SQLManager.h"
+#import "AFNetworking.h"
 
 #define JNavBarH 64
 #define JScreenWidth [[UIScreen mainScreen]bounds].size.width
@@ -28,6 +29,9 @@
 
 @implementation MyPigeonsViewController
 
+// 获取全局变量,即账号信息
+extern NSString* globalAccount;
+
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -43,15 +47,16 @@
     _cells = [[NSMutableArray alloc]init];
         NSArray *titles0 = @[@"添加信鸽"];
     [_cells addObject:titles0];
-        _pigeonGroup = [[NSMutableArray alloc]init];
-    SQLManager *manager = [SQLManager shareManager];
-    _mainManager = manager;
+    
+    _pigeonGroup = [[NSMutableArray alloc]init];
     _pigeonGroup = [_mainManager searchAll];
     [_cells addObject:_pigeonGroup];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    SQLManager *manager = [SQLManager shareManager];
+    _mainManager = manager;
     [self initCells];
     _mainTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -61,6 +66,25 @@
     _mainTableView.dataSource = self;
     [self.view addSubview:_mainTableView];
 }
+
+/***  从网络服务器删除鸽子信息 ***/
+- (void)deletePigeonModelFromWeb:(PigeonDetailModel*)pigeonDetailModel
+{
+    // 定义web服务器接口,用户帐号／鸽子环号／性别／羽色／眼砂／血统
+    NSString *domainStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/users/deleteGZH?pid=%@&gzhid=%@",globalAccount, pigeonDetailModel.pigeonRingNumber];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:domainStr parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id resultObj = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"删除信鸽model信息：%@",resultObj);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"从网络服务器删除信鸽model失败");
+        NSLog(@"error:%@",error);
+    }];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -158,10 +182,8 @@
             [subArr removeObject:subCell];
             
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            
-            //            SQLManager *manager = [SQLManager shareManager];
+            [self deletePigeonModelFromWeb:(PigeonDetailModel *)subCell];
             [_mainManager deleteWithRingNum:subCell];
-            
             if( subArr.count == 0) {
                 [_cells removeObject:subArr];
                 [tableView reloadData];

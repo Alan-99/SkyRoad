@@ -21,7 +21,7 @@
     if (self) {
         
         self.navigationItem.title = @"昵称";
-        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addNickNameDone)];
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(addNickNameDone)];
         self.navigationItem.rightBarButtonItem = bbi;
     }
     

@@ -36,4 +36,6 @@
 // 删除数据库数据
 - (int)deleteWithRingNum:(PigeonDetailModel *)model;
 
+- (int)deleteAll;
+
 @end

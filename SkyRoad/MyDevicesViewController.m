@@ -9,10 +9,12 @@
 #import "MyDevicesViewController.h"
 #import "DeviceSQLManager.h"
 #import "DeviceDetailModel.h"
-#import "ScanDeviceViewController.h"
-#import "TypingDeviceViewController.h"
 
-@interface MyDevicesViewController ()<UITableViewDelegate, UITableViewDataSource>
+#import "QRCodeReaderViewController.h"
+#import "QRCodeReader.h"
+#import "AFNetworking.h"
+
+@interface MyDevicesViewController ()<UITableViewDelegate, UITableViewDataSource,QRCodeReaderDelegate>
 {
     UITableView *_mainTableView;
     NSMutableArray *_deviceGroup;
@@ -24,6 +26,9 @@
 @end
 
 @implementation MyDevicesViewController
+
+// 获取全局变量,即账号信息
+extern NSString* globalAccount;
 
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -86,6 +91,44 @@
     // Dispose of any resources that can be recreated.
 }
 
+/***  添加设备到服务器网络 ***/
+- (void)addDevToWeb:(NSString*)devString
+{
+    // 定义web服务器接口
+    NSString *domainStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/users/addSB?pid=%@&sbid=%@",globalAccount, devString];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:domainStr parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id resultObj = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"添加设备到web信息:%@",resultObj);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"添加设备到网络服务器失败");
+        NSLog(@"task:%@",task);
+        NSLog(@"error:%@",error);
+    }];
+}
+
+/***  服务器网络删除设备 ***/
+- (void)deleteDevFromWeb:(NSString*)devString
+{
+    // 定义web服务器接口
+    NSString *domainStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/users/deleteSB?pid=%@&sbid=%@",globalAccount, devString];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:domainStr parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id resultObj = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"从web删除设备信息:%@",resultObj);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"网络服务器删除失败");
+//        NSLog(@"task:%@",task);
+        NSLog(@"error:%@",error);
+    }];
+}
+
 #pragma mark - Table View Delegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -102,9 +145,20 @@
             textField.text = selectedModel.deviceNum;
         }];
         UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSString *origionalDevStr = selectedModel.deviceNum;
+            [self deleteDevFromWeb:origionalDevStr];
             UITextField *txtF = alertC0.textFields.firstObject;
-            selectedModel.deviceNum = txtF.text;
-            [_mainManager update:selectedModel];
+            
+            if (txtF.text.length != 7) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"格式错误" message:@"设备号长度为7位" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+            else {
+                selectedModel.deviceNum = txtF.text;
+                [self addDevToWeb:selectedModel.deviceNum];
+                [_mainManager update:selectedModel];
+            }
             [self initCells];
             [_mainTableView reloadData];
         }];
@@ -116,11 +170,8 @@
     } else if (indexPath.section == 0)
     {
         if (indexPath.row == 0) {
-            ScanDeviceViewController *sdvc0 = [[ScanDeviceViewController alloc]init];
-            sdvc0.view.backgroundColor = [UIColor whiteColor];
-            [self.navigationController pushViewController:sdvc0 animated:YES];
+            [self initScanView];
         } else {
-            
             UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"输入脚环设备号" message:nil preferredStyle:UIAlertControllerStyleAlert];
             [alertC addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
                 textField.placeholder = @"请输设备号";
@@ -131,10 +182,13 @@
                 UITextField *txtF = alertC.textFields.firstObject;
                 DeviceDetailModel *model = [[DeviceDetailModel alloc]init];
                 NSMutableArray *arr = [_mainManager searchAll];
-                if ([[txtF.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]] length] == 0) {
-                    NSLog(@"没输入设备号");
-                    return;
-                } else {
+                if (txtF.text.length != 7) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"格式错误" message:@"设备号长度为7位" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+                else {
+                    [self addDevToWeb:txtF.text];
                     model.deviceNum = txtF.text;
                     model.deviceId = [arr count]+1;
                     [_mainManager insert:model];
@@ -145,12 +199,68 @@
             }];
             
             [alertC addAction:okAction];
-            
             UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
             [alertC addAction:cancelAction];
             [self presentViewController:alertC animated:YES completion:nil];
         }
     }
+}
+
+- (void)initScanView
+{
+    if ([QRCodeReader supportsMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]]) {
+        static QRCodeReaderViewController *vc = nil;
+        static dispatch_once_t onceToken;
+        dispatch_once(&onceToken, ^{
+            QRCodeReader *reader = [QRCodeReader readerWithMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+            vc = [QRCodeReaderViewController readerWithCancelButtonTitle:@"Cancel" codeReader:reader startScanningAtLoad:YES showSwitchCameraButton:NO showTorchButton:NO];
+            vc.modalPresentationStyle = UIModalPresentationFormSheet;
+        });
+        vc.delegate = self;
+        [vc setCompletionWithBlock:^(NSString *resultAsString) {
+            NSLog(@"Completion with result: %@", resultAsString);
+        }];
+        [self presentViewController:vc animated:YES completion:NULL];
+    }
+    else {
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"Error" message:@"Reader not supported by the current device" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+        [alertC addAction:cancelAction];
+        [self presentViewController:alertC animated:YES completion:nil];
+    }
+}
+
+#pragma mark - QRCodeReader Delegate Methods
+
+- (void)reader:(QRCodeReaderViewController *)reader didScanResult:(NSString *)result
+{
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"QRCodeReader" message:result delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+//        [alert show];
+    [reader stopScanning];
+    // 回到主页面之后还可以刷新UI
+    [self dismissViewControllerAnimated:YES completion:^{
+        DeviceDetailModel *model = [[DeviceDetailModel alloc]init];
+        NSMutableArray *arr = [_mainManager searchAll];
+        NSString* filterResult;
+        if (result.length > 5) {
+            filterResult = [result substringFromIndex:result.length - 6];
+        } else {
+            filterResult = result;
+        }
+        model.deviceNum = filterResult;
+        model.deviceId = [arr count]+1;
+        // 添加设备到网络数据库
+        [_mainManager insert:model];
+        [self initCells];
+        [_mainTableView reloadData];
+        [self addDevToWeb:filterResult];
+    }];
+
+}
+
+- (void)readerDidCancel:(QRCodeReaderViewController *)reader
+{
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 #pragma mark - Table view data source
@@ -216,6 +326,8 @@
             id subcell = subArr[indexPath.row];
             [subArr removeObject:subcell];
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            NSString* devStr = [(DeviceDetailModel *)subcell deviceNum];
+            [self deleteDevFromWeb:devStr];
             [_mainManager deleteWithName:(DeviceDetailModel *)subcell];
             
             if (subArr.count == 0) {

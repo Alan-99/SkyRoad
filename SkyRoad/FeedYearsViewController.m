@@ -24,7 +24,9 @@
     if (self) {
         
         self.navigationItem.title = @"养殖鸽龄";
-        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addDone)];
+//        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(addDone)];
+        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(addDone)];
+        self.navigationItem.rightBarButtonItem = bbi;
         self.navigationItem.rightBarButtonItem = bbi;
         [self initFeedYearPicker];
     }

@@ -10,6 +10,7 @@
 #import "PigeonDetailModel.h"
 #import "PigeonDetailViewController.h"
 #import "SQLManager.h"
+#import "AFNetworking.h"
 
 // 宏定义-导航栏的高度 - 为啥是0？
 //#define JNavBarH self.navigationController.navigationBar.frame.size.height
@@ -23,7 +24,7 @@
     UITableView *_mainTableView;
     // 已添加鸽子的集合
     NSMutableArray *_pigeonGroup;
-    SQLManager *_mainManager;
+    SQLManager *_pigeonManager;
 }
 
 @property (nonatomic, strong) NSMutableArray *cells;
@@ -32,15 +33,22 @@
 
 @implementation AddPigeonViewController
 
+// 获取全局变量,即账号信息
+extern NSString* globalAccount;
+
 - (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-//        // 导航栏右侧button为系统自带add button
-//        UIBarButtonItem *bbi = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addPigeonDetail)];
-//        self.navigationItem.rightBarButtonItem = bbi;
+        UIBarButtonItem *backItem = [[UIBarButtonItem alloc]initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(backAction)];
+        self.navigationItem.backBarButtonItem = backItem;
     }
     return self;
+}
+
+- (void)backAction
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)initCells
@@ -51,18 +59,16 @@
     [_cells addObject:titles0];
     
     _pigeonGroup = [[NSMutableArray alloc]init];
-    SQLManager *manager = [SQLManager shareManager];
-    _mainManager = manager;
-    _pigeonGroup = [_mainManager searchAll];
+    _pigeonGroup = [_pigeonManager searchAll];
     [_cells addObject:_pigeonGroup];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    SQLManager *manager = [SQLManager shareManager];
+    _pigeonManager = manager;
     [self initCells];
-//    [self initAddPigeonBtn];
     
     _mainTableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
     _mainTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
@@ -82,13 +88,27 @@
 //    [self.tableView registerNib:nib forCellReuseIdentifier:@"ItemCell"];
 }
 
+/***  从网络服务器删除鸽子信息 ***/
+- (void)deletePigeonModelFromWeb:(PigeonDetailModel*)pigeonDetailModel
+{
+    // 定义web服务器接口,用户帐号／鸽子环号／性别／羽色／眼砂／血统
+    NSString *domainStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/users/deleteGZH?pid=%@&gzhid=%@",globalAccount, pigeonDetailModel.pigeonRingNumber];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:domainStr parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id resultObj = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+        NSLog(@"删除信鸽model信息：%@",resultObj);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"从网络服务器删除信鸽model失败");
+        NSLog(@"error:%@",error);
+    }];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    _pigeonGroup = [[NSMutableArray alloc]init];
-//    SQLManager *manager = [SQLManager shareManager];
-//    _pigeonGroup = [manager searchAll];
-    NSLog(@"addPigeonViewWillAppear");
     [self initCells];
     [_mainTableView reloadData];
 
@@ -116,12 +136,8 @@
     } else {
         PigeonDetailViewController *pdvc = [[PigeonDetailViewController alloc]init];
         pdvc.view.backgroundColor = [UIColor whiteColor];
-//        pdvc.valueBlock = ^(SQLManager *manager) {
-//            _mainManager = manager;
-//        };
         [self.navigationController pushViewController:pdvc animated:YES];
     }
-
 }
 
 #pragma mark - Table view data source
@@ -187,12 +203,9 @@
             NSMutableArray *subArr = _cells[indexPath.section];
             id subCell = subArr[indexPath.row];
             [subArr removeObject:subCell];
-            
             [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            
-//            SQLManager *manager = [SQLManager shareManager];
-            [_mainManager deleteWithRingNum:subCell];
-            
+            [self deletePigeonModelFromWeb:(PigeonDetailModel *)subCell];
+            [_pigeonManager deleteWithRingNum:subCell];
             if( subArr.count == 0) {
                 [_cells removeObject:subArr];
                 [tableView reloadData];
@@ -205,7 +218,7 @@
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 1) {
-        if ([[_mainManager searchAll] count] != 0) {
+        if ([[_pigeonManager searchAll] count] != 0) {
             return @"已添加的信鸽";
         }
         return nil;

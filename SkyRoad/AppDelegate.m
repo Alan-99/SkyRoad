@@ -8,6 +8,9 @@
 
 #import "AppDelegate.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
+
+#import "RegisterAndLoginViewController.h"
+#import "RootTabBarViewController.h"
 #import "TrackViewController.h"
 #import "InquiryViewController.h"
 #import "CommunityViewController.h"
@@ -23,16 +26,21 @@
 @interface AppDelegate ()
 
 @property (nonatomic, strong) UITabBarController *tabBarController;
+@property (nonatomic, strong) RegisterAndLoginViewController *registerAndLoginVC;
 
 @end
 
 @implementation AppDelegate
 
+static NSString *globalAccount;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-//    [[UINavigationBar appearance] setBarTintColor:JNavBarColor];
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    // 设置导航栏背字体颜色
+    [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+    // 设置导航栏背景色
+//    [[UINavigationBar appearance] setBarTintColor:[UIColor blackColor]];
     
     self.window =  [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     
@@ -47,49 +55,14 @@
     // 配置高德Key
     [AMapServices sharedServices].apiKey = @"62a4700f38a5df398ceff945b6eda7da";
     
-    _tabBarController = [[UITabBarController alloc] init];
-    
-    // 标题颜色字体大小
-    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
-    attrs[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    attrs[NSFontAttributeName] = [UIFont systemFontOfSize:17];
-    
-    UINavigationController *tvcNav = [[UINavigationController alloc] initWithRootViewController:[[TrackViewController alloc] init]];
-//    tvcNav.navigationBar.barStyle = UIBarStyleBlack;
-//    // 导航栏背景色设置
-//    tvcNav.navigationBar.barTintColor = JNavBarColor;
-//    tvcNav.navigationBar.titleTextAttributes = attrs;
-//    tvcNav.navigationBar.tintColor = [UIColor whiteColor];
-    
-    UINavigationController *ivcNav = [[UINavigationController alloc] initWithRootViewController:[[InquiryViewController alloc] init]];
-//    ivcNav.navigationBar.barTintColor = JNavBarColor;
-//    ivcNav.navigationBar.titleTextAttributes = attrs;
-//    ivcNav.navigationBar.tintColor = [UIColor whiteColor];
-//    ivcNav.navigationBar.barStyle = UIBarStyleBlack;
+    _registerAndLoginVC = [[RegisterAndLoginViewController alloc]init];
+    UINavigationController *ralvcNav = [[UINavigationController alloc]initWithRootViewController:_registerAndLoginVC];
+    _tabBarController = [[RootTabBarViewController alloc] init];
 
 
+    self.window.rootViewController = ralvcNav;
+//    self.window.rootViewController = _tabBarController;
 
-
-
-    //    cvcNav.navigationBar.barTintColor = JNavBarColor;
-//    cvcNav.navigationBar.barStyle = UIBarStyleBlack;
-//    cvcNav.navigationBar.titleTextAttributes = attrs;
-//    cvcNav.navigationBar.tintColor = [UIColor whiteColor];
-
-
-
-    UINavigationController *mvcNav = [[UINavigationController alloc] initWithRootViewController:[[MineViewController alloc] init]];
-
-//    mvcNav.navigationBar.barTintColor = JNavBarColor;
-//    mvcNav.navigationBar.barStyle = UIBarStyleBlack;
-//    [mvcNav.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"Mine_background0"] forBarMetrics:UIBarMetricsDefault];
-//    mvcNav.navigationBar.titleTextAttributes = attrs;
-//    mvcNav.navigationBar.tintColor = [UIColor whiteColor];
-
-    _tabBarController.viewControllers = @[tvcNav, ivcNav, mvcNav];
-    
-    self.window.rootViewController = self.tabBarController;
-    
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
 
@@ -124,7 +97,6 @@
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
 }
-
 
 #pragma mark - Core Data stack
 

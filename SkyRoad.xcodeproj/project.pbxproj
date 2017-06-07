@@ -8,12 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		57FECB4B588924A5F84428D7 /* Pods_SkyRoad.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */; };
+		E7259F721EA9F054003BD923 /* RootTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7259F711EA9F054003BD923 /* RootTabBarViewController.m */; };
+		E7259F751EAF269F003BD923 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7259F741EAF269F003BD923 /* AboutViewController.m */; };
+		E7259F771EAF3667003BD923 /* AboutLogo.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7259F761EAF3667003BD923 /* AboutLogo.xib */; };
+		E73FC1141EA63BA4002D7682 /* RegisterAndLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E73FC1131EA63BA4002D7682 /* RegisterAndLoginViewController.m */; };
+		E73FC1171EA64294002D7682 /* JImageAndTxtfieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = E73FC1161EA64294002D7682 /* JImageAndTxtfieldView.m */; };
+		E73FC11A1EA65BEF002D7682 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E73FC1191EA65BEF002D7682 /* RegisterViewController.m */; };
+		E73FC11D1EA741E9002D7682 /* CreatNewPSWViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E73FC11C1EA741E9002D7682 /* CreatNewPSWViewController.m */; };
+		E74A12E01EE13ECD00B444E8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E74A12DF1EE13ECC00B444E8 /* Default-568h@2x.png */; };
 		E74D18D01E9D0A2700D13BD6 /* DeviceSQLManager.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */; };
 		E74D18D31E9D0A6C00D13BD6 /* DeviceDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18D21E9D0A6C00D13BD6 /* DeviceDetailModel.m */; };
-		E74D18D61E9D1DEA00D13BD6 /* ScanDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18D51E9D1DEA00D13BD6 /* ScanDeviceViewController.m */; };
-		E74D18D91E9D1E0500D13BD6 /* TypingDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18D81E9D1E0500D13BD6 /* TypingDeviceViewController.m */; };
 		E74D18DC1E9D26E700D13BD6 /* JTextFieldView.m in Sources */ = {isa = PBXBuildFile; fileRef = E74D18DB1E9D26E700D13BD6 /* JTextFieldView.m */; };
 		E74EC5C51E9785B8009A2305 /* MyCommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E74EC5C41E9785B8009A2305 /* MyCommunityViewController.m */; };
+		E74F5F0E1EB9413900154CFF /* JLableAndButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = E74F5F0D1EB9413900154CFF /* JLableAndButtonView.m */; };
 		E757DDBC1E96C4B400694201 /* NickNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E757DDBB1E96C4B400694201 /* NickNameViewController.xib */; };
 		E781D7BA1E952ED900BD416D /* PigeonDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = E781D7B91E952ED900BD416D /* PigeonDetailModel.m */; };
 		E781D7BC1E9541A600BD416D /* PigeonDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E781D7BB1E9541A600BD416D /* PigeonDetailViewController.xib */; };
@@ -36,7 +43,6 @@
 		E7A28E9A1E8208FC00883E25 /* InquiryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E981E8208FC00883E25 /* InquiryViewController.m */; };
 		E7A28E9B1E8208FC00883E25 /* InquiryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E991E8208FC00883E25 /* InquiryViewController.xib */; };
 		E7A28E9F1E82091A00883E25 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28E9D1E82091A00883E25 /* MineViewController.m */; };
-		E7A28EA01E82091A00883E25 /* MineLogo.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A28E9E1E82091A00883E25 /* MineLogo.xib */; };
 		E7A28EA41E82093000883E25 /* CommunityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EA21E82093000883E25 /* CommunityViewController.m */; };
 		E7A28EA51E82093000883E25 /* CommunityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7A28EA31E82093000883E25 /* CommunityViewController.xib */; };
 		E7A28EB01E84C63400883E25 /* NickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7A28EAF1E84C63400883E25 /* NickNameViewController.m */; };
@@ -50,24 +56,46 @@
 		E7E037AB1E8B544100875131 /* PickDevicePigeonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037AA1E8B544100875131 /* PickDevicePigeonViewController.m */; };
 		E7E037EF1E8BFBC800875131 /* PigeonDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037EE1E8BFBC800875131 /* PigeonDetailViewController.m */; };
 		E7E037F51E8C995500875131 /* AddPigeonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E037F41E8C995500875131 /* AddPigeonViewController.m */; };
+		E7E28CAB1ED51DAD0029EECC /* MineLogo.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7E28CAA1ED51DAD0029EECC /* MineLogo.xib */; };
+		E7E2D2B61EAF40B800DC4610 /* VersionDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E2D2B51EAF40B800DC4610 /* VersionDescriptionViewController.m */; };
+		E7E2D2B91EAF40C700DC4610 /* UpdateCheckViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E2D2B81EAF40C700DC4610 /* UpdateCheckViewController.m */; };
+		E7E2D2BC1EAF40DA00DC4610 /* FeedbackAndHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7E2D2BB1EAF40DA00DC4610 /* FeedbackAndHelpViewController.m */; };
+		E7F034DA1EBABC63004FB12E /* MyCommunity.xib in Resources */ = {isa = PBXBuildFile; fileRef = E7F034D91EBABC63004FB12E /* MyCommunity.xib */; };
+		E7F034DD1EBAC9D7004FB12E /* AddWebDeviceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F034DC1EBAC9D7004FB12E /* AddWebDeviceViewController.m */; };
+		E7F034E01EC196BF004FB12E /* InitRouteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F034DF1EC196BF004FB12E /* InitRouteViewController.m */; };
+		E7F034E31EC19BEF004FB12E /* JPOISearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F034E21EC19BEF004FB12E /* JPOISearchView.m */; };
+		E7F034E61EC1B48F004FB12E /* ErrorInfoUtility.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F034E51EC1B48F004FB12E /* ErrorInfoUtility.m */; };
+		E7F034E91EC29E16004FB12E /* AMapTipAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = E7F034E81EC29E16004FB12E /* AMapTipAnnotation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		19457A7DE79099BA5C7736F2 /* Pods_SkyRoad.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkyRoad.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		69C1DA831F19E80A9A69EF95 /* Pods-SkyRoad.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.debug.xcconfig"; sourceTree = "<group>"; };
 		A9016EC27AA5A8AD180EE686 /* Pods-SkyRoad.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkyRoad.release.xcconfig"; path = "Pods/Target Support Files/Pods-SkyRoad/Pods-SkyRoad.release.xcconfig"; sourceTree = "<group>"; };
+		E7259F701EA9F054003BD923 /* RootTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootTabBarViewController.h; sourceTree = "<group>"; };
+		E7259F711EA9F054003BD923 /* RootTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootTabBarViewController.m; sourceTree = "<group>"; };
+		E7259F731EAF269F003BD923 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
+		E7259F741EAF269F003BD923 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
+		E7259F761EAF3667003BD923 /* AboutLogo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AboutLogo.xib; sourceTree = "<group>"; };
+		E73FC1121EA63BA4002D7682 /* RegisterAndLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterAndLoginViewController.h; sourceTree = "<group>"; };
+		E73FC1131EA63BA4002D7682 /* RegisterAndLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterAndLoginViewController.m; sourceTree = "<group>"; };
+		E73FC1151EA64294002D7682 /* JImageAndTxtfieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JImageAndTxtfieldView.h; sourceTree = "<group>"; };
+		E73FC1161EA64294002D7682 /* JImageAndTxtfieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JImageAndTxtfieldView.m; sourceTree = "<group>"; };
+		E73FC1181EA65BEF002D7682 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		E73FC1191EA65BEF002D7682 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		E73FC11B1EA741E9002D7682 /* CreatNewPSWViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreatNewPSWViewController.h; sourceTree = "<group>"; };
+		E73FC11C1EA741E9002D7682 /* CreatNewPSWViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreatNewPSWViewController.m; sourceTree = "<group>"; };
+		E74A12DF1EE13ECC00B444E8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E74D18CE1E9D0A2700D13BD6 /* DeviceSQLManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceSQLManager.h; sourceTree = "<group>"; };
 		E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceSQLManager.m; sourceTree = "<group>"; };
 		E74D18D11E9D0A6C00D13BD6 /* DeviceDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceDetailModel.h; sourceTree = "<group>"; };
 		E74D18D21E9D0A6C00D13BD6 /* DeviceDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceDetailModel.m; sourceTree = "<group>"; };
-		E74D18D41E9D1DEA00D13BD6 /* ScanDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanDeviceViewController.h; sourceTree = "<group>"; };
-		E74D18D51E9D1DEA00D13BD6 /* ScanDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanDeviceViewController.m; sourceTree = "<group>"; };
-		E74D18D71E9D1E0500D13BD6 /* TypingDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypingDeviceViewController.h; sourceTree = "<group>"; };
-		E74D18D81E9D1E0500D13BD6 /* TypingDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypingDeviceViewController.m; sourceTree = "<group>"; };
 		E74D18DA1E9D26E700D13BD6 /* JTextFieldView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTextFieldView.h; sourceTree = "<group>"; };
 		E74D18DB1E9D26E700D13BD6 /* JTextFieldView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTextFieldView.m; sourceTree = "<group>"; };
 		E74EC5C31E9785B8009A2305 /* MyCommunityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCommunityViewController.h; sourceTree = "<group>"; };
 		E74EC5C41E9785B8009A2305 /* MyCommunityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCommunityViewController.m; sourceTree = "<group>"; };
+		E74F5F0C1EB9413900154CFF /* JLableAndButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JLableAndButtonView.h; sourceTree = "<group>"; };
+		E74F5F0D1EB9413900154CFF /* JLableAndButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JLableAndButtonView.m; sourceTree = "<group>"; };
 		E757DDBB1E96C4B400694201 /* NickNameViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NickNameViewController.xib; sourceTree = "<group>"; };
 		E781D7B81E952ED900BD416D /* PigeonDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PigeonDetailModel.h; sourceTree = "<group>"; };
 		E781D7B91E952ED900BD416D /* PigeonDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PigeonDetailModel.m; sourceTree = "<group>"; };
@@ -105,7 +133,6 @@
 		E7A28E991E8208FC00883E25 /* InquiryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InquiryViewController.xib; sourceTree = "<group>"; };
 		E7A28E9C1E82091A00883E25 /* MineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		E7A28E9D1E82091A00883E25 /* MineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
-		E7A28E9E1E82091A00883E25 /* MineLogo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineLogo.xib; sourceTree = "<group>"; };
 		E7A28EA11E82093000883E25 /* CommunityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommunityViewController.h; sourceTree = "<group>"; };
 		E7A28EA21E82093000883E25 /* CommunityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommunityViewController.m; sourceTree = "<group>"; };
 		E7A28EA31E82093000883E25 /* CommunityViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommunityViewController.xib; sourceTree = "<group>"; };
@@ -131,6 +158,24 @@
 		E7E037EE1E8BFBC800875131 /* PigeonDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PigeonDetailViewController.m; sourceTree = "<group>"; };
 		E7E037F31E8C995500875131 /* AddPigeonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPigeonViewController.h; sourceTree = "<group>"; };
 		E7E037F41E8C995500875131 /* AddPigeonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPigeonViewController.m; sourceTree = "<group>"; };
+		E7E28CAA1ED51DAD0029EECC /* MineLogo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MineLogo.xib; sourceTree = "<group>"; };
+		E7E2D2B41EAF40B800DC4610 /* VersionDescriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionDescriptionViewController.h; sourceTree = "<group>"; };
+		E7E2D2B51EAF40B800DC4610 /* VersionDescriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionDescriptionViewController.m; sourceTree = "<group>"; };
+		E7E2D2B71EAF40C700DC4610 /* UpdateCheckViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateCheckViewController.h; sourceTree = "<group>"; };
+		E7E2D2B81EAF40C700DC4610 /* UpdateCheckViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateCheckViewController.m; sourceTree = "<group>"; };
+		E7E2D2BA1EAF40DA00DC4610 /* FeedbackAndHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackAndHelpViewController.h; sourceTree = "<group>"; };
+		E7E2D2BB1EAF40DA00DC4610 /* FeedbackAndHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackAndHelpViewController.m; sourceTree = "<group>"; };
+		E7F034D91EBABC63004FB12E /* MyCommunity.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyCommunity.xib; sourceTree = "<group>"; };
+		E7F034DB1EBAC9D7004FB12E /* AddWebDeviceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddWebDeviceViewController.h; sourceTree = "<group>"; };
+		E7F034DC1EBAC9D7004FB12E /* AddWebDeviceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddWebDeviceViewController.m; sourceTree = "<group>"; };
+		E7F034DE1EC196BF004FB12E /* InitRouteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitRouteViewController.h; sourceTree = "<group>"; };
+		E7F034DF1EC196BF004FB12E /* InitRouteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitRouteViewController.m; sourceTree = "<group>"; };
+		E7F034E11EC19BEF004FB12E /* JPOISearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JPOISearchView.h; sourceTree = "<group>"; };
+		E7F034E21EC19BEF004FB12E /* JPOISearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JPOISearchView.m; sourceTree = "<group>"; };
+		E7F034E41EC1B48F004FB12E /* ErrorInfoUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ErrorInfoUtility.h; sourceTree = "<group>"; };
+		E7F034E51EC1B48F004FB12E /* ErrorInfoUtility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ErrorInfoUtility.m; sourceTree = "<group>"; };
+		E7F034E71EC29E16004FB12E /* AMapTipAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMapTipAnnotation.h; sourceTree = "<group>"; };
+		E7F034E81EC29E16004FB12E /* AMapTipAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMapTipAnnotation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,12 +198,16 @@
 				E7A28E921E8208C500883E25 /* TrackViewController.h */,
 				E7A28E931E8208C500883E25 /* TrackViewController.m */,
 				E7A28E941E8208C500883E25 /* TrackViewController.xib */,
+				E7F034DE1EC196BF004FB12E /* InitRouteViewController.h */,
+				E7F034DF1EC196BF004FB12E /* InitRouteViewController.m */,
+				E7F034E71EC29E16004FB12E /* AMapTipAnnotation.h */,
+				E7F034E81EC29E16004FB12E /* AMapTipAnnotation.m */,
+				E7F034E41EC1B48F004FB12E /* ErrorInfoUtility.h */,
+				E7F034E51EC1B48F004FB12E /* ErrorInfoUtility.m */,
 				E7E037A31E8B4E0500875131 /* addDeviceViewController.h */,
 				E7E037A41E8B4E0500875131 /* addDeviceViewController.m */,
-				E74D18D41E9D1DEA00D13BD6 /* ScanDeviceViewController.h */,
-				E74D18D51E9D1DEA00D13BD6 /* ScanDeviceViewController.m */,
-				E74D18D71E9D1E0500D13BD6 /* TypingDeviceViewController.h */,
-				E74D18D81E9D1E0500D13BD6 /* TypingDeviceViewController.m */,
+				E7F034DB1EBAC9D7004FB12E /* AddWebDeviceViewController.h */,
+				E7F034DC1EBAC9D7004FB12E /* AddWebDeviceViewController.m */,
 				E74D18CE1E9D0A2700D13BD6 /* DeviceSQLManager.h */,
 				E74D18CF1E9D0A2700D13BD6 /* DeviceSQLManager.m */,
 				E7E037F31E8C995500875131 /* AddPigeonViewController.h */,
@@ -201,6 +250,7 @@
 		E7A28E241E81526A00883E25 = {
 			isa = PBXGroup;
 			children = (
+				E74A12DF1EE13ECC00B444E8 /* Default-568h@2x.png */,
 				E7A28E2F1E81526A00883E25 /* SkyRoad */,
 				E7A28E2E1E81526A00883E25 /* Products */,
 				ECB5745EAB8CF799C744DF8E /* Pods */,
@@ -221,11 +271,25 @@
 			children = (
 				E7A28E331E81526A00883E25 /* AppDelegate.h */,
 				E7A28E341E81526A00883E25 /* AppDelegate.m */,
+				E7259F701EA9F054003BD923 /* RootTabBarViewController.h */,
+				E7259F711EA9F054003BD923 /* RootTabBarViewController.m */,
 				E74D18DA1E9D26E700D13BD6 /* JTextFieldView.h */,
 				E74D18DB1E9D26E700D13BD6 /* JTextFieldView.m */,
+				E74F5F0C1EB9413900154CFF /* JLableAndButtonView.h */,
+				E74F5F0D1EB9413900154CFF /* JLableAndButtonView.m */,
+				E7F034E11EC19BEF004FB12E /* JPOISearchView.h */,
+				E7F034E21EC19BEF004FB12E /* JPOISearchView.m */,
+				E73FC1151EA64294002D7682 /* JImageAndTxtfieldView.h */,
+				E73FC1161EA64294002D7682 /* JImageAndTxtfieldView.m */,
 				E7A28E971E8208FC00883E25 /* InquiryViewController.h */,
 				E7A28E981E8208FC00883E25 /* InquiryViewController.m */,
 				E7A28E991E8208FC00883E25 /* InquiryViewController.xib */,
+				E73FC1121EA63BA4002D7682 /* RegisterAndLoginViewController.h */,
+				E73FC1131EA63BA4002D7682 /* RegisterAndLoginViewController.m */,
+				E73FC1181EA65BEF002D7682 /* RegisterViewController.h */,
+				E73FC1191EA65BEF002D7682 /* RegisterViewController.m */,
+				E73FC11B1EA741E9002D7682 /* CreatNewPSWViewController.h */,
+				E73FC11C1EA741E9002D7682 /* CreatNewPSWViewController.m */,
 				E7A28EA11E82093000883E25 /* CommunityViewController.h */,
 				E7A28EA21E82093000883E25 /* CommunityViewController.m */,
 				E7A28EA31E82093000883E25 /* CommunityViewController.xib */,
@@ -255,7 +319,7 @@
 			children = (
 				E7A28E9C1E82091A00883E25 /* MineViewController.h */,
 				E7A28E9D1E82091A00883E25 /* MineViewController.m */,
-				E7A28E9E1E82091A00883E25 /* MineLogo.xib */,
+				E7E28CAA1ED51DAD0029EECC /* MineLogo.xib */,
 				E7A28EAD1E84C5E200883E25 /* sub */,
 			);
 			name = Mine;
@@ -277,8 +341,18 @@
 				E7A28EBB1E84C69000883E25 /* MyDevicesViewController.m */,
 				E74EC5C31E9785B8009A2305 /* MyCommunityViewController.h */,
 				E74EC5C41E9785B8009A2305 /* MyCommunityViewController.m */,
+				E7F034D91EBABC63004FB12E /* MyCommunity.xib */,
 				E7A28EBD1E84C6A600883E25 /* SettingViewController.h */,
 				E7A28EBE1E84C6A600883E25 /* SettingViewController.m */,
+				E7259F731EAF269F003BD923 /* AboutViewController.h */,
+				E7259F741EAF269F003BD923 /* AboutViewController.m */,
+				E7259F761EAF3667003BD923 /* AboutLogo.xib */,
+				E7E2D2B41EAF40B800DC4610 /* VersionDescriptionViewController.h */,
+				E7E2D2B51EAF40B800DC4610 /* VersionDescriptionViewController.m */,
+				E7E2D2B71EAF40C700DC4610 /* UpdateCheckViewController.h */,
+				E7E2D2B81EAF40C700DC4610 /* UpdateCheckViewController.m */,
+				E7E2D2BA1EAF40DA00DC4610 /* FeedbackAndHelpViewController.h */,
+				E7E2D2BB1EAF40DA00DC4610 /* FeedbackAndHelpViewController.m */,
 			);
 			name = sub;
 			sourceTree = "<group>";
@@ -344,7 +418,7 @@
 				TargetAttributes = {
 					E7A28E2C1E81526A00883E25 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = P5TKYJC53X;
+						DevelopmentTeam = 59FS7T3YRE;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -374,12 +448,15 @@
 			files = (
 				E7A28E961E8208C500883E25 /* TrackViewController.xib in Resources */,
 				E7A28E431E81526A00883E25 /* LaunchScreen.storyboard in Resources */,
+				E7F034DA1EBABC63004FB12E /* MyCommunity.xib in Resources */,
 				E757DDBC1E96C4B400694201 /* NickNameViewController.xib in Resources */,
 				E781D7BC1E9541A600BD416D /* PigeonDetailViewController.xib in Resources */,
+				E74A12E01EE13ECD00B444E8 /* Default-568h@2x.png in Resources */,
 				E7A28E401E81526A00883E25 /* Assets.xcassets in Resources */,
 				E7A28E3B1E81526A00883E25 /* Main.storyboard in Resources */,
+				E7259F771EAF3667003BD923 /* AboutLogo.xib in Resources */,
+				E7E28CAB1ED51DAD0029EECC /* MineLogo.xib in Resources */,
 				E7A28E9B1E8208FC00883E25 /* InquiryViewController.xib in Resources */,
-				E7A28EA01E82091A00883E25 /* MineLogo.xib in Resources */,
 				E7A28EA51E82093000883E25 /* CommunityViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -449,27 +526,40 @@
 				E7A28E951E8208C500883E25 /* TrackViewController.m in Sources */,
 				E7A56B371E8A626D005A3A1F /* UIView+Toast.m in Sources */,
 				E7A28E3E1E81526A00883E25 /* SkyRoad.xcdatamodeld in Sources */,
-				E74D18D61E9D1DEA00D13BD6 /* ScanDeviceViewController.m in Sources */,
 				E798511A1E8B476D003D1F54 /* FFDropDownMenuModel.m in Sources */,
+				E7F034E61EC1B48F004FB12E /* ErrorInfoUtility.m in Sources */,
 				E7A28E351E81526A00883E25 /* AppDelegate.m in Sources */,
 				E7A28EA41E82093000883E25 /* CommunityViewController.m in Sources */,
+				E73FC1141EA63BA4002D7682 /* RegisterAndLoginViewController.m in Sources */,
+				E7F034E31EC19BEF004FB12E /* JPOISearchView.m in Sources */,
 				E7E037A51E8B4E0500875131 /* addDeviceViewController.m in Sources */,
 				E79851171E8B476D003D1F54 /* FFDropDownMenuBasedCell.m in Sources */,
+				E7F034E91EC29E16004FB12E /* AMapTipAnnotation.m in Sources */,
+				E7E2D2B91EAF40C700DC4610 /* UpdateCheckViewController.m in Sources */,
+				E7F034DD1EBAC9D7004FB12E /* AddWebDeviceViewController.m in Sources */,
 				E781D7BF1E9547C100BD416D /* SQLManager.m in Sources */,
+				E73FC1171EA64294002D7682 /* JImageAndTxtfieldView.m in Sources */,
+				E7259F751EAF269F003BD923 /* AboutViewController.m in Sources */,
 				E74D18DC1E9D26E700D13BD6 /* JTextFieldView.m in Sources */,
 				E79851191E8B476D003D1F54 /* FFDropDownMenuCell.m in Sources */,
 				E74D18D31E9D0A6C00D13BD6 /* DeviceDetailModel.m in Sources */,
-				E74D18D91E9D1E0500D13BD6 /* TypingDeviceViewController.m in Sources */,
 				E7A28E9F1E82091A00883E25 /* MineViewController.m in Sources */,
+				E73FC11A1EA65BEF002D7682 /* RegisterViewController.m in Sources */,
 				E7E037AB1E8B544100875131 /* PickDevicePigeonViewController.m in Sources */,
+				E73FC11D1EA741E9002D7682 /* CreatNewPSWViewController.m in Sources */,
 				E7A28E321E81526A00883E25 /* main.m in Sources */,
+				E74F5F0E1EB9413900154CFF /* JLableAndButtonView.m in Sources */,
+				E7259F721EA9F054003BD923 /* RootTabBarViewController.m in Sources */,
 				E7A28EBC1E84C69000883E25 /* MyDevicesViewController.m in Sources */,
 				E7A28EB91E84C67800883E25 /* MyPigeonsViewController.m in Sources */,
+				E7E2D2BC1EAF40DA00DC4610 /* FeedbackAndHelpViewController.m in Sources */,
+				E7F034E01EC196BF004FB12E /* InitRouteViewController.m in Sources */,
 				E74D18D01E9D0A2700D13BD6 /* DeviceSQLManager.m in Sources */,
 				E798511C1E8B476D003D1F54 /* FFDropDownMenuView.m in Sources */,
 				E7A28EB31E84C64D00883E25 /* FeedYearsViewController.m in Sources */,
 				E7A28E9A1E8208FC00883E25 /* InquiryViewController.m in Sources */,
 				E798511B1E8B476D003D1F54 /* FFDropDownMenuTriangleView.m in Sources */,
+				E7E2D2B61EAF40B800DC4610 /* VersionDescriptionViewController.m in Sources */,
 				E7E037EF1E8BFBC800875131 /* PigeonDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -517,9 +607,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Peng Fei Jia (59FS7T3YRE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Peng Fei Jia (59FS7T3YRE)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -539,6 +631,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE_SPECIFIER = LocationProvisioningProfiles;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -565,9 +658,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Peng Fei Jia (59FS7T3YRE)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Peng Fei Jia (59FS7T3YRE)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -580,6 +675,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PROVISIONING_PROFILE_SPECIFIER = LocationProvisioningProfiles;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -591,8 +687,10 @@
 			baseConfigurationReference = 69C1DA831F19E80A9A69EF95 /* Pods-SkyRoad.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Peng Fei Jia (59FS7T3YRE)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P5TKYJC53X;
+				DEVELOPMENT_TEAM = 59FS7T3YRE;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -603,9 +701,13 @@
 					"${SRCROOT}/**",
 				);
 				INFOPLIST_FILE = SkyRoad/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sibet.Alan.SkyRoad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -614,8 +716,10 @@
 			baseConfigurationReference = A9016EC27AA5A8AD180EE686 /* Pods-SkyRoad.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Peng Fei Jia (59FS7T3YRE)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = P5TKYJC53X;
+				DEVELOPMENT_TEAM = 59FS7T3YRE;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Headers/Public\"",
@@ -626,9 +730,13 @@
 					"${SRCROOT}/**",
 				);
 				INFOPLIST_FILE = SkyRoad/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sibet.Alan.SkyRoad;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

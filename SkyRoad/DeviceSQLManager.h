@@ -33,4 +33,6 @@
 // 更新数据
 - (int)update:(DeviceDetailModel*)model;
 
+- (int)deleteAll;
+
 @end

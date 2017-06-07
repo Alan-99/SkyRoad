@@ -72,8 +72,6 @@ NSString *dChosen;
         [self initConfirmBtn];
         [self initDetailLabel];
 
-//        self.pigeonArr = @[@"小红", @"小兰", @"小绿", @"小黄", @"小紫", @"小赤"];
-//        self.devArr = @[@"2017001", @"2017002", @"2017003", @"2017004", @"2017005", @"2017006"];
     }
     return self;
 }
@@ -183,10 +181,10 @@ NSString *dChosen;
 - (void)initConfirmBtn
 {
     UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(JScreenWidth/4, CGRectGetMaxY(_pigeonTableView.frame) +25, JScreenWidth/2, 40)];
-    btn.layer.borderWidth = 1.0;
-    btn.layer.borderColor = [UIColor grayColor].CGColor;
-    btn.backgroundColor = [UIColor greenColor];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    btn.layer.borderWidth = 1.0;
+//    btn.layer.borderColor = [UIColor grayColor].CGColor;
+    [btn setBackgroundColor:[UIColor colorWithRed:45/255.0 green:139/255.0 blue:226/255.0 alpha:1.0]];
+    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [btn setTitle:@"确认" forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(showDetailInformation) forControlEvents:UIControlEventTouchUpInside];
     [btn setEnabled:YES];

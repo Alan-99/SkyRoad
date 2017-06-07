@@ -227,4 +227,29 @@ static DeviceSQLManager* manager = nil;
     return 0;
 }
 
+- (int)deleteAll
+{
+    NSString *path = [self applicationDocumentsDirectoryFile];
+    if (sqlite3_open([path UTF8String], &deviceDB) != SQLITE_OK) {
+        sqlite3_close(deviceDB);
+        NSAssert(NO, @"数据库打开失败");
+    } else {
+        NSString *sql = @"DELETE FROM deviceDetail";
+        sqlite3_stmt *statement;
+        // 预处理
+        if (sqlite3_prepare_v2(deviceDB, [sql UTF8String], -1, &statement, NULL) == SQLITE_OK) {
+            
+            if (sqlite3_step(statement) != SQLITE_DONE) {
+                NSAssert(NO, @"数据库清空失败");
+            }
+//            sqlite3_finalize(statement);
+//            sqlite3_close(deviceDB);
+        }
+        //预处理不成功，数据提取不成功，要对资源释放
+        sqlite3_finalize(statement);
+        sqlite3_close(deviceDB);
+    }
+    return 0;
+}
+
 @end

@@ -41,8 +41,15 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="新歌名字：2017002 脚环号：023287" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWQ-Ar-ipQ">
-                    <rect key="frame" x="40" y="476" width="305" height="26"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="此app配合信鸽脚环可以实现信鸽飞行状态的实时跟踪。app操作简单易用，用户可以有效管理所属脚环设备与信鸽信息。app可为广大信鸽爱好者提供信鸽飞行数据的采集和分析服务。" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P8K-Xu-Z6h">
+                    <rect key="frame" x="58" y="558" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="此app配合信鸽脚环可以实现信鸽飞行状态的实时跟踪。app操作简单易用，用户可以有效管理所属脚环设备与信鸽信息。app可为广大信鸽爱好者提供信鸽飞行数据的采集和分析服务。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MVP-UE-XQs">
+                    <rect key="frame" x="40" y="449" width="300" height="90"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
@@ -51,7 +58,7 @@
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-            <point key="canvasLocation" x="35.5" y="53.5"/>
+            <point key="canvasLocation" x="-174" y="34"/>
         </view>
     </objects>
 </document>

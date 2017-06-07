@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <EventKit/EventKit.h>
+//#import <EventKit/EventKit.h>
 #import <MAMapKit/MAMapKit.h>
 
 @class FSCalendar;

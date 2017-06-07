@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="zlz-L7-pZD">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="版本号：Ver 1.0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lj0-XV-I1r">
+                    <rect key="frame" x="120" y="163" width="135" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="135" id="3Xg-Ly-qw4"/>
+                        <constraint firstAttribute="width" constant="135" id="ZyI-Ds-Gbk"/>
+                        <constraint firstAttribute="height" constant="21" id="upb-Xf-sQP"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="About_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Oi3-6i-ERV">
+                    <rect key="frame" x="142" y="53" width="90" height="90"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="90" id="SmO-D9-8lD"/>
+                        <constraint firstAttribute="width" constant="90" id="o8t-0l-eXp"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="Lj0-XV-I1r" firstAttribute="top" secondItem="Oi3-6i-ERV" secondAttribute="bottom" constant="20" id="BEC-1g-UPr"/>
+                <constraint firstItem="Oi3-6i-ERV" firstAttribute="centerX" secondItem="zlz-L7-pZD" secondAttribute="centerX" id="SC5-5D-52g"/>
+                <constraint firstItem="Lj0-XV-I1r" firstAttribute="top" secondItem="Oi3-6i-ERV" secondAttribute="bottom" constant="20" id="UE5-EZ-wfJ"/>
+                <constraint firstItem="Lj0-XV-I1r" firstAttribute="centerX" secondItem="Oi3-6i-ERV" secondAttribute="centerX" id="URc-0s-98P"/>
+                <constraint firstItem="Oi3-6i-ERV" firstAttribute="top" secondItem="zlz-L7-pZD" secondAttribute="top" constant="53" id="aa6-tc-DjJ"/>
+                <constraint firstItem="Lj0-XV-I1r" firstAttribute="top" secondItem="Oi3-6i-ERV" secondAttribute="bottom" constant="20" id="tCA-F7-AtK"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="-137" y="-159"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="About_logo" width="90" height="90"/>
+    </resources>
+</document>

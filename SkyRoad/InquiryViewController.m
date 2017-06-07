@@ -10,7 +10,9 @@
 #import "InquiryViewController.h"
 #import "UIView+Toast.h"
 #import "FSCalendar.h"
-#import "SQLManager.h"
+//#import "SQLManager.h"
+#import "DeviceSQLManager.h"
+#import "AFNetworking.h"
 
 /** 坐标转换需要用到的头文件 **/
 #import <AMapFoundationKit/AMapFoundationKit.h>
@@ -21,41 +23,38 @@
 
 #define JScreenWidth [[UIScreen mainScreen]bounds].size.width
 #define JScreenHeight [[UIScreen mainScreen]bounds].size.height
-#define JrouteColor [UIColor colorWithRed:75/255.0 green:89/255.0 blue:162/255.0 alpha:0.8]
+#define JrouteColor [UIColor colorWithRed:251/255.0 green:71/255.0 blue:71/255.0 alpha:0.9]
 
-@interface InquiryViewController () <UITextFieldDelegate, UITableViewDataSource, MAMapViewDelegate>
+@interface InquiryViewController () <UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UIPickerViewDelegate, UIPickerViewDataSource, MAMapViewDelegate, FSCalendarDataSource,FSCalendarDelegate,FSCalendarDelegateAppearance>
 
 {
     UITableView *_pigeonTableView1;
 }
+// 公历
+@property (strong, nonatomic) NSCalendar *gregorian;
 // checkMark 操作
 @property (nonatomic,strong) NSIndexPath *lastPath2;
-
-
 /** 存储起点，终点 **/
 @property (nonatomic, strong) NSMutableArray *startAndEndAnnotation;
 @property (nonatomic, strong) MAPointAnnotation *startAnnotaion;
 @property (nonatomic, strong) MAPointAnnotation *endAnnotaion;
-//@property (nonatomic, copy) NSString *pigeonChosen;
-//@property (nonatomic, copy) NSString *dateChosen;
 @property (strong, nonatomic) NSDate *minimumDate;
 @property (strong, nonatomic) NSDate *maximumDate;
 @property (strong, nonatomic) NSCache *cache;
 @property (assign, nonatomic) BOOL showsCalendar;
 
-@property (nonatomic, strong) NSMutableArray *pigeonArr;
+@property (nonatomic, copy) NSMutableArray *pigeonArr;
 @property (nonatomic, strong) UIPickerView *pigeonPicker;
 
-
 @property (weak, nonatomic) IBOutlet UILabel *calendarLabel;
-
+/** 存储所选信鸽所有存在轨迹的日期 **/
+@property (strong, nonatomic) NSArray *datesWithPath;
 
 @end
 
-
 @implementation InquiryViewController
 
-dispatch_queue_t global_queue_view2;
+dispatch_queue_t global_queue1;
 NSString *pigeonChosen;
 NSString *startTime;
 NSString *endTime;
@@ -82,9 +81,13 @@ NSString *endTime;
         // 自定义rightItem
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"开始查询" style:UIBarButtonItemStylePlain target:self action:@selector(startInquiry)];
         
+        self.gregorian = [[NSCalendar alloc]initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+     
         [self setupMapProperty];
         [self calendarInitial];
-        [self initPigeonTableview];
+        [self initPigeonArr];
+        [self initPigeonPickerView];
+//        [self initPigeonTableview];
     }
     return self;
 }
@@ -92,30 +95,40 @@ NSString *endTime;
 - (void)initPigeonArr {
     // 取出数据库存放的信鸽数据
     
-    self.pigeonArr = [[NSMutableArray alloc]init];
+    _pigeonArr = [[NSMutableArray alloc]init];
     
     NSMutableArray *arr = [[NSMutableArray alloc]init];
-    SQLManager *manager = [SQLManager shareManager];
+    DeviceSQLManager *manager = [DeviceSQLManager shareManager];
     NSMutableArray *pigeonModelArr = [manager searchAll];
     NSInteger pigeonCount = [pigeonModelArr count];
     for (int i = 0; i < (int)pigeonCount; i++) {
-        PigeonDetailModel *model = pigeonModelArr[i];
-        NSString *nameStr = model.pigeonRingNumber;
+        DeviceDetailModel *model = pigeonModelArr[i];
+        NSString *nameStr = model.deviceNum;
         [arr addObject:nameStr];
     }
-    self.pigeonArr = arr;
+    _pigeonArr = arr;
+    
+//    NSMutableArray *arr = [[NSMutableArray alloc]init];
+//    SQLManager *manager = [SQLManager shareManager];
+//    NSMutableArray *pigeonModelArr = [manager searchAll];
+//    NSInteger pigeonCount = [pigeonModelArr count];
+//    for (int i = 0; i < (int)pigeonCount; i++) {
+//        PigeonDetailModel *model = pigeonModelArr[i];
+//        NSString *nameStr = model.pigeonRingNumber;
+//        [arr addObject:nameStr];
+//    }
+//    _pigeonArr = arr;
 }
 
 - (void)calendarInitial
 {
-    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, JNavBarH, self.view.frame.size.width, 300)];
+    FSCalendar *calendar = [[FSCalendar alloc] initWithFrame:CGRectMake(0, JNavBarH, JScreenWidth, 300)];
     calendar.appearance.weekdayTextColor = [UIColor colorWithRed:28/255.0 green:144/255.0 blue:156/255.0 alpha:1.0];
     calendar.appearance.headerTitleColor = [UIColor colorWithRed:28/255.0 green:144/255.0 blue:156/255.0 alpha:1.0];
     calendar.appearance.borderRadius = 0;
     calendar.backgroundColor = [UIColor whiteColor];
     // 设置显示月份的格式
     calendar.appearance.headerDateFormat = @"yyyy年MM月";
-    
     calendar.dataSource = self;
     calendar.delegate = self;
     calendar.hidden = NO;
@@ -136,6 +149,22 @@ NSString *endTime;
     _pigeonTableView1.dataSource = self;
     _pigeonTableView1.hidden = YES;
     [self.view addSubview:_pigeonTableView1];
+}
+
+- (void)initPigeonPickerView
+{
+    CGRect rect = CGRectMake(0, 64, 120, 136);
+    UIPickerView *picker = [[UIPickerView alloc] initWithFrame:rect];
+    picker.layer.borderWidth = 0.7;
+    picker.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    picker.backgroundColor = [UIColor colorWithWhite:1.0 alpha:0.9];
+//    picker.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    picker.delegate = self;
+    picker.dataSource = self;
+    picker.showsSelectionIndicator = YES;
+    [self.view addSubview:picker];
+    self.pigeonPicker = picker;
+    [self.pigeonPicker setHidden:YES];
 }
 
 - (void)setupMapProperty
@@ -164,32 +193,94 @@ NSString *endTime;
 
 - (void)listItemClicked:(id)sender
 {
-    self.calendar.hidden = YES;
-
-    _pigeonTableView1.hidden = ! _pigeonTableView1.hidden;
+//    self.calendar.hidden = YES;
+//    _pigeonTableView1.hidden = ! _pigeonTableView1.hidden;
+    [self.view endEditing:YES];
+    [self.calendar setHidden:YES];
+    self.pigeonPicker.hidden = !self.pigeonPicker.hidden;
 }
 
 - (void)showCalendar:(id)sender
 {
     _pigeonTableView1.hidden = YES;
+    _pigeonPicker.hidden = YES;
     _calendar.hidden = !_calendar.hidden;
-    [self.calendar reloadData];
+    if (_calendar.hidden == NO && pigeonChosen.length) {
+        [self getPathDatesFromWeb:pigeonChosen];
+    }
+}
+
+- (void)getPathDatesFromWeb:(NSString*)targetStr
+{
+    // 定义web服务器接口
+    NSString *domainStr = [NSString stringWithFormat:@"http://b.airlord.cn:31568/trace/queryOn?sbid=%@", targetStr];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    [manager GET:domainStr parameters:nil progress:^(NSProgress * _Nonnull uploadProgress) {
+        
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        id searializeObj = [NSJSONSerialization JSONObjectWithData:responseObject options:0 error:nil];
+//        NSLog(@"searializeObj:%@",searializeObj);
+        if ([searializeObj isKindOfClass:[NSDictionary class]]) {
+            NSLog(@"查询轨迹历史天数信息:%@",searializeObj);
+            _datesWithPath = nil;
+            [self.calendar reloadData];
+            return;
+        }
+        else if ([searializeObj isKindOfClass:[NSArray class]]){
+            NSMutableArray *dateArr = [[NSMutableArray alloc]init];
+            long objC = [(NSArray*)searializeObj count];
+            for (int i=0; i < objC; i++) {
+                NSDictionary *pathDatesDic = [(NSArray*)searializeObj objectAtIndex:i];
+                id date = [pathDatesDic objectForKey:@"data"];
+                NSString *dateStr = [NSString stringWithFormat:@"%@",date];
+                [dateArr addObject:dateStr];
+            }
+            _datesWithPath = [NSArray arrayWithArray:dateArr];
+            [self.calendar reloadData];
+        }
+        else {
+            return;
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"查询历史天数失败");
+        NSLog(@"task:%@",task);
+        NSLog(@"error:%@",error);
+    }];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    global_queue1 = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSLog(@"navBarH2:%d",JNavBarH);
-    NSLog(@"JscreenW2:%f",JScreenWidth);
-    NSLog(@"JscreenH2:%f",JScreenHeight);
     [self initPigeonArr];
-    [_pigeonTableView1 reloadData];
+    _pigeonPicker.delegate = self;
+    _pigeonPicker.delegate = self;
+    _calendar.dataSource = self;
+    _calendar.delegate = self;
+//    [_pigeonTableView1 reloadData];
+}
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+//    _pigeonTableView1.delegate = nil;
+//    _pigeonTableView1.dataSource = nil;
+    _pigeonPicker.hidden = YES;
+    _calendar.hidden = YES;
+    _pigeonPicker.delegate = nil;
+    _pigeonPicker.delegate = nil;
+    _calendar.dataSource = nil;
+    _calendar.delegate = nil;
+}
+
+- (void)dealloc
+{
+    NSLog(@"%s", __FUNCTION__);
 }
 
 # pragma mark - unix时间戳转换为时间字符串
@@ -198,12 +289,13 @@ NSString *endTime;
 {
     // 设置日期显示格式
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+//    dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+    dateFormatter.dateFormat = @"yyyyMMdd";
     // 时间戳timeInterval转换成日期对象
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:timeInterval];
     // 日期对象返回日期字符串
     NSString *dateStr = [dateFormatter stringFromDate:date];
-    NSLog(@"dateStr:%@",dateStr);
+//    NSLog(@"dateStr:%@",dateStr);
     return dateStr;
 }
 
@@ -212,7 +304,7 @@ NSString *endTime;
 - (void)startInquiry
 {
     self.calendar.hidden = YES;
-    self.pigeonPicker.hidden = YES;
+    _pigeonPicker.hidden = YES;
     if (!pigeonChosen.length) {
         CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
         NSValue *value = [NSValue valueWithCGPoint:point];
@@ -222,7 +314,9 @@ NSString *endTime;
         NSValue *value = [NSValue valueWithCGPoint:point];
         [self.view makeToast:@"请选择查询日期" duration:2.0 position:value];
     } else {
-        [self dataFromWeb];
+        dispatch_async(global_queue1, ^{
+            [self dataFromWeb];
+        });
     }
 }
 
@@ -246,51 +340,45 @@ NSString *endTime;
     //    //POST请求参数使用如下方法进行赋值
     //    req.HTTPBody = postData;
     
-    
     NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
     // delegate设置为nil，因为session对象并不需要实现委托方法
     NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
     NSURLSessionDataTask *dataTask = [session dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
-        //        NSString *dataStr = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-        //        NSLog(@"datastr:%@",dataStr);
-        //        NSDictionary *jsonData = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        //        NSLog(@"解析jsonData:%@",jsonData);
-        NSLog(@"response:%@",response);
-        
+//        NSLog(@"response:%@",response);
         if (data==nil) {
-            CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
-            NSValue *value = [NSValue valueWithCGPoint:point];
-            [self.view makeToast:@"网路请求失败" duration:2.0 position:value];
-            NSLog(@"没有返回的data数据");
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"网络请求失败" message:@"请检查您的网络状况" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:okAction];
+            [self presentViewController:alert animated:YES completion:nil];
+            
         } else {
             id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-//            NSLog(@"obj:%@",obj);
-            
             if ([obj isKindOfClass:[NSArray class]]) {
-                
                 [self initStartAndEndAnnotation];
-                
                 long objCount = [(NSArray*)obj count];
-                
+                // 网络连接状态良好，查询参数无误（信鸽名字／日期），只是轨迹无数据
                 if(objCount == 0) {
-                    [self.mapView removeOverlays:self.mapView.overlays];
-                    [self.mapView removeAnnotations:self.mapView.annotations];
-                    self.mapView.showsUserLocation = YES;
-                    self.mapView.userTrackingMode = MAUserTrackingModeFollow;
-                    
-                    CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
-                    NSValue *value = [NSValue valueWithCGPoint:point];
-                    [self.view makeToast:@"无轨迹信息" duration:3.0 position:value];
-                }else {
-                    [self.mapView removeOverlays:self.mapView.overlays];
-                    [self.mapView removeAnnotations:self.mapView.annotations];
-                    self.mapView.showsUserLocation = NO;
-
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.mapView removeOverlays:self.mapView.overlays];
+                        [self.mapView removeAnnotations:self.mapView.annotations];
+                        self.mapView.showsUserLocation = YES;
+                        self.mapView.userTrackingMode = MAUserTrackingModeFollow;
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"无轨迹信息" message:nil preferredStyle:UIAlertControllerStyleAlert];
+                        UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"我知道了" style:UIAlertActionStyleDefault handler:nil];
+                        [alert addAction:okAction];
+                        [self presentViewController:alert animated:YES completion:nil];
+                    });
+                }
+                else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self.mapView removeOverlays:self.mapView.overlays];
+                        [self.mapView removeAnnotations:self.mapView.annotations];
+                        self.mapView.showsUserLocation = NO;
+                    });
                     // 服务器上的坐标为GPS坐标
                     CLLocationCoordinate2D commoPolylineCoordGPS[objCount];
                     //GPS坐标转换成高德坐标系
                     CLLocationCoordinate2D commoPolylineCoord[objCount];
-                    
                     CLLocationDegrees minLat = 90.0;
                     CLLocationDegrees maxLat = -90.0;
                     CLLocationDegrees minLon = 180.0;
@@ -321,9 +409,8 @@ NSString *endTime;
                         // 终点坐标
                         self.endAnnotaion.coordinate = CLLocationCoordinate2DMake(commoPolylineCoord[objCount-1].latitude, commoPolylineCoord[objCount-1].longitude);
                         self.endAnnotaion.title = @"终点";
-                        
-                        [self.startAndEndAnnotation addObject:self.endAnnotaion];
                         [self.startAndEndAnnotation addObject:self.startAnnotaion];
+                        [self.startAndEndAnnotation addObject:self.endAnnotaion];
                     }
                     CLLocationCoordinate2D centerCoord = CLLocationCoordinate2DMake((minLat + maxLat) * 0.5f, (minLon + maxLon) * 0.5f);
                     MACoordinateSpan viewSapn;
@@ -332,11 +419,14 @@ NSString *endTime;
                     MACoordinateRegion viewRegion;
                     viewRegion.center = centerCoord;
                     viewRegion.span = viewSapn;
-                    [_mapView setRegion:viewRegion];
-                    // 构造折线对象
+                    
                     MAPolyline *Polyline = [MAPolyline polylineWithCoordinates:commoPolylineCoord count:[(NSArray*)obj count]];
-                    [_mapView addOverlay:Polyline];
-                    [_mapView addAnnotations:self.startAndEndAnnotation];
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [_mapView setRegion:viewRegion];
+                        // 构造折线对象
+                        [_mapView addOverlay:Polyline];
+                        [_mapView addAnnotations:self.startAndEndAnnotation];
+                    });
                 }
             }
         }
@@ -356,6 +446,11 @@ NSString *endTime;
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.pigeonArr.count;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -404,13 +499,43 @@ NSString *endTime;
     
 }
 
+#pragma mark - UIPickerViewDelegate
+- (nullable NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    return [self.pigeonArr objectAtIndex:row];
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component
+{
+    return 40;
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    pigeonChosen = [self.pigeonArr objectAtIndex:row];
+    CGPoint point = CGPointMake(JScreenWidth/2, JNavBarH+20);
+    NSValue *value = [NSValue valueWithCGPoint:point];
+    [self.view makeToast:[NSString stringWithFormat:@"设备号：%@",pigeonChosen] duration:1.0 position:value];
+}
+#pragma mark - UIPickerViewDataSource
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return 1;
+}
+
+// returns the # of rows in each component..
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    return self.pigeonArr.count;
+}
+
 #pragma mark - FSCalendar
 
 - (void)calendar:(FSCalendar *)calendar didSelectDate:(NSDate *)date atMonthPosition:(FSCalendarMonthPosition)monthPosition
 {
     // 设置日期显示格式
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"YYYYMMdd";
+    dateFormatter.dateFormat = @"yyyyMMdd";
     // 时间戳timeInterval转换成日期对象
     NSDate *d = date;
     // 日期对象返回日期字符串
@@ -427,6 +552,31 @@ NSString *endTime;
     [self.view makeToast:[NSString stringWithFormat:@"日期：%@",startTime] duration:1.0 position:value];
 }
 
+#pragma mark - <FSCalendarDataSource>
+
+- (NSInteger)calendar:(FSCalendar *)calendar numberOfEventsForDate:(NSDate *)date
+{
+    // 设置日期显示格式
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
+    dateFormatter.dateFormat = @"yyyyMMdd";
+    NSString *dateString = [dateFormatter stringFromDate:date];
+
+    if ([self.datesWithPath containsObject:dateString]) {
+        return 1;
+    }
+    else {
+        return 0;
+    }
+}
+
+#pragma mark - <FSCalendarDelegateAppearance>
+
+- (NSArray *)calendar:(FSCalendar *)calendar appearance:(FSCalendarAppearance *)appearance eventDefaultColorsForDate:(NSDate *)date
+{
+
+//    return @[[UIColor magentaColor],appearance.eventDefaultColor,[UIColor greenColor]];
+    return @[[UIColor redColor]];
+}
 
 
 #pragma mark - Private methods
@@ -507,12 +657,12 @@ NSString *endTime;
 - (IBAction)showCalendarDate:(id)sender {
     // 设置日期显示格式
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    dateFormatter.dateFormat = @"YYYY-MM-dd HH:mm:ss";
+    dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
     // 时间戳timeInterval转换成日期对象
     NSDate *date = self.calendar.selectedDate;
     // 日期对象返回日期字符串
     NSString *dateStr = [dateFormatter stringFromDate:date];
-    NSLog(@"dateStr:%@",dateStr);
+//    NSLog(@"dateStr:%@",dateStr);
     self.calendarLabel.text = dateStr;
 }
 
@@ -523,13 +673,20 @@ NSString *endTime;
 {
     if ([annotation isKindOfClass:[MAPointAnnotation class]]) {
         static NSString *pointReuseIdentifier = @"pointReuseIdentifier";
-        MAPinAnnotationView *annotationView = (MAPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIdentifier];
+        MAAnnotationView *annotationView = (MAAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:pointReuseIdentifier];
         if (annotationView == nil) {
             annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIdentifier];
         }
         annotationView.canShowCallout = YES;
-        //        annotationView.animatesDrop = YES;
-        annotationView.pinColor = [self.startAndEndAnnotation indexOfObject:annotation];  // 0：红色  1：绿色  2：紫色
+        if ([annotation.title isEqualToString:(NSString*)@"起点"]) {
+            annotationView.image = [UIImage imageNamed:@"Track_routeStart"];
+        }
+        else if ([annotation.title isEqualToString:(NSString*)@"终点"]) {
+            annotationView.image = [UIImage imageNamed:@"Track_routeEnd"];
+        }
+//        annotationView.animatesDrop = YES;
+//        annotationView.pinColor = [self.startAndEndAnnotation indexOfObject:annotation];  // 0：红色  1：绿色  2：紫色
+        annotationView.centerOffset = CGPointMake(0, -(annotationView.frame.size.height * 0.5));
         return annotationView;
     }
     return nil;
@@ -544,7 +701,7 @@ NSString *endTime;
     {
         MAPolylineRenderer *polylineRenderer = [[MAPolylineRenderer alloc]initWithPolyline:overlay];
         
-        polylineRenderer.lineWidth = 3.f;
+        polylineRenderer.lineWidth = 3.5f;
         polylineRenderer.strokeColor = JrouteColor;
         polylineRenderer.lineJoin = kCGLineJoinRound;
         polylineRenderer.lineCap = kCGLineCapRound;

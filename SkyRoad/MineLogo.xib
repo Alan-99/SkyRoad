@@ -11,22 +11,28 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="2Fg-ad-K4R">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
+        <view contentMode="scaleToFill" id="ISN-SW-W8H">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Mine_background" translatesAutoresizingMaskIntoConstraints="NO" id="jra-Un-rVh">
-                    <rect key="frame" x="0.0" y="0.0" width="375" height="190"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mine_background" translatesAutoresizingMaskIntoConstraints="NO" id="81I-zc-U2O">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="180"/>
                 </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Mine_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="3R5-CQ-ecq">
-                    <rect key="frame" x="142" y="41" width="90" height="90"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Mine_Logo" translatesAutoresizingMaskIntoConstraints="NO" id="g0K-K5-B2I">
+                    <rect key="frame" x="142" y="45" width="90" height="90"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="81I-zc-U2O" firstAttribute="leading" secondItem="ISN-SW-W8H" secondAttribute="leading" id="A8P-VY-365"/>
+                <constraint firstAttribute="bottom" secondItem="81I-zc-U2O" secondAttribute="bottom" id="EjN-wf-cf5"/>
+                <constraint firstItem="g0K-K5-B2I" firstAttribute="centerY" secondItem="ISN-SW-W8H" secondAttribute="centerY" id="LvT-xc-YII"/>
+                <constraint firstItem="g0K-K5-B2I" firstAttribute="centerX" secondItem="ISN-SW-W8H" secondAttribute="centerX" id="Yj1-SA-nbK"/>
+                <constraint firstItem="81I-zc-U2O" firstAttribute="top" secondItem="ISN-SW-W8H" secondAttribute="top" id="nHV-A3-ZCl"/>
+                <constraint firstAttribute="trailing" secondItem="81I-zc-U2O" secondAttribute="trailing" id="vks-cK-Z0m"/>
+            </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="21.5" y="-321"/>
+            <point key="canvasLocation" x="-96.5" y="-266"/>
         </view>
     </objects>
     <resources>

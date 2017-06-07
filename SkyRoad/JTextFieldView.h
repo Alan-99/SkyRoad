@@ -13,6 +13,6 @@
 @property (nonatomic, strong) UIView *imageV;
 @property (nonatomic, strong) UITextField *txtField;
 
-- (void)initWithTxtFieldPlaceHolder;
+- (void)setupPlaceholder:(NSString*)placeholderStr;
 
 @end
